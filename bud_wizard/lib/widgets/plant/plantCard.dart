@@ -1,24 +1,23 @@
-import 'package:bud_wizard/models/grow.dart';
-import 'package:bud_wizard/widgets/plant/plantsPage.dart';
+import 'package:bud_wizard/models/plant.dart';
 import 'package:flutter/material.dart';
 
-class GrowCard extends StatefulWidget {
+class PlantCard extends StatefulWidget {
 
-  final Grow grow;
+  final Plant plant;
 
-  GrowCard({
-    Grow grow
-  }): this.grow = grow;
+  PlantCard({
+    Plant plant
+  }): this.plant = plant;
 
   @override
-  _GrowsCardState createState() => _GrowsCardState(this.grow);
+  _PlantCardState createState() => _PlantCardState(this.plant);
 
 }
 
-class _GrowsCardState extends State<GrowCard> {
+class _PlantCardState extends State<PlantCard> {
 
-  _GrowsCardState(this.grow);
-  final Grow grow;
+  _PlantCardState(this.plant);
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +27,7 @@ class _GrowsCardState extends State<GrowCard> {
 
         child: InkWell(
           onTap: () => {
-            print("Container pressed"),
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PlantsPage()),
-            ),
+            print("Plant Container pressed"),
           }, // handle your onTap here
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,7 +41,7 @@ class _GrowsCardState extends State<GrowCard> {
               ),
               Column(
                 children: [
-                  Text(this.grow.name),
+                  Text(this.plant.name),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[700],
