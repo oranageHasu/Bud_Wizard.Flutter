@@ -1,6 +1,24 @@
+import 'package:bud_wizard/models/grow.dart';
 import 'package:flutter/material.dart';
 
-class GrowCard extends StatelessWidget {
+class GrowCard extends StatefulWidget {
+
+  final Grow grow;
+
+  GrowCard({
+    Grow grow
+  }): this.grow = grow;
+
+  @override
+  _GrowsCardState createState() => _GrowsCardState(this.grow);
+
+}
+
+class _GrowsCardState extends State<GrowCard> {
+
+  _GrowsCardState(this.grow);
+  final Grow grow;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,11 +39,12 @@ class GrowCard extends StatelessWidget {
               ),
               Column(
                 children: [
+                  Text(this.grow.name),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[700],
                     ),
-                    margin: EdgeInsets.only(top: 25.0, bottom: 5.0),
+                    margin: EdgeInsets.only(top: 10.0, bottom: 5.0),
                     height: 10,
                     width: 400
                   ),

@@ -40,6 +40,31 @@
       });
     }
   </script>
+
+  <!-- firebase references -->
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+
+  <script>
+          // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          var firebaseConfig = {
+            apiKey: "AIzaSyC9KxGTgKhXCGTci8fBFDd4YIjsbvwzjmI",
+            authDomain: "bud-wizard.firebaseapp.com",
+            databaseURL: "https://bud-wizard.firebaseio.com",
+            projectId: "bud-wizard",
+            storageBucket: "bud-wizard.appspot.com",
+            messagingSenderId: "639206389039",
+            appId: "1:639206389039:web:b3b2d26960add2e08e5dda",
+            measurementId: "G-S3S5ZTWJ4C"
+          };
+
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+          firebase.analytics();
+  </script>
+
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
