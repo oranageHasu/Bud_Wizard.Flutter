@@ -1,11 +1,16 @@
 import 'package:bud_wizard/models/grow.dart';
-import 'package:bud_wizard/services/api-services.dart';
-import 'package:bud_wizard/widgets/grow/growsPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+
+}
+
+class _LoginPageState extends State<LoginPage> {
 
   final TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -51,9 +56,9 @@ class LoginPage extends StatelessWidget {
 
             // To Do: Authenticate the login here
 
-            Navigator.push(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) => GrowsPage()),
+              '/Grows'
             );
         },
         child: Text("Login",

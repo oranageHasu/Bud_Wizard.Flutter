@@ -25,6 +25,7 @@ class ScreenHeader extends StatelessWidget {
       ),
       height: 50,
       width: 500,
+      margin: const EdgeInsets.only(top: 20.0)
     );
   }
 }

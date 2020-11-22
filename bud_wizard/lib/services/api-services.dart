@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 Future<List<Grow>> getGrows() async {
 
   final http.Response response = await http.get(
-      'https://localhost:9000/api/v1/Grow?UserId=8361f122-d350-4a6a-9963-a6b55b130317&IncludeRelationalData=True',
+      'https://localhost:9000/api/v1/Grow?UserId=77c1e2cb-6792-4acd-ae31-3ab61a150822&IncludeRelationalData=True',
       headers: {
         'Content-Type': 'application/json',
         "Accept":"application/json",
@@ -26,7 +26,7 @@ Future<List<Grow>> getGrows() async {
 Future<List<Plant>> getPlants() async {
 
   final http.Response response = await http.get(
-      'https://localhost:9000/api/v1/Plant?GrowId=9f807e97-feb4-4429-b11e-8725e8e034e2&IncludeRelationalData=True',
+      'https://localhost:9000/api/v1/Plant?GrowId=08c1e2cb-6792-4acd-ae31-3ab61a150812&IncludeRelationalData=True',
       headers: {
         'Content-Type': 'application/json',
         "Accept":"application/json",

@@ -1,4 +1,8 @@
-import 'package:bud_wizard/widgets/Login/login.dart';
+import 'package:bud_wizard/services/router-services.dart';
+import 'package:bud_wizard/widgets/grow/growsPage.dart';
+import 'package:bud_wizard/widgets/login/login.dart';
+import 'package:bud_wizard/widgets/plant/plantPage.dart';
+import 'package:bud_wizard/widgets/plant/plantsPage.dart';
 
 import 'package:flutter/material.dart';
 
@@ -9,6 +13,7 @@ void main() {
   runApp(MyApp());
 }
 
+// App color scheme
 Map<int, Color> color =
 {
   50:Color.fromRGBO(0, 128, 43, .1),
@@ -23,6 +28,7 @@ Map<int, Color> color =
   900:Color.fromRGBO(0, 128, 43, 1),
 };
 
+// The App's base color
 MaterialColor colorCustom = MaterialColor(0xFF00802b, color);
 
 class MyApp extends StatelessWidget {
@@ -36,7 +42,43 @@ class MyApp extends StatelessWidget {
         bottomAppBarColor: colorCustom,
         hoverColor: Colors.black38,
       ),
-      home: HomePage(title: 'Bud Wizard'),
+      initialRoute: '/',
+      onGenerateRoute: (RouteSettings settings) {
+
+        // This is how routes are handled (by name)
+        // This plugs into the BudWizardRoute, which controls the look and feel
+        // of screen transitions
+        switch (settings.name) {
+          case '/': return new BudWizardRoute(
+            builder: (_) => new HomePage(),
+            settings: settings,
+          );
+          case '/Login': return new BudWizardRoute(
+            builder: (_) => new LoginPage(),
+            settings: settings,
+          );
+          case '/Grows': return new BudWizardRoute(
+            builder: (_) => new GrowsPage(),
+            settings: settings,
+          );
+          case '/Plants': return new BudWizardRoute(
+            builder: (_) => new PlantsPage(),
+            settings: settings,
+          );
+          case '/Plant': return new BudWizardRoute(
+            builder: (_) => new PlantPage(),
+            settings: settings,
+          );
+        }
+
+        // Default case
+        // To Do: Make this an error page
+        assert(false);
+        return new BudWizardRoute(
+          builder: (_) => new HomePage(),
+          settings: settings,
+        );
+      }
     );
   }
 
@@ -92,14 +134,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // Show error message if initialization failed
     if(_error) {
-      return LoginPage();
+      print("An error occurred initializing Firebase.");
+      return GrowsPage();
     }
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      return LoginPage();
+      print("Firebase initialization failed.");
+      return GrowsPage();
     }
 
+    print("App initialized successfully.");
     return LoginPage();
   }
 }

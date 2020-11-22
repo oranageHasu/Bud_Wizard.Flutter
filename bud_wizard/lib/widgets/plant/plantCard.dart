@@ -27,7 +27,12 @@ class _PlantCardState extends State<PlantCard> {
 
         child: InkWell(
           onTap: () => {
-            print("Plant Container pressed"),
+            print("Plant selected"),
+
+            Navigator.pushNamed(
+                context,
+                '/Plant'
+            ),
           }, // handle your onTap here
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,

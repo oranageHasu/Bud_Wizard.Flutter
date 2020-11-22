@@ -28,11 +28,11 @@ class _GrowsCardState extends State<GrowCard> {
 
         child: InkWell(
           onTap: () => {
-            print("Container pressed"),
+            print("Grow selected"),
 
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) => PlantsPage()),
+              '/Plants'
             ),
           }, // handle your onTap here
           child: Row(
