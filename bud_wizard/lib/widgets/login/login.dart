@@ -49,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: Color(0xFF00802b),
+      clipBehavior: Clip.hardEdge,
       child: MaterialButton(
         minWidth: 200.0,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -64,7 +65,10 @@ class _LoginPageState extends State<LoginPage> {
         child: Text("Login",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+            ),
+        ),
       ),
     );
 

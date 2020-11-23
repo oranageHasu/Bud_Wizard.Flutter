@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ScreenHeader extends StatelessWidget {
+
+  final String title;
+
+  ScreenHeader({
+    String title
+  }): this.title = title;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
         children: [
-          Text('Grows',
+          Text(this.title,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w900,

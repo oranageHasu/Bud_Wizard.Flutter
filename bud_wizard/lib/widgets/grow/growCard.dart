@@ -1,5 +1,4 @@
 import 'package:bud_wizard/models/grow.dart';
-import 'package:bud_wizard/widgets/plant/plantsPage.dart';
 import 'package:flutter/material.dart';
 
 class GrowCard extends StatefulWidget {
@@ -95,6 +94,7 @@ class _GrowsCardState extends State<GrowCard> {
       height: 100,
       width: 500,
       margin: const EdgeInsets.only(top: 7.0, bottom: 7.0),
+      clipBehavior: Clip.hardEdge,
     );
   }
 }

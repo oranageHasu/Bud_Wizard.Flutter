@@ -1,8 +1,8 @@
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/services/api-services.dart';
 import 'package:bud_wizard/widgets/animations/fadeIn.dart';
-import 'package:bud_wizard/widgets/grow/screenHeader.dart';
 import 'package:bud_wizard/widgets/login/navigation.dart';
+import 'package:bud_wizard/widgets/shared-widgets/screenHeader.dart';
 import 'package:flutter/material.dart';
 
 import 'growCard.dart';
@@ -34,7 +34,7 @@ class _GrowsPageState extends State<GrowsPage> {
       body: Center(
         child: Column(
           children: <Widget>[
-            FadeIn(1.0, ScreenHeader()),
+            FadeIn(1.0, ScreenHeader(title: 'Grows')),
             FutureBuilder<List<Grow>> (
                 future: _grows,
                 builder: (context, snapshot) {

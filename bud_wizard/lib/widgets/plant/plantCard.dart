@@ -1,4 +1,5 @@
 import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/widgets/plant/plantPage.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatefulWidget {
@@ -27,11 +28,10 @@ class _PlantCardState extends State<PlantCard> {
 
         child: InkWell(
           onTap: () => {
-            print("Plant selected"),
-
             Navigator.pushNamed(
                 context,
-                '/Plant'
+                '/Plant',
+                arguments: new PlantPageArguments(plant)
             ),
           }, // handle your onTap here
           child: Row(
@@ -94,6 +94,7 @@ class _PlantCardState extends State<PlantCard> {
       height: 100,
       width: 500,
       margin: const EdgeInsets.only(top: 7.0, bottom: 7.0),
+      clipBehavior: Clip.hardEdge,
     );
   }
 }

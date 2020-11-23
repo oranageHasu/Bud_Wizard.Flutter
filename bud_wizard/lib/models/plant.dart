@@ -28,9 +28,9 @@ class Plant {
       plantId: new Guid(json['plantId']),
       growId: new Guid(json['growId']),
       name: json['name'],
+      strain: json['strain'],
       /*
       startDate: new DateTime(json['startDate']),
-      strain: json['strain'],
       genetics: GeneticType.unknownHybrid,
       sex: Gender.unknown,
       growthState: GrowState.flowering,
