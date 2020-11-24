@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 
+import 'classes/constants.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -29,7 +31,7 @@ Map<int, Color> color =
 };
 
 // The App's base color
-MaterialColor colorCustom = MaterialColor(0xFF00802b, color);
+MaterialColor colorCustom = MaterialColor(0xFF29cf61, color);
 
 class MyApp extends StatelessWidget {
 
@@ -49,23 +51,23 @@ class MyApp extends StatelessWidget {
         // This plugs into the BudWizardRoute, which controls the look and feel
         // of screen transitions
         switch (settings.name) {
-          case '/': return new BudWizardRoute(
+          case uiRouteHome: return new BudWizardRoute(
             builder: (_) => new HomePage(),
             settings: settings,
           );
-          case '/Login': return new BudWizardRoute(
+          case uiRouteLogin: return new BudWizardRoute(
             builder: (_) => new LoginPage(),
             settings: settings,
           );
-          case '/Grows': return new BudWizardRoute(
+          case uiRouteGrows: return new BudWizardRoute(
             builder: (_) => new GrowsPage(),
             settings: settings,
           );
-          case '/Plants': return new BudWizardRoute(
+          case uiRoutePlants: return new BudWizardRoute(
             builder: (_) => new PlantsPage(),
             settings: settings,
           );
-          case '/Plant': return new BudWizardRoute(
+          case uiRoutePlant: return new BudWizardRoute(
             builder: (_) => new PlantPage(),
             settings: settings,
           );

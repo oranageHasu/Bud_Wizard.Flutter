@@ -37,13 +37,11 @@ class _PlantPageState extends State<PlantPage> {
   @override
   Widget build(BuildContext context) {
 
+    // Gather the provided arguments
     final PlantPageArguments args = ModalRoute.of(context).settings.arguments;
 
     if (args != null) {
       plant = args.plant;
-      print('Strain: ' + args.plant.strain);
-    } else {
-      print('Plant is null.');
     }
 
     return Scaffold(
@@ -63,12 +61,10 @@ class _PlantPageState extends State<PlantPage> {
 
   String getName() {
 
-    String retval;
+    String retval = "{No Plant Name}";
 
     if (plant != null) {
       retval = plant.name;
-    } else {
-      retval = "{No Plant Name}";
     }
 
     return retval;

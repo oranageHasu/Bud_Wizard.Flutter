@@ -5,6 +5,7 @@ import 'package:bud_wizard/widgets/login/navigation.dart';
 import 'package:bud_wizard/widgets/shared-widgets/screenHeader.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import 'growCard.dart';
 
 class GrowsPage extends StatefulWidget {
@@ -29,7 +30,12 @@ class _GrowsPageState extends State<GrowsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bud Wizard'),
+        title: Text('Bud Wizard', style: TextStyle(color: Colors.white)),
+        backgroundColor: colorCustom.shade500,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+
       ),
       body: Center(
         child: Column(
@@ -56,6 +62,7 @@ class _GrowsPageState extends State<GrowsPage> {
         ),
       ),
       drawer: Navigation(),
+      backgroundColor: Colors.black87,
     );
   }
 }

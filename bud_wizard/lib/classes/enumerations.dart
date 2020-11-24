@@ -1,3 +1,17 @@
+//region UI Enums
+
+enum Screen {
+  messages,
+  grows,
+  social,
+  knowledgeBase,
+  settings,
+  login
+}
+
+//endregion
+//region Plant Enums
+
 enum Gender {
   unknown,
   male,
@@ -21,6 +35,9 @@ enum GrowState {
   curing
 }
 
+//endregion
+//region Grow Enums
+
 enum GrowSetting {
   outdoor,
   indoor
@@ -39,3 +56,5 @@ enum UnitType {
   grams,
   milliliters
 }
+
+//endregion
