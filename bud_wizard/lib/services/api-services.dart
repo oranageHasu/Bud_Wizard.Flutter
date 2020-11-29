@@ -1,39 +1,79 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html';
+import 'dart:core';
 import 'dart:convert';
+import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/login.dart';
 import 'package:bud_wizard/models/plant.dart';
-import 'package:http/http.dart' as http;
+
+Map<String, String> dankHeaders = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': 'true',
+};
+
+String generateAPIPath(String route) {
+  return apiBaseURL + route;
+}
+
+Future<Login> authLogin(Login login) async {
+  Login retval;
+
+  try {
+    // Generate the request URL
+    String url = generateAPIPath(apiRouteAuthLogin);
+
+    // Make the HTTP request
+    HttpRequest request = await HttpRequest.request(url,
+        responseType: '',
+        withCredentials: true,
+        requestHeaders: dankHeaders,
+        method: 'POST',
+        sendData: json.encode(login));
+
+    // Process the result
+    if (request != null && request.status == 200) {
+      Map jsonResponse = json.decode(request.response);
+      retval = new Login.fromJson(jsonResponse);
+    }
+  } catch (Exception) {
+    print('Failed to authenticate login.');
+  }
+
+  return retval;
+}
 
 Future<List<Grow>> getGrows() async {
-
+  /*
   final http.Response response = await http.get(
       'https://localhost:9000/api/v1/Grow?UserId=77c1e2cb-6792-4acd-ae31-3ab61a150822&IncludeRelationalData=True',
       headers: {
         'Content-Type': 'application/json',
-        "Accept":"application/json",
+        "Accept": "application/json",
         "Access-Control-Allow-Origin": "*",
         'Access-Control-Allow-Credentials': 'true'
-      }
-  );
+      });
 
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
     return jsonResponse.map((grow) => new Grow.fromJson(grow)).toList();
   } else {
     throw Exception('Failed to get the grows.');
-  }
+  }*/
 }
 
 Future<List<Plant>> getPlants() async {
-
+  /*
   final http.Response response = await http.get(
       'https://localhost:9000/api/v1/Plant?GrowId=08c1e2cb-6792-4acd-ae31-3ab61a150812&IncludeRelationalData=True',
       headers: {
         'Content-Type': 'application/json',
-        "Accept":"application/json",
+        "Accept": "application/json",
         "Access-Control-Allow-Origin": "*",
         'Access-Control-Allow-Credentials': 'true'
-      }
-  );
+      });
 
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
@@ -41,4 +81,5 @@ Future<List<Plant>> getPlants() async {
   } else {
     throw Exception('Failed to get the plants.');
   }
+  */
 }

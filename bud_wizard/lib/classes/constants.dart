@@ -1,6 +1,7 @@
 //region UI Constants
 
-const String uiRouteHome = "/";
+const String uiRouteApp = "/";
+const String uiRouteHomeScreen = "/Home";
 const String uiRouteMessages = "/Messages";
 const String uiRouteGrows = "/Grows";
 const String uiRouteSocial = "/Social";
@@ -12,5 +13,12 @@ const String uiRoutePlant = "/Plant";
 
 //endregion
 //region API Constants
+
+const String apiPort = "9000";
+const String apiBaseURL = "https://localhost:9000/api/v1/";
+
+// Login API Routes
+const String apiRouteAuthLogin = "authentication/authenticate";
+const String apiRouteLogout = "authentication/logout";
 
 //endregion

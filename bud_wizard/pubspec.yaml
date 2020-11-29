@@ -23,20 +23,33 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  # Used for Modern HTTP in Flutter/Dart;  Note: Currently not using this, as couldn't find a way to set cookies  
   http: ^0.12.2
+
+  # Another HTTP package.  I'm told this one is better.
+  dio: ^3.0.10
+  
+  # Used for GUID data types (i.e. Primary Keys/Foreign Keys)
   flutter_guid: ^0.1.0
+
+  # Google Fonts; See https://fonts.google.com/ for all available fonts
+  google_fonts: ^1.1.1
+  
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.1
+
+  # Animation related import
+  simple_animations: ^2.2.3
+
+  # Dropdown Search
+  dropdown_search: ^0.4.8
 
   # Firebase dependencies
   firebase_core: ^0.5.2
   firebase_analytics: ^5.0.2
   firebase_auth: ^0.5.2
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
-
-  # Animation related import
-  simple_animations: ^2.2.3
 
 dev_dependencies:
   flutter_test:
