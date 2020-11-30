@@ -46,22 +46,32 @@ Future<Login> authLogin(Login login) async {
 }
 
 Future<List<Grow>> getGrows() async {
-  /*
-  final http.Response response = await http.get(
-      'https://localhost:9000/api/v1/Grow?UserId=77c1e2cb-6792-4acd-ae31-3ab61a150822&IncludeRelationalData=True',
-      headers: {
-        'Content-Type': 'application/json',
-        "Accept": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        'Access-Control-Allow-Credentials': 'true'
-      });
+  List<Grow> retval;
 
-  if (response.statusCode == 200) {
-    List jsonResponse = json.decode(response.body);
-    return jsonResponse.map((grow) => new Grow.fromJson(grow)).toList();
-  } else {
-    throw Exception('Failed to get the grows.');
-  }*/
+  try {
+    // Generate the request URL
+    String url = generateAPIPath(apiRouteGrows);
+    url = url +
+        '?UserId=77c1e2cb-6792-4acd-ae31-3ab61a150822&IncludeRelationalData=True';
+
+    print(url);
+    // Make the HTTP request
+    HttpRequest request = await HttpRequest.request(url,
+        responseType: '',
+        withCredentials: true,
+        requestHeaders: dankHeaders,
+        method: 'GET');
+
+    // Process the result
+    if (request != null && request.status == 200) {
+      List jsonResponse = json.decode(request.response);
+      retval = jsonResponse.map((grow) => new Grow.fromJson(grow)).toList();
+    }
+  } catch (Exception) {
+    print('Failed to get the grows.');
+  }
+
+  return retval;
 }
 
 Future<List<Plant>> getPlants() async {

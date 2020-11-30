@@ -21,4 +21,7 @@ const String apiBaseURL = "https://localhost:9000/api/v1/";
 const String apiRouteAuthLogin = "authentication/authenticate";
 const String apiRouteLogout = "authentication/logout";
 
+// API Entity Routes
+const String apiRouteGrows = "grow";
+
 //endregion

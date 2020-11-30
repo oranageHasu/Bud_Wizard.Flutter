@@ -46,6 +46,9 @@ dependencies:
   # Dropdown Search
   dropdown_search: ^0.4.8
 
+  # Used for JSON Serialization/Deserialization
+  json_annotation: ^3.1.1
+
   # Firebase dependencies
   firebase_core: ^0.5.2
   firebase_analytics: ^5.0.2

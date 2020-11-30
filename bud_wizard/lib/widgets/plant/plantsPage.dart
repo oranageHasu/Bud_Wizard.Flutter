@@ -31,19 +31,20 @@ class _PlantsPageState extends State<PlantsPage> {
           children: <Widget>[
             SlideIn(1.0, ScreenHeader(title: 'Plants')),
             FutureBuilder<List<Plant>>(
-                future: _plants,
-                builder: (context, snapshot) {
-                  // If we're ready with data
-                  if (snapshot.hasData) {
-                    return Column(children: <Widget>[
-                      for (Plant plant in snapshot.data)
-                        SlideIn(3.0, PlantCard(plant: plant))
-                    ]);
-                  }
+              future: _plants,
+              builder: (context, snapshot) {
+                // If we're ready with data
+                if (snapshot.hasData) {
+                  return Column(children: <Widget>[
+                    for (Plant plant in snapshot.data)
+                      SlideIn(3.0, PlantCard(plant: plant))
+                  ]);
+                }
 
-                  // By default, show a loading spinner.
-                  return CircularProgressIndicator();
-                })
+                // By default, show a loading spinner.
+                return CircularProgressIndicator();
+              },
+            )
           ],
         ),
       ),

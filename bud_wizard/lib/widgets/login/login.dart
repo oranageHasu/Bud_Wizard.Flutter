@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                color: appBaseContentBackgroundColor.shade800,
+                color: appBaseContentBackgroundColor.shade700,
                 elevation: 5.0,
                 child: Container(
                   margin: EdgeInsets.only(left: 40.0, right: 40.0),
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       // Conditional Failure Message
                       SizedBox(
-                        height: 25.0,
+                        height: 45.0,
                         child: Visibility(
                           visible: _failedLogin,
                           child: Text("Username or Password is invalid",

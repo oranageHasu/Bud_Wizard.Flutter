@@ -82,7 +82,7 @@ Map<int, Color> appSecondColorOpacity = {
 };
 
 // The App's 3rd color
-MaterialColor appThirdColor = MaterialColor(0xFF6B6E70, appThirdColorOpacity);
+MaterialColor appThirdColor = MaterialColor(0xFF474B4F, appThirdColorOpacity);
 Map<int, Color> appThirdColorOpacity = {
   50: Color.fromRGBO(252, 252, 252, .1),
   100: Color.fromRGBO(252, 252, 252, .2),
@@ -115,6 +115,18 @@ final TextStyle appInputHintFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 12.0,
   color: appBaseWhiteTextColor.shade700,
+);
+
+final TextStyle appHeaderLabelFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 30.0,
+  color: appBaseColor,
+);
+
+final TextStyle appDescriptorLabelFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 15.0,
+  color: appSecondColor,
 );
 
 final TextStyle appLabelFontStyle = TextStyle(
