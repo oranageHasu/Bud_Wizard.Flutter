@@ -1,10 +1,51 @@
-//region UI Enums
-
 import 'package:json_annotation/json_annotation.dart';
 
-enum Screen { messages, grows, social, knowledgeBase, settings, login }
+//region UI Enums
+
+enum Screen {
+  Home,
+  Messages,
+  Grows,
+  Social,
+  KnowledgeBase,
+  Settings,
+  Login,
+}
+
+enum DankButtonType {
+  Flat,
+  Outline,
+}
+
+enum DankShieldStatus {
+  Success,
+  Warning,
+  Error,
+}
 
 //endregion
+//#region HTTP Enums
+
+enum HttpMethod {
+  GET,
+  PUT,
+  POST,
+  DELETE,
+}
+
+//#endregion
+//#region Sensitive Editable Text Field Enums
+
+enum SensitiveFieldType {
+  UniqueId,
+  Email,
+}
+enum ValidationType {
+  TextBasedValidation,
+  ButtonBasedValidation,
+}
+
+//#endregion
 //region Plant Enums
 
 enum Gender { unknown, male, female, hermaphrodite }

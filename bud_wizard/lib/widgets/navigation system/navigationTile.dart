@@ -26,17 +26,17 @@ class NavigationTile extends StatelessWidget {
 
   IconData getIcon() {
     switch (screen) {
-      case Screen.messages:
+      case Screen.Messages:
         return Icons.mail;
-      case Screen.grows:
+      case Screen.Grows:
         return Icons.self_improvement_rounded;
-      case Screen.social:
+      case Screen.Social:
         return Icons.people;
-      case Screen.knowledgeBase:
+      case Screen.KnowledgeBase:
         return Icons.info;
-      case Screen.settings:
+      case Screen.Settings:
         return Icons.settings;
-      case Screen.login:
+      case Screen.Login:
         return Icons.logout;
       default:
         return Icons.add_alert;

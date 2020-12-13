@@ -1,11 +1,8 @@
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/classes/formatter.dart';
+import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/services/api-services.dart';
-import 'package:bud_wizard/widgets/navigation%20system/appBar.dart';
-import 'package:bud_wizard/widgets/navigation%20system/navigation.dart';
-import 'package:bud_wizard/widgets/shared-widgets/dank%20widgets/dank-display-label.dart';
-import 'package:bud_wizard/widgets/shared-widgets/dank%20widgets/dank-icon-button.dart';
+import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
 import 'package:flutter/material.dart';
 
 class GrowsPage extends StatefulWidget {
@@ -24,15 +21,44 @@ class _GrowsPageState extends State<GrowsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: DankAppBar(title: 'Grows'),
-      body: growsPageBody(context),
-      drawer: Navigation(),
-      backgroundColor: appBaseBackgroundColor,
+    return DankNavigator(
+      currentScreen: Screen.Grows,
+      content: Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            color: appThirdColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Center(
+                child: Container(
+                  padding: EdgeInsets.only(
+                    left: 50.0,
+                    right: 50.0,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      growsPageBody(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
-  Widget growsPageBody(BuildContext context) {
+  Widget growsPageBody() {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -96,21 +122,7 @@ class _GrowsPageState extends State<GrowsPage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Text(
-                            snapshot.data[0].name,
-                            style: appHeaderLabelFontStyle,
-                          ),
-                          DankDisplayLabel(
-                            label: 'Started: ',
-                            value: formatDate(snapshot.data[0].startDate),
-                          ),
-                          DankDisplayLabel(
-                            label: 'Location:',
-                            value:
-                                formatEnum(snapshot.data[0].setting.toString()),
-                          ),
-                        ],
+                        children: <Widget>[],
                       ),
                     );
                   }

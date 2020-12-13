@@ -1,0 +1,46 @@
+import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/constants.dart';
+import 'package:bud_wizard/widgets/navigation%20system/dankAppBar.dart';
+import 'package:flutter/material.dart';
+import 'package:bud_wizard/classes/enumerations.dart';
+
+import 'dankOperationPanel.dart';
+
+class DankNavigator extends StatelessWidget {
+  final Widget content;
+  final Screen currentScreen;
+
+  DankNavigator({
+    @required Widget content,
+    @required Screen currentScreen,
+  })  : this.content = content,
+        this.currentScreen = currentScreen;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: appBaseBackgroundColor,
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            DankAppBar(),
+            Expanded(
+              child: Container(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DankOperationPanel(currentScreen: currentScreen),
+                    content,
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

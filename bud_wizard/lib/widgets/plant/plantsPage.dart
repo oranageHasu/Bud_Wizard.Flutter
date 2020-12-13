@@ -1,9 +1,7 @@
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/services/api-services.dart';
-import 'package:bud_wizard/widgets/navigation%20system/appBar.dart';
-import 'package:bud_wizard/widgets/navigation%20system/navigation.dart';
-import 'package:bud_wizard/widgets/shared-widgets/animations/slideIn.dart';
-import 'package:bud_wizard/widgets/shared-widgets/screenHeader.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/animations/slideIn.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/screenHeader.dart';
 import 'package:flutter/material.dart';
 
 import 'plantCard.dart';
@@ -25,7 +23,7 @@ class _PlantsPageState extends State<PlantsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: DankAppBar(title: 'Plants'),
+      //appBar: DankAppBar(title: 'Plants'),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -48,7 +46,7 @@ class _PlantsPageState extends State<PlantsPage> {
           ],
         ),
       ),
-      drawer: Navigation(),
+      //drawer: Navigation(),
     );
   }
 }

@@ -4,66 +4,50 @@ import 'package:google_fonts/google_fonts.dart';
 //#region App Color Theme
 
 // The App's base color
-MaterialColor appBaseColor = MaterialColor(0xFF86C232, appBaseColorOpacity);
+MaterialColor appBaseColor = MaterialColor(0xFF47c49d, appBaseColorOpacity);
 Map<int, Color> appBaseColorOpacity = {
-  50: Color.fromRGBO(0, 104, 54, .1),
-  100: Color.fromRGBO(0, 104, 54, .2),
-  200: Color.fromRGBO(0, 104, 54, .3),
-  300: Color.fromRGBO(0, 104, 54, .4),
-  400: Color.fromRGBO(0, 104, 54, .5),
-  500: Color.fromRGBO(0, 104, 54, .6),
-  600: Color.fromRGBO(0, 104, 54, .7),
-  700: Color.fromRGBO(0, 104, 54, .8),
-  800: Color.fromRGBO(0, 104, 54, .9),
-  900: Color.fromRGBO(0, 104, 54, 1),
+  50: Color.fromRGBO(102, 252, 241, .1),
+  100: Color.fromRGBO(102, 252, 241, .2),
+  200: Color.fromRGBO(102, 252, 241, .3),
+  300: Color.fromRGBO(102, 252, 241, .4),
+  400: Color.fromRGBO(102, 252, 241, .5),
+  500: Color.fromRGBO(102, 252, 241, .6),
+  600: Color.fromRGBO(102, 252, 241, .7),
+  700: Color.fromRGBO(102, 252, 241, .8),
+  800: Color.fromRGBO(102, 252, 241, .9),
+  900: Color.fromRGBO(102, 252, 241, 1),
 };
 
 // The App's base background color
 MaterialColor appBaseBackgroundColor =
-    MaterialColor(0xFF222629, appBaseBackgroundColorOpacity);
+    MaterialColor(0xFF131517, appBaseBackgroundColorOpacity);
 Map<int, Color> appBaseBackgroundColorOpacity = {
-  50: Color.fromRGBO(31, 40, 51, .1),
-  100: Color.fromRGBO(31, 40, 51, .2),
-  200: Color.fromRGBO(31, 40, 51, .3),
-  300: Color.fromRGBO(31, 40, 51, .4),
-  400: Color.fromRGBO(31, 40, 51, .5),
-  500: Color.fromRGBO(31, 40, 51, .6),
-  600: Color.fromRGBO(31, 40, 51, .7),
-  700: Color.fromRGBO(31, 40, 51, .8),
-  800: Color.fromRGBO(31, 40, 51, .9),
-  900: Color.fromRGBO(31, 40, 51, 1),
+  50: Color.fromRGBO(55, 54, 153, .1),
+  100: Color.fromRGBO(55, 54, 153, .2),
+  200: Color.fromRGBO(55, 54, 153, .3),
+  300: Color.fromRGBO(55, 54, 153, .4),
+  400: Color.fromRGBO(55, 54, 153, .5),
+  500: Color.fromRGBO(55, 54, 153, .6),
+  600: Color.fromRGBO(55, 54, 153, .7),
+  700: Color.fromRGBO(55, 54, 153, .8),
+  800: Color.fromRGBO(55, 54, 153, .9),
+  900: Color.fromRGBO(55, 54, 153, 1),
 };
 
 // The App's base background color
 MaterialColor appBaseContentBackgroundColor =
-    MaterialColor(0xFF222629, appBaseContentBackgroundColorOpacity);
+    MaterialColor(0xFF0B0C10, appBaseContentBackgroundColorOpacity);
 Map<int, Color> appBaseContentBackgroundColorOpacity = {
-  50: Color.fromRGBO(11, 12, 16, .1),
-  100: Color.fromRGBO(11, 12, 16, .2),
-  200: Color.fromRGBO(11, 12, 16, .3),
-  300: Color.fromRGBO(11, 12, 16, .4),
-  400: Color.fromRGBO(11, 12, 16, .5),
-  500: Color.fromRGBO(11, 12, 16, .6),
-  600: Color.fromRGBO(11, 12, 16, .7),
-  700: Color.fromRGBO(11, 12, 16, .8),
-  800: Color.fromRGBO(11, 12, 16, .9),
-  900: Color.fromRGBO(11, 12, 16, 1),
-};
-
-// The App's base white text color
-MaterialColor appBaseWhiteTextColor =
-    MaterialColor(0xFFfcfcfc, appBaseWhiteTextColorOpacity);
-Map<int, Color> appBaseWhiteTextColorOpacity = {
-  50: Color.fromRGBO(252, 252, 252, .1),
-  100: Color.fromRGBO(252, 252, 252, .2),
-  200: Color.fromRGBO(252, 252, 252, 3),
-  300: Color.fromRGBO(252, 252, 252, .4),
-  400: Color.fromRGBO(252, 252, 252, .5),
-  500: Color.fromRGBO(252, 252, 252, .6),
-  600: Color.fromRGBO(252, 252, 252, .7),
-  700: Color.fromRGBO(252, 252, 252, .8),
-  800: Color.fromRGBO(252, 252, 252, .9),
-  900: Color.fromRGBO(252, 252, 252, 1),
+  50: Color.fromRGBO(55, 54, 153, .1),
+  100: Color.fromRGBO(55, 54, 153, .2),
+  200: Color.fromRGBO(55, 54, 153, .3),
+  300: Color.fromRGBO(55, 54, 153, .4),
+  400: Color.fromRGBO(55, 54, 153, .5),
+  500: Color.fromRGBO(55, 54, 153, .6),
+  600: Color.fromRGBO(55, 54, 153, .7),
+  700: Color.fromRGBO(55, 54, 153, .8),
+  800: Color.fromRGBO(55, 54, 153, .9),
+  900: Color.fromRGBO(55, 54, 153, 1),
 };
 
 // The App's 2nd color
@@ -82,7 +66,7 @@ Map<int, Color> appSecondColorOpacity = {
 };
 
 // The App's 3rd color
-MaterialColor appThirdColor = MaterialColor(0xFF474B4F, appThirdColorOpacity);
+MaterialColor appThirdColor = MaterialColor(0xFF333638, appThirdColorOpacity);
 Map<int, Color> appThirdColorOpacity = {
   50: Color.fromRGBO(252, 252, 252, .1),
   100: Color.fromRGBO(252, 252, 252, .2),
@@ -96,46 +80,82 @@ Map<int, Color> appThirdColorOpacity = {
   900: Color.fromRGBO(252, 252, 252, 1),
 };
 
+const Color appBaseWhiteTextColor = Color.fromRGBO(252, 252, 252, 1.0);
+const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 1.0);
+const Color appSuccessColor = Color.fromRGBO(120, 222, 2, 0.6);
+const Color appWarningColor = Color.fromRGBO(255, 140, 54, 0.6);
+const Color appErrorColor = Color.fromRGBO(245, 66, 66, 0.6);
+const Color appDropdownColor = Color.fromRGBO(81, 80, 82, 1);
+const Color appBorderUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
+
 //#endregion
 //#region App Font styles
 
-final TextStyle appHeaderFontStyle = TextStyle(
-  fontFamily: 'Montserrat',
-  fontSize: 30.0,
-  color: appBaseWhiteTextColor.shade700,
+final TextStyle appHeaderFontStyle = GoogleFonts.courgette(
+  fontSize: 50.0,
+  color: appBaseWhiteTextColor,
+  fontWeight: FontWeight.bold,
 );
 
-final TextStyle appInputFontStyle = TextStyle(
+const TextStyle appInputFontStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 20.0,
-  color: appBaseWhiteTextColor.shade700,
+  fontSize: 15.0,
+  color: appBaseWhiteTextColor,
 );
 
-final TextStyle appInputHintFontStyle = TextStyle(
+const TextStyle appInputHintFontStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 12.0,
-  color: appBaseWhiteTextColor.shade700,
+  fontSize: 14.0,
+  color: appHintTextColor,
 );
 
-final TextStyle appHeaderLabelFontStyle = TextStyle(
+const TextStyle appInputLabelFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 14.0,
+  color: appBaseWhiteTextColor,
+);
+
+const TextStyle appInputCounterFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 15.0,
+  fontWeight: FontWeight.bold,
+  color: appBaseWhiteTextColor,
+);
+
+final TextStyle appLabelHeaderFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 30.0,
   color: appBaseColor,
 );
 
-final TextStyle appDescriptorLabelFontStyle = TextStyle(
+const TextStyle appLabelFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 20.0,
+  color: appBaseWhiteTextColor,
+);
+
+final TextStyle appValueLabelFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 15.0,
   color: appSecondColor,
 );
 
-final TextStyle appLabelFontStyle = TextStyle(
+const TextStyle appButtonFontStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 12.0,
-  color: appBaseWhiteTextColor.shade700,
+  fontSize: 15.0,
+  fontWeight: FontWeight.bold,
 );
 
-final TextStyle appErrorFontStyle =
-    GoogleFonts.varelaRound(fontSize: 15.0, color: Colors.redAccent[200]);
+const TextStyle appTooltipFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 13.0,
+  color: appBaseWhiteTextColor,
+);
+
+final TextStyle appErrorFontStyle = GoogleFonts.varelaRound(
+  fontSize: 15.0,
+  fontWeight: FontWeight.bold,
+  color: appErrorColor,
+);
 
 //#endregion

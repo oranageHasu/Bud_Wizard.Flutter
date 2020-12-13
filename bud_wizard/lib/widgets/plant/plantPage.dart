@@ -1,6 +1,5 @@
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/widgets/navigation%20system/appBar.dart';
-import 'package:bud_wizard/widgets/shared-widgets/animations/slideIn.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/animations/slideIn.dart';
 import 'package:flutter/material.dart';
 
 class PlantPageArguments {
@@ -39,7 +38,7 @@ class _PlantPageState extends State<PlantPage> {
     }
 
     return Scaffold(
-      appBar: DankAppBar(title: plant.name),
+      //appBar: DankAppBar(title: plant.name),
       body: Center(
         child: Column(
           children: <Widget>[

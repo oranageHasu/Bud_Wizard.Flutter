@@ -1,9 +1,9 @@
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/models/login.dart';
 import 'package:bud_wizard/services/api-services.dart';
-import 'package:bud_wizard/widgets/shared-widgets/dank%20widgets/dank-button.dart';
-import 'package:bud_wizard/widgets/shared-widgets/dank%20widgets/dank-textfield.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode passwordFocusNode = new FocusNode();
   bool _isLoading = false;
   bool _failedLogin = false;
+  Future<Login> loginResult;
 
   @override
   void dispose() {
@@ -47,30 +48,37 @@ class _LoginPageState extends State<LoginPage> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                color: appBaseContentBackgroundColor.shade700,
+                color: appBaseContentBackgroundColor.withOpacity(0.9),
                 elevation: 5.0,
                 child: Container(
-                  margin: EdgeInsets.only(left: 40.0, right: 40.0),
+                  padding: EdgeInsets.only(
+                    left: 50.0,
+                    right: 50.0,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      // Card Header
                       SizedBox(height: 45.0),
                       SizedBox(
                         height: 100.0,
                         child: Image.asset(
                           "budwizard_logo_400x400.png",
-                          fit: BoxFit.contain,
+                          fit: BoxFit.scaleDown,
                         ),
                       ),
                       SizedBox(height: 10.0),
-                      Text("Bud Wizard", style: appHeaderFontStyle),
+                      DankLabel(
+                        width: 350.0,
+                        displayText: "Bud Wizard",
+                        textStyle: appHeaderFontStyle,
+                        textAlign: TextAlign.center,
+                      ),
                       SizedBox(height: 25.0),
-                      // Username Text Field
                       DankTextField(
                         textController: usernameController,
+                        autofocus: true,
                         onSubmit: (value) {
                           FocusScope.of(context)
                               .requestFocus(passwordFocusNode);
@@ -78,10 +86,16 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Username',
                         hintText: 'Enter your Username',
                         minWidth: 100,
-                        maxWidth: 500,
-                        isPassword: false,
+                        maxWidth: 400,
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: appBaseWhiteTextColor,
+                        ),
+                        margin: EdgeInsets.only(
+                          top: 5.0,
+                          bottom: 5.0,
+                        ),
                       ),
-                      // Password Text Field
                       DankTextField(
                         textController: passwordController,
                         onSubmit: (value) {
@@ -91,12 +105,19 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Password',
                         hintText: 'Enter your password',
                         minWidth: 100,
-                        maxWidth: 500,
+                        maxWidth: 400,
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: appBaseWhiteTextColor,
+                        ),
                         isPassword: true,
+                        margin: EdgeInsets.only(
+                          top: 5.0,
+                          bottom: 5.0,
+                        ),
                       ),
-                      // Conditional Failure Message
                       SizedBox(
-                        height: 45.0,
+                        height: 25.0,
                         child: Visibility(
                           visible: _failedLogin,
                           child: Text("Username or Password is invalid",
@@ -104,29 +125,43 @@ class _LoginPageState extends State<LoginPage> {
                           replacement: SizedBox.shrink(),
                         ),
                       ),
-                      // Signin Button
                       DankButton(
                         buttonText: "Sign In",
                         callback: performLogin,
+                        margin: EdgeInsets.only(top: 10.0),
                       ),
                       SizedBox(height: 25.0),
                     ],
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: SizedBox(
-                  height: 36.0,
-                  child: Visibility(
-                    visible: _isLoading,
-                    child: CircularProgressIndicator(
-                      backgroundColor: appBaseColor,
-                    ),
-                    replacement: SizedBox.shrink(),
-                  ),
-                ),
-              ),
+              (_isLoading)
+                  ? FutureBuilder<Login>(
+                      future: loginResult,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            Navigator.pushReplacementNamed(context, '/Home');
+                          });
+                        } else if (snapshot.hasError) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            setState(() {
+                              _isLoading = false;
+                              _failedLogin = true;
+                            });
+                          });
+                        }
+
+                        return Padding(
+                          padding: EdgeInsets.only(top: 25.0),
+                          child: SizedBox(
+                            height: 35.0,
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      },
+                    )
+                  : SizedBox(height: 60.0),
             ],
           ),
         ),
@@ -141,25 +176,9 @@ class _LoginPageState extends State<LoginPage> {
 
     setState(() {
       _isLoading = true;
-      _failedLogin = false;
     });
 
     // Hit the back-end API and validate the login
-    login = await authLogin(login);
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    // Assess the login result
-    if (login != null) {
-      // Note: I'm completely aware that this login will not handle the password reset yet
-      // That needs an additional PBI, lets be fair.
-      Navigator.pushReplacementNamed(context, uiRouteHomeScreen);
-    } else {
-      setState(() {
-        _failedLogin = true;
-      });
-    }
+    loginResult = authLogin(login);
   }
 }

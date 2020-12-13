@@ -24,7 +24,7 @@ class UnknownRoute extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontSize: 30,
-                  color: appBaseWhiteTextColor.shade700,
+                  color: appBaseWhiteTextColor,
                   fontFamily: 'Montserrat',
                 ),
               ),
