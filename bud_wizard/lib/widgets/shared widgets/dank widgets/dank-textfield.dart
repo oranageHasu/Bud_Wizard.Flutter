@@ -21,6 +21,8 @@ class DankTextField extends StatelessWidget {
   final int maxTextCharacters;
   final bool displayMaxCharacterValidation;
   final bool digitsOnly;
+  final double borderRadius = 10.0;
+  final Color borderColorUnselected;
 
   DankTextField({
     String labelText = '',
@@ -41,6 +43,7 @@ class DankTextField extends StatelessWidget {
     int maxTextCharacters = 25,
     bool displayMaxCharacterValidation = false,
     bool digitsOnly = false,
+    Color borderColorUnselected = Colors.transparent,
   })  : this.labelText = labelText,
         this.hintText = hintText,
         this.minWidth = minWidth,
@@ -58,7 +61,8 @@ class DankTextField extends StatelessWidget {
         this.textPadding = textPadding,
         this.maxTextCharacters = maxTextCharacters,
         this.displayMaxCharacterValidation = displayMaxCharacterValidation,
-        this.digitsOnly = digitsOnly;
+        this.digitsOnly = digitsOnly,
+        this.borderColorUnselected = borderColorUnselected;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +85,8 @@ class DankTextField extends StatelessWidget {
           onFieldSubmitted: onSubmit,
           onChanged: onChanged,
           decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.black.withOpacity(0.3),
             contentPadding: textPadding,
             hintText: hintText,
             labelText: labelText,
@@ -89,21 +95,16 @@ class DankTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             counterStyle: appInputCounterFontStyle,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide:
-                  BorderSide(color: appBorderUnselectedColor, width: 2.0),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(borderRadius),
+              borderSide: BorderSide(color: borderColorUnselected, width: 2.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: appBaseColor, width: 2.0),
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: appErrorColor, width: 3.0),
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
             errorStyle: appErrorFontStyle,
           ),

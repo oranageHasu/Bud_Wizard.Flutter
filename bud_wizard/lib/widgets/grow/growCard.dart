@@ -1,100 +1,122 @@
+import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class GrowCard extends StatefulWidget {
-
   final Grow grow;
+  final String tooltipText;
+  final bool isSelected;
 
   GrowCard({
-    Grow grow
-  }): this.grow = grow;
+    @required Grow grow,
+    @required String tooltipText,
+    bool isSelected = false,
+  })  : this.grow = grow,
+        this.tooltipText = tooltipText,
+        this.isSelected = isSelected;
 
   @override
-  _GrowsCardState createState() => _GrowsCardState(this.grow);
-
+  _GrowsCardState createState() => _GrowsCardState(
+        this.grow,
+        this.tooltipText,
+        this.isSelected,
+      );
 }
 
 class _GrowsCardState extends State<GrowCard> {
+  Grow grow;
+  String tooltipText;
+  bool isSelected;
+  bool isHovered = false;
 
-  _GrowsCardState(this.grow);
-  final Grow grow;
+  _GrowsCardState(
+    this.grow,
+    this.tooltipText,
+    this.isSelected,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        color: Colors.transparent,
-
+    return DankTooltip(
+      tooltipText: tooltipText,
+      displayTooltip: isHovered,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (value) {
+          setState(() {
+            isHovered = true;
+          });
+        },
+        onExit: (value) {
+          setState(() {
+            isHovered = false;
+          });
+        },
         child: InkWell(
-          onTap: () => {
-            print("Grow selected"),
-
-            Navigator.pushNamed(
-              context,
-              '/Plants'
+          onTap: () {
+            print('Grow clicked.');
+            /*
+            setState(() {
+              isEditingText = true;
+            });
+            */
+          },
+          child: Container(
+            width: 300.0,
+            padding: EdgeInsets.all(10.0),
+            margin: EdgeInsets.only(bottom: 5.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(5.0),
+              color: (isHovered || isSelected)
+                  ? Colors.grey.withOpacity(0.05)
+                  : Colors.transparent,
             ),
-          }, // handle your onTap here
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                child: CircleAvatar(
-                  radius: 35,
-                  backgroundImage: NetworkImage('https://images.medicaldaily.com/sites/medicaldaily.com/files/styles/full_breakpoints_theme_medicaldaily_desktop_1x/public/2016/04/05/marijuana.jpg'),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (isHovered || isSelected)
+                        ? appBaseBackgroundColor
+                        : appBaseBackgroundColor.withOpacity(0.5),
+                  ),
+                  margin: EdgeInsets.only(right: 10.0),
                 ),
-                margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              ),
-              Column(
-                children: [
-                  Text(this.grow.name),
-                  Container(
+                Expanded(
+                  child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.grey[700],
-                    ),
-                    margin: EdgeInsets.only(top: 10.0, bottom: 5.0),
-                    height: 10,
-                    width: 400
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[400],
-                    ),
-                    margin: EdgeInsets.only(left: 20.0, bottom: 5.0),
-                    height: 10,
-                    width: 380
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[400],
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(35.0)),
+                    child: DankLabel(
+                      displayText: grow.name,
+                      textAlign: TextAlign.center,
+                      padding: EdgeInsets.only(
+                        left: 15.0,
+                        right: 15.0,
+                        top: 7.0,
+                        bottom: 7.0,
                       ),
-                      margin: EdgeInsets.only(left: 20.0, bottom: 5.0),
-                      height: 10,
-                      width: 380
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[400],
+                      textStyle: appLabelFontStyle.copyWith(
+                        color: (isHovered || isSelected)
+                            ? appBaseWhiteTextColor
+                            : appBaseWhiteTextColor.withOpacity(0.5),
                       ),
-                      margin: EdgeInsets.only(left: 20.0, bottom: 5.0),
-                      height: 10,
-                      width: 380
+                    ),
                   ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
-        )
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          const Radius.circular(5),
         ),
       ),
-      height: 100,
-      width: 500,
-      margin: const EdgeInsets.only(top: 7.0, bottom: 7.0),
-      clipBehavior: Clip.hardEdge,
     );
   }
 }

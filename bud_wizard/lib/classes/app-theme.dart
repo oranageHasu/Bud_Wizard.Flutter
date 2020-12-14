@@ -20,7 +20,7 @@ Map<int, Color> appBaseColorOpacity = {
 
 // The App's base background color
 MaterialColor appBaseBackgroundColor =
-    MaterialColor(0xFF131517, appBaseBackgroundColorOpacity);
+    MaterialColor(0xFF202225, appBaseBackgroundColorOpacity);
 Map<int, Color> appBaseBackgroundColorOpacity = {
   50: Color.fromRGBO(55, 54, 153, .1),
   100: Color.fromRGBO(55, 54, 153, .2),
@@ -51,7 +51,7 @@ Map<int, Color> appBaseContentBackgroundColorOpacity = {
 };
 
 // The App's 2nd color
-MaterialColor appSecondColor = MaterialColor(0xFF6B6E70, appSecondColorOpacity);
+MaterialColor appSecondColor = MaterialColor(0xFF36393F, appSecondColorOpacity);
 Map<int, Color> appSecondColorOpacity = {
   50: Color.fromRGBO(252, 252, 252, .1),
   100: Color.fromRGBO(252, 252, 252, .2),
@@ -66,7 +66,7 @@ Map<int, Color> appSecondColorOpacity = {
 };
 
 // The App's 3rd color
-MaterialColor appThirdColor = MaterialColor(0xFF333638, appThirdColorOpacity);
+MaterialColor appThirdColor = MaterialColor(0xFF2F3136, appThirdColorOpacity);
 Map<int, Color> appThirdColorOpacity = {
   50: Color.fromRGBO(252, 252, 252, .1),
   100: Color.fromRGBO(252, 252, 252, .2),
@@ -81,7 +81,7 @@ Map<int, Color> appThirdColorOpacity = {
 };
 
 const Color appBaseWhiteTextColor = Color.fromRGBO(252, 252, 252, 1.0);
-const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 1.0);
+const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 0.8);
 const Color appSuccessColor = Color.fromRGBO(120, 222, 2, 0.6);
 const Color appWarningColor = Color.fromRGBO(255, 140, 54, 0.6);
 const Color appErrorColor = Color.fromRGBO(245, 66, 66, 0.6);
@@ -105,7 +105,7 @@ const TextStyle appInputFontStyle = TextStyle(
 
 const TextStyle appInputHintFontStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 14.0,
+  fontSize: 14,
   color: appHintTextColor,
 );
 

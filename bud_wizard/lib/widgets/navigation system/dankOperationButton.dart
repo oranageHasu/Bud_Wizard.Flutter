@@ -73,49 +73,47 @@ class _DankOperationButtonState extends State<DankOperationButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 120.0,
-      color: Colors.transparent,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Center(
-            child: Container(
-              height: (isHovered && !buttonSelected) ? 25.0 : 60.0,
-              width: 5.0,
-              decoration: BoxDecoration(
-                color: (buttonSelected || isHovered)
-                    ? appBaseWhiteTextColor
-                    : Colors.transparent,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10.0),
-                  bottomRight: Radius.circular(10.0),
-                ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Center(
+          child: Container(
+            height: (isHovered && !buttonSelected) ? 25.0 : 60.0,
+            width: 4.0,
+            decoration: BoxDecoration(
+              color: (buttonSelected || isHovered)
+                  ? appBaseWhiteTextColor
+                  : Colors.transparent,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(15.0),
+                bottomRight: Radius.circular(15.0),
               ),
             ),
           ),
-          Expanded(
-            child: SizedBox(height: 70.0),
-          ),
-          DankIconButton(
-            iconData: icon,
-            tooltipText: tooltipText,
-            iconSize: 35.0,
-            buttonType: DankButtonType.Flat,
-            onPressed: () {
-              DankOperationPanel.of(context).navigateTo(screen);
-            },
-            onHover: onHover,
-            onLostHover: onLostHover,
-            isSelected: isScreenSelected,
-          ),
-          Expanded(
-            child: SizedBox(height: 70.0),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 70.0,
+          width: 20.0,
+        ),
+        DankIconButton(
+          iconData: icon,
+          tooltipText: tooltipText,
+          iconSize: 35.0,
+          buttonType: DankButtonType.Flat,
+          onPressed: () {
+            DankOperationPanel.of(context).navigateTo(screen);
+          },
+          onHover: onHover,
+          onLostHover: onLostHover,
+          isSelected: isScreenSelected,
+        ),
+        SizedBox(
+          height: 70.0,
+          width: 20.0,
+        ),
+      ],
     );
   }
 

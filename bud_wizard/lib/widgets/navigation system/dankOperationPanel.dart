@@ -1,3 +1,4 @@
+import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/classes/formatter.dart';
@@ -52,7 +53,8 @@ class DankOperationPanelState extends State<DankOperationPanel> {
   Widget build(BuildContext context) {
     return DankOperationPanelWidget(
       child: Container(
-        width: 100.0,
+        width: 120.0,
+        color: Colors.transparent,
         padding: EdgeInsets.only(
           top: 15.0,
         ),
@@ -64,6 +66,13 @@ class DankOperationPanelState extends State<DankOperationPanel> {
               tooltipText: 'Bud Wizard News',
               icon: Icons.home,
               screen: Screen.Home,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 30.0, right: 27.0),
+              child: Divider(
+                color: appThirdColor,
+                thickness: 2.0,
+              ),
             ),
             DankOperationButton(
               tooltipText: 'Your personal grows',
@@ -81,9 +90,17 @@ class DankOperationPanelState extends State<DankOperationPanel> {
               screen: Screen.KnowledgeBase,
             ),
             DankOperationButton(
-              tooltipText: 'Logout',
-              icon: Icons.logout,
-              screen: Screen.Login,
+              tooltipText: 'App Settings',
+              icon: Icons.settings,
+              screen: Screen.Settings,
+            ),
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: DankOperationButton(
+                tooltipText: 'Logout',
+                icon: Icons.logout,
+                screen: Screen.Login,
+              ),
             ),
           ],
         ),
