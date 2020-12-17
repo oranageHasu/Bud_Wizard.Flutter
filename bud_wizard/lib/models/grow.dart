@@ -5,12 +5,12 @@ import 'package:bud_wizard/models/plant.dart';
 class Grow {
   final Guid growId;
   final Guid userId;
-  final String name;
-  final DateTime startDate;
-  final GrowSetting setting;
-  final LightStyle light;
-  final bool isDeleted;
-  final List<Plant> plants;
+  String name;
+  DateTime startDate;
+  GrowSetting setting;
+  LightStyle light;
+  bool isDeleted;
+  List<Plant> plants;
 
   Grow(
       {this.growId,
@@ -30,6 +30,12 @@ class Grow {
       startDate: DateTime.parse(json['startDate']),
       setting: GrowSetting.values
           .firstWhere((e) => e.index == json['setting'] as int),
+      light:
+          LightStyle.values.firstWhere((e) => e.index == json['light'] as int),
+      isDeleted: json['isDeleted'],
+      plants: (json['plants'] as List)
+          .map((plants) => new Plant.fromJson(plants))
+          .toList(),
     );
   }
 }

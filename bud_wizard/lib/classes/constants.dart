@@ -17,6 +17,9 @@ const String uiRoutePlant = "/Plant";
 const String apiPort = "9000";
 const String apiBaseURL = "https://localhost:9000/api/v1/";
 
+// Session API Routes
+const String apiRouteSession = 'Session';
+
 // Login API Routes
 const String apiRouteAuthLogin = "authentication/authenticate";
 const String apiRouteLogout = "authentication/logout";

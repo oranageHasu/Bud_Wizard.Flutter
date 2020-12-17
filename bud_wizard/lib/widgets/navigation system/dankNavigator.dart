@@ -1,10 +1,8 @@
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankAppBar.dart';
-import 'package:flutter/material.dart';
+import 'package:bud_wizard/widgets/navigation%20system/dankOperationPanel.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-
-import 'dankOperationPanel.dart';
+import 'package:flutter/material.dart';
 
 class DankNavigator extends StatelessWidget {
   final Widget content;

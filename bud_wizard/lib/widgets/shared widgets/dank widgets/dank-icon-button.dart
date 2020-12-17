@@ -182,7 +182,9 @@ class DankIconButtonState extends State<DankIconButton> {
                   onPressed: (isDisabled) ? null : onPressed,
                   child: new Icon(
                     iconData,
-                    color: color,
+                    color: (isButtonSelected || isHovered)
+                        ? color
+                        : color.withOpacity(0.5),
                     size: iconSize,
                   ),
                 ),

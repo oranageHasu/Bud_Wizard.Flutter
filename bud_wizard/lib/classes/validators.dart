@@ -11,27 +11,3 @@ bool validateEmail(String email) {
 bool validatePhone(String phone) {
   return phoneRegEx.hasMatch(phone);
 }
-
-bool validateMailgunPrivateKey(String privateKey) {
-  bool retval = false;
-
-  if (privateKey.isNotEmpty &&
-      privateKey.length == 36 &&
-      privateKey.startsWith('key-')) {
-    retval = true;
-  }
-
-  return retval;
-}
-
-bool validateMailgunPublicKey(String publicKey) {
-  bool retval = false;
-
-  if (publicKey.isNotEmpty &&
-      publicKey.length == 39 &&
-      publicKey.startsWith('pubkey-')) {
-    retval = true;
-  }
-
-  return retval;
-}

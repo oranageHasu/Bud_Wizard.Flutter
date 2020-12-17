@@ -1,5 +1,4 @@
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/services/api-services.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/slideIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/screenHeader.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class _PlantsPageState extends State<PlantsPage> {
   @override
   void initState() {
     super.initState();
-    _plants = getPlants();
+    //_plants = getPlants();
   }
 
   @override

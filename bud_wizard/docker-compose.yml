@@ -1,0 +1,8 @@
+version: '3'
+services:
+  dominic:
+    build: .
+    image: danksolutions/budwizard
+    container_name: "budwizard"
+    ports:
+      - "9000:9000"

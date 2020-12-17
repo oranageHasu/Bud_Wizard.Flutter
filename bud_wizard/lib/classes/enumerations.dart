@@ -1,5 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
+//#region User Roles
+
+enum UserRole {
+  Developer,
+  Admin,
+  Support,
+  ReadOnly,
+}
+
+//#endregion
 //region UI Enums
 
 enum Screen {
@@ -48,30 +58,51 @@ enum ValidationType {
 //#endregion
 //region Plant Enums
 
-enum Gender { unknown, male, female, hermaphrodite }
-
-enum GeneticType {
-  sativaDominant,
-  indicaDominant,
-  sativaDominantHybrid,
-  indicaDominatHybrid,
-  unknownHybrid
+enum Gender {
+  Unknown,
+  Male,
+  Female,
+  Hermaphrodite,
 }
 
-enum GrowState { germination, vegatative, flowering, drying, curing }
+enum GeneticType {
+  SativaDominant,
+  IndicaDominant,
+  SativaDominantHybrid,
+  IndicaDominatHybrid,
+  UnknownHybrid,
+}
+
+enum GrowState {
+  Germination,
+  Vegatative,
+  Flowering,
+  Drying,
+  Curing,
+}
 
 //endregion
 //region Grow Enums
 
 enum GrowSetting {
   @JsonValue(0)
-  outdoor,
+  Outdoor,
   @JsonValue(1)
-  indoor
+  Indoor
 }
 
-enum LightStyle { sun, LED, fluorescent, HID_HM, HID_HPS, LEC }
+enum LightStyle {
+  Sun,
+  LED,
+  Fluorescent,
+  HID_HM,
+  HID_HPS,
+  LEC,
+}
 
-enum UnitType { grams, milliliters }
+enum UnitType {
+  Grams,
+  Milliliters,
+}
 
 //endregion

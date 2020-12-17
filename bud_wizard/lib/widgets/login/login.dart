@@ -1,6 +1,8 @@
 import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/models/login.dart';
-import 'package:bud_wizard/services/api-services.dart';
+import 'package:bud_wizard/services/api%20services/api-login.dart';
+import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
@@ -143,7 +145,13 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
-                            Navigator.pushReplacementNamed(context, '/Home');
+                            // First, establish a Session (async)
+                            initSession();
+
+                            Navigator.pushReplacementNamed(
+                              context,
+                              uiRouteHomeScreen,
+                            );
                           });
                         } else if (snapshot.hasError) {
                           WidgetsBinding.instance.addPostFrameCallback((_) {

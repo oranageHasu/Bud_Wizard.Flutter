@@ -1,5 +1,6 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/widgets/grow/growsPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,14 @@ class GrowCard extends StatefulWidget {
   final bool isSelected;
 
   GrowCard({
+    Key key,
     @required Grow grow,
     @required String tooltipText,
     bool isSelected = false,
   })  : this.grow = grow,
         this.tooltipText = tooltipText,
-        this.isSelected = isSelected;
+        this.isSelected = isSelected,
+        super(key: key);
 
   @override
   _GrowsCardState createState() => _GrowsCardState(
@@ -39,6 +42,19 @@ class _GrowsCardState extends State<GrowCard> {
   );
 
   @override
+  void didUpdateWidget(GrowCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.grow != widget.grow) {
+      grow = widget.grow;
+    }
+
+    if (oldWidget.isSelected != widget.isSelected) {
+      isSelected = widget.isSelected;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DankTooltip(
       tooltipText: tooltipText,
@@ -56,14 +72,7 @@ class _GrowsCardState extends State<GrowCard> {
           });
         },
         child: InkWell(
-          onTap: () {
-            print('Grow clicked.');
-            /*
-            setState(() {
-              isEditingText = true;
-            });
-            */
-          },
+          onTap: selectGrow,
           child: Container(
             width: 300.0,
             padding: EdgeInsets.all(10.0),
@@ -71,9 +80,7 @@ class _GrowsCardState extends State<GrowCard> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(5.0),
-              color: (isHovered || isSelected)
-                  ? Colors.grey.withOpacity(0.05)
-                  : Colors.transparent,
+              color: determineColor(),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,13 +89,18 @@ class _GrowsCardState extends State<GrowCard> {
                 Container(
                   height: 50.0,
                   width: 50.0,
+                  clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: (isHovered || isSelected)
-                        ? appBaseBackgroundColor
-                        : appBaseBackgroundColor.withOpacity(0.5),
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
                   ),
                   margin: EdgeInsets.only(right: 10.0),
+                  child: Image.asset(
+                    grow.plants[0].imagePath,
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Expanded(
                   child: Container(
@@ -97,7 +109,7 @@ class _GrowsCardState extends State<GrowCard> {
                         borderRadius: BorderRadius.circular(35.0)),
                     child: DankLabel(
                       displayText: grow.name,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.start,
                       padding: EdgeInsets.only(
                         left: 15.0,
                         right: 15.0,
@@ -118,5 +130,24 @@ class _GrowsCardState extends State<GrowCard> {
         ),
       ),
     );
+  }
+
+  Color determineColor() {
+    Color retval;
+
+    if (isHovered && !isSelected) {
+      retval = Colors.grey.withOpacity(0.05);
+    } else if (isSelected) {
+      retval = Colors.grey.withOpacity(0.15);
+    } else {
+      retval = Colors.transparent;
+    }
+
+    return retval;
+  }
+
+  void selectGrow() {
+    // Tell the parent its data has changed and force a re-render
+    GrowsPage.of(context).setCurrentGrow(grow);
   }
 }

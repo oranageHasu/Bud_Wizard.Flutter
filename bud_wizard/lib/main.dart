@@ -1,6 +1,7 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/services/router-services.dart';
+import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/grow/growsPage.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 
@@ -71,8 +72,12 @@ class _AppBasePageState extends State<AppBasePage> {
 
   @override
   void initState() {
-    initializeFlutterFire();
     super.initState();
+
+    initializeFlutterFire();
+
+    // Load any session data, if the app was running and hard refreshed
+    initSession();
   }
 
   @override

@@ -23,9 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-  # Used for Modern HTTP in Flutter/Dart;  Note: Currently not using this, as couldn't find a way to set cookies  
-  http: ^0.12.2
 
   # Another HTTP package.  I'm told this one is better.
   dio: ^3.0.10
@@ -49,6 +46,9 @@ dependencies:
   # Used for JSON Serialization/Deserialization
   json_annotation: ^3.1.1
 
+  # A wonderful package that allows navigation without context
+  get: ^3.22.2
+  
   # Firebase dependencies
   firebase_core: ^0.5.2
   firebase_analytics: ^5.0.2

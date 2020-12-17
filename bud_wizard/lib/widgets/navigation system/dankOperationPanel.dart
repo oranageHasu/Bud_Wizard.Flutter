@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/classes/formatter.dart';
+import 'package:bud_wizard/services/api%20services/api-login.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankOperationButton.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +60,7 @@ class DankOperationPanelState extends State<DankOperationPanel> {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
             DankOperationButton(
               tooltipText: 'Bud Wizard News',
@@ -94,13 +94,13 @@ class DankOperationPanelState extends State<DankOperationPanel> {
               icon: Icons.settings,
               screen: Screen.Settings,
             ),
-            Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: DankOperationButton(
-                tooltipText: 'Logout',
-                icon: Icons.logout,
-                screen: Screen.Login,
-              ),
+            Expanded(
+              child: SizedBox(width: 120.0),
+            ),
+            DankOperationButton(
+              tooltipText: 'Logout',
+              icon: Icons.logout,
+              screen: Screen.Login,
             ),
           ],
         ),
@@ -113,41 +113,55 @@ class DankOperationPanelState extends State<DankOperationPanel> {
     String route;
     bool resetsScreenStack = false;
 
-    switch (screen) {
-      case Screen.Messages:
-        route = uiRouteMessages;
-        break;
-      case Screen.Grows:
-        route = uiRouteGrows;
-        break;
-      case Screen.Social:
-        route = uiRouteSocial;
-        break;
-      case Screen.KnowledgeBase:
-        route = uiRouteKnowledgeBase;
-        break;
-      case Screen.Settings:
-        route = uiRouteSettings;
-        break;
-      case Screen.Login:
-        route = uiRouteLogin;
-        break;
-      default:
-        route = uiRouteHomeScreen;
-    }
+    if (screen != Screen.Login) {
+      switch (screen) {
+        case Screen.Messages:
+          route = uiRouteMessages;
+          break;
+        case Screen.Grows:
+          route = uiRouteGrows;
+          break;
+        case Screen.Social:
+          route = uiRouteSocial;
+          break;
+        case Screen.KnowledgeBase:
+          route = uiRouteKnowledgeBase;
+          break;
+        case Screen.Settings:
+          route = uiRouteSettings;
+          break;
+        case Screen.Login:
+          route = uiRouteLogin;
+          break;
+        default:
+          route = uiRouteHomeScreen;
+      }
 
-    print('Routing to: ' + route);
+      print('Routing to: ' + route);
 
-    if (resetsScreenStack) {
-      print('Route will reset the screen stack.');
-      Navigator.pushReplacementNamed(context, route);
+      if (resetsScreenStack) {
+        print('Route will reset the screen stack.');
+        Navigator.pushReplacementNamed(context, route);
+      } else {
+        Navigator.pushNamed(context, route);
+      }
+
+      setState(() {
+        this.currentScreen = screen;
+      });
     } else {
-      Navigator.pushNamed(context, route);
+      performLogout();
     }
+  }
 
-    setState(() {
-      this.currentScreen = screen;
-    });
+  void performLogout() async {
+    // Call API to perform logout
+    bool opResult = await logout();
+
+    // If successful? (we might not care) reroute the user to the Login
+    if (opResult) {
+      Navigator.pushReplacementNamed(context, uiRouteLogin);
+    }
   }
 }
 
