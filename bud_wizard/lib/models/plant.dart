@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 
@@ -63,5 +66,51 @@ class Plant {
     }
 
     return plant;
+  }
+
+  String getGenderIcon() {
+    String retval = '';
+
+    switch (this.sex) {
+      case Gender.Male:
+        retval = 'male.png';
+        break;
+      case Gender.Female:
+        retval = 'female.png';
+        break;
+      case Gender.Hermaphrodite:
+        retval = 'hermi.png';
+        break;
+      case Gender.Unknown:
+        retval = 'hermi.png';
+        break;
+    }
+    print('gender icon string: ' + retval);
+
+    return retval;
+  }
+
+  Color getGrowthStateColor() {
+    Color retval = appBaseWhiteTextColor;
+
+    switch (this.growthState) {
+      case GrowState.Germination:
+        retval = Color.fromRGBO(102, 75, 0, 1.0);
+        break;
+      case GrowState.Vegatative:
+        retval = appBaseColor;
+        break;
+      case GrowState.Flowering:
+        retval = Color.fromRGBO(222, 203, 0, 1.0);
+        break;
+      case GrowState.Drying:
+        retval = Color.fromRGBO(222, 170, 0, 1.0);
+        break;
+      case GrowState.Curing:
+        retval = Color.fromRGBO(222, 93, 0, 1.0);
+        break;
+    }
+
+    return retval;
   }
 }

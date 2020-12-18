@@ -10,7 +10,7 @@ class DankLabel extends StatelessWidget {
   final TextStyle textStyle;
 
   DankLabel({
-    String displayText,
+    @required String displayText,
     double width,
     TextAlign textAlign = TextAlign.left,
     EdgeInsets padding = const EdgeInsets.all(0.0),

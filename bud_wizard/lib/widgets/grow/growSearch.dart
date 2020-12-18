@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/services/api%20services/api-grow.dart';
-import 'package:bud_wizard/widgets/grow/growsPage.dart';
+import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -55,6 +55,6 @@ class GrowSearchState extends State<GrowSearch> {
         searchText: text);
 
     // Tell the parent its data has changed and force a re-render
-    GrowsPage.of(context).setGrows(grows);
+    GrowPage.of(context).setGrows(grows);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
-import 'package:bud_wizard/widgets/grow/growsPage.dart';
+import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class _GrowsCardState extends State<GrowCard> {
         child: InkWell(
           onTap: selectGrow,
           child: Container(
-            width: 300.0,
+            width: 320.0,
             padding: EdgeInsets.all(10.0),
             margin: EdgeInsets.only(bottom: 5.0),
             decoration: BoxDecoration(
@@ -99,7 +99,7 @@ class _GrowsCardState extends State<GrowCard> {
                   margin: EdgeInsets.only(right: 10.0),
                   child: Image.asset(
                     grow.plants[0].imagePath,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
                 Expanded(
@@ -148,6 +148,6 @@ class _GrowsCardState extends State<GrowCard> {
 
   void selectGrow() {
     // Tell the parent its data has changed and force a re-render
-    GrowsPage.of(context).setCurrentGrow(grow);
+    GrowPage.of(context).setCurrentGrow(grow);
   }
 }

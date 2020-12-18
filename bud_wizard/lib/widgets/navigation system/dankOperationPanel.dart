@@ -53,7 +53,7 @@ class DankOperationPanelState extends State<DankOperationPanel> {
   Widget build(BuildContext context) {
     return DankOperationPanelWidget(
       child: Container(
-        width: 120.0,
+        width: 100.0,
         color: Colors.transparent,
         padding: EdgeInsets.only(
           top: 15.0,
@@ -76,17 +76,17 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             ),
             DankOperationButton(
               tooltipText: 'Your personal grows',
-              icon: Icons.self_improvement_rounded,
+              icon: Icons.grass,
               screen: Screen.Grows,
             ),
             DankOperationButton(
               tooltipText: 'Share your grows',
-              icon: Icons.people,
+              icon: Icons.share,
               screen: Screen.Social,
             ),
             DankOperationButton(
               tooltipText: 'A vast growers knowledge base',
-              icon: Icons.info_outline_rounded,
+              icon: Icons.help,
               screen: Screen.KnowledgeBase,
             ),
             DankOperationButton(

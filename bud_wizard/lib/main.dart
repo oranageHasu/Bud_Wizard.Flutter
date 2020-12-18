@@ -2,7 +2,7 @@ import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/services/router-services.dart';
 import 'package:bud_wizard/services/session-service.dart';
-import 'package:bud_wizard/widgets/grow/growsPage.dart';
+import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 
 import 'package:flutter/material.dart';
@@ -85,13 +85,13 @@ class _AppBasePageState extends State<AppBasePage> {
     // Show error message if initialization failed
     if (_error) {
       print("An error occurred initializing Firebase.");
-      return GrowsPage();
+      return GrowPage();
     }
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
       print("Firebase initialization failed.");
-      return GrowsPage();
+      return GrowPage();
     }
 
     print("App initialized successfully.");

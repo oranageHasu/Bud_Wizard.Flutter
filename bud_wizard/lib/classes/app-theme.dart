@@ -111,7 +111,7 @@ const TextStyle appInputHintFontStyle = TextStyle(
 
 const TextStyle appInputLabelFontStyle = TextStyle(
   fontFamily: 'Montserrat',
-  fontSize: 14.0,
+  fontSize: 20.0,
   color: appBaseWhiteTextColor,
 );
 

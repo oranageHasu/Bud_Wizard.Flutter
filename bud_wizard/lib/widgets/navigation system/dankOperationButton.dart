@@ -95,7 +95,7 @@ class _DankOperationButtonState extends State<DankOperationButton> {
         ),
         SizedBox(
           height: 70.0,
-          width: 20.0,
+          width: 10.0,
         ),
         DankIconButton(
           iconData: icon,
@@ -111,7 +111,7 @@ class _DankOperationButtonState extends State<DankOperationButton> {
         ),
         SizedBox(
           height: 70.0,
-          width: 20.0,
+          width: 10.0,
         ),
       ],
     );

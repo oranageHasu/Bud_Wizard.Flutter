@@ -16,7 +16,7 @@ class DankAppBar extends StatelessWidget {
             ),
             width: 200.0,
             padding: EdgeInsets.only(
-              left: 17.0,
+              left: 8.0,
             ),
           ),
         ],

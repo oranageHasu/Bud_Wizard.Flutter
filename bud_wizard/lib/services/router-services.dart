@@ -1,10 +1,8 @@
 import 'package:bud_wizard/classes/constants.dart';
-import 'package:bud_wizard/widgets/grow/growsPage.dart';
-import 'package:bud_wizard/widgets/homePage.dart/homePage.dart';
+import 'package:bud_wizard/widgets/grow/growPage.dart';
+import 'package:bud_wizard/widgets/home/homePage.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 import 'package:bud_wizard/widgets/navigation%20system/unknownRoutePage.dart';
-import 'package:bud_wizard/widgets/plant/plantPage.dart';
-import 'package:bud_wizard/widgets/plant/plantsPage.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -43,13 +41,7 @@ MaterialPageRoute determineRoute(RouteSettings settings) {
           builder: (_) => new LoginPage(), settings: settings);
     case uiRouteGrows:
       return new BudWizardRoute(
-          builder: (_) => new GrowsPage(), settings: settings);
-    case uiRoutePlants:
-      return new BudWizardRoute(
-          builder: (_) => new PlantsPage(), settings: settings);
-    case uiRoutePlant:
-      return new BudWizardRoute(
-          builder: (_) => new PlantPage(), settings: settings);
+          builder: (_) => new GrowPage(), settings: settings);
   }
 
   // Default case

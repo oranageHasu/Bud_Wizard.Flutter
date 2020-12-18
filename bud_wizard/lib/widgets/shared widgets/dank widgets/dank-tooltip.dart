@@ -33,8 +33,8 @@ class DankTooltip extends StatelessWidget {
       child: child,
       ballonPadding: EdgeInsets.all(5.0),
       borderWidth: 0.0,
-      arrowLength: 25,
-      arrowTipDistance: 12,
+      arrowLength: 16,
+      arrowTipDistance: 9,
     );
   }
 }
