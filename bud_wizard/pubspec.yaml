@@ -48,7 +48,7 @@ dependencies:
 
   # A wonderful package that allows navigation without context
   get: ^3.22.2
-  
+
   # Firebase dependencies
   firebase_core: ^0.5.2
   firebase_analytics: ^5.0.2

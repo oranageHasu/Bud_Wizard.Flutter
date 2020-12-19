@@ -88,6 +88,13 @@ const Color appErrorColor = Color.fromRGBO(245, 66, 66, 0.6);
 const Color appDropdownColor = Color.fromRGBO(81, 80, 82, 1);
 const Color appBorderUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
 
+// Grow related colors
+const Color growGerminationColor = Color.fromRGBO(102, 75, 0, 1.0);
+const Color growVegetativeColor = Color.fromRGBO(0, 184, 70, 1.0);
+const Color growFloweringColor = Color.fromRGBO(222, 203, 0, 1.0);
+const Color growDryingColor = Color.fromRGBO(222, 170, 0, 1.0);
+const Color growCuringColor = Color.fromRGBO(222, 93, 0, 1.0);
+
 //#endregion
 //#region App Font styles
 
@@ -156,6 +163,12 @@ final TextStyle appErrorFontStyle = GoogleFonts.varelaRound(
   fontSize: 15.0,
   fontWeight: FontWeight.bold,
   color: appErrorColor,
+);
+
+final TextStyle appPlantWeekFontStyle = GoogleFonts.itim(
+  fontSize: 20.0,
+  fontWeight: FontWeight.bold,
+  color: appBaseWhiteTextColor,
 );
 
 //#endregion

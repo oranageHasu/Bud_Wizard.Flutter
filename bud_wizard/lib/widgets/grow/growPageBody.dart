@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/widgets/grow/growDetail.dart';
 import 'package:bud_wizard/widgets/grow/growSelector.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
-import 'package:bud_wizard/widgets/plant/plantSelector.dart';
+import 'package:bud_wizard/widgets/plant/plantDetail.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +13,15 @@ import 'package:flutter/material.dart';
 class GrowPageBody extends StatelessWidget {
   final Future<List<Grow>> _grows;
   final Grow _currentGrow;
+  final Plant _currentPlant;
 
   GrowPageBody({
     @required Future<List<Grow>> grows,
     @required Grow currentGrow,
+    @required Plant currentPlant,
   })  : this._grows = grows,
-        this._currentGrow = currentGrow;
+        this._currentGrow = currentGrow,
+        this._currentPlant = currentPlant;
 
   @override
   Widget build(BuildContext context) {
@@ -54,36 +59,12 @@ class GrowPageBody extends StatelessWidget {
             },
           ),
           Expanded(
-            child: Container(
-              color: appSecondColor,
-              child: FutureBuilder<List<Grow>>(
-                future: _grows,
-                builder: (context, snapshot) {
-                  Grow currentGrow;
-                  Widget retval = SizedBox.shrink();
-
-                  if (snapshot.hasData) {
-                    if (snapshot.data.isEmpty) {
-                      retval = noData();
-                    } else {
-                      if (_currentGrow == null) {
-                        currentGrow = snapshot.data[0];
-                      } else {
-                        currentGrow = _currentGrow;
-                      }
-
-                      retval = PlantSelector(
-                        grow: currentGrow,
-                      );
-                    }
-                  } else if (snapshot.hasError) {
-                    return NoDataError();
-                  }
-
-                  return retval;
-                },
-              ),
-            ),
+            child: (_currentPlant != null)
+                ? PlantDetail(plant: _currentPlant)
+                : GrowDetail(
+                    grows: _grows,
+                    currentGrow: _currentGrow,
+                  ),
           ),
           Container(
             width: 400.0,

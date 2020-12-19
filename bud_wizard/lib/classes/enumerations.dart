@@ -75,7 +75,7 @@ enum GeneticType {
 
 enum GrowState {
   Germination,
-  Vegatative,
+  Vegetative,
   Flowering,
   Drying,
   Curing,

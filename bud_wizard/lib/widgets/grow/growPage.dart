@@ -1,6 +1,7 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/services/api%20services/api-grow.dart';
 import 'package:bud_wizard/widgets/grow/growPageBody.dart';
 import 'package:bud_wizard/widgets/grow/growPageHeader.dart';
@@ -20,16 +21,32 @@ class GrowPage extends StatefulWidget {
 class GrowPageState extends State<GrowPage> {
   Future<List<Grow>> _grows;
   Grow _currentGrow;
+  Plant _currentPlant;
 
   void setGrows(Future<List<Grow>> grows) {
     setState(() {
       _grows = grows;
+      _currentPlant = null;
     });
   }
 
   void setCurrentGrow(Grow grow) {
     setState(() {
       _currentGrow = grow;
+
+      if (_currentGrow != null &&
+          _currentGrow.plants != null &&
+          _currentGrow.plants.length == 1) {
+        _currentPlant = _currentGrow.plants[0];
+      } else {
+        _currentPlant = null;
+      }
+    });
+  }
+
+  void setCurrentPlant(Plant plant) {
+    setState(() {
+      _currentPlant = plant;
     });
   }
 
@@ -68,6 +85,7 @@ class GrowPageState extends State<GrowPage> {
                 GrowPageBody(
                   grows: _grows,
                   currentGrow: _currentGrow,
+                  currentPlant: _currentPlant,
                 ),
               ],
             ),

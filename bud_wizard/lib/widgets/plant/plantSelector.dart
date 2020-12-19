@@ -17,10 +17,11 @@ class PlantSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DankLabel(
-          displayText: 'Featured Grow',
+          displayText: 'Featured Plant',
           textAlign: TextAlign.left,
           textStyle: appHeaderFontStyle.copyWith(
-            fontSize: 26.0,
+            fontSize: 22.0,
+            color: appBaseColor.withOpacity(0.9),
           ),
           padding: EdgeInsets.only(
             left: 15.0,

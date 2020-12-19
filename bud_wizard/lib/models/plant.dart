@@ -95,19 +95,19 @@ class Plant {
 
     switch (this.growthState) {
       case GrowState.Germination:
-        retval = Color.fromRGBO(102, 75, 0, 1.0);
+        retval = growGerminationColor;
         break;
-      case GrowState.Vegatative:
-        retval = appBaseColor;
+      case GrowState.Vegetative:
+        retval = growVegetativeColor;
         break;
       case GrowState.Flowering:
-        retval = Color.fromRGBO(222, 203, 0, 1.0);
+        retval = growFloweringColor;
         break;
       case GrowState.Drying:
-        retval = Color.fromRGBO(222, 170, 0, 1.0);
+        retval = growDryingColor;
         break;
       case GrowState.Curing:
-        retval = Color.fromRGBO(222, 93, 0, 1.0);
+        retval = growCuringColor;
         break;
     }
 
