@@ -8,16 +8,22 @@ class PlantWeekCard extends StatefulWidget {
   final Color cardColor;
   final int weekNumber;
   final bool colorTransition;
+  final bool isSelected;
+  final Function(int) onClicked;
 
   PlantWeekCard({
-    String displayText,
-    Color cardColor,
-    int weekNumber,
+    @required bool isSelected,
+    @required String displayText,
+    @required Color cardColor,
+    @required int weekNumber,
+    Function(int) onClicked,
     bool colorTransition = false,
   })  : this.displayText = displayText,
         this.cardColor = cardColor,
         this.weekNumber = weekNumber,
-        this.colorTransition = colorTransition;
+        this.colorTransition = colorTransition,
+        this.isSelected = isSelected,
+        this.onClicked = onClicked;
 
   @override
   _PlantWeekCardState createState() => _PlantWeekCardState(
@@ -25,6 +31,8 @@ class PlantWeekCard extends StatefulWidget {
         this.cardColor,
         this.weekNumber,
         this.colorTransition,
+        this.isSelected,
+        this.onClicked,
       );
 }
 
@@ -33,6 +41,8 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
   Color cardColor;
   int weekNumber;
   bool colorTransition;
+  bool isSelected;
+  Function(int) onClicked;
   bool isHovered = false;
 
   _PlantWeekCardState(
@@ -40,6 +50,8 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
     this.cardColor,
     this.weekNumber,
     this.colorTransition,
+    this.isSelected,
+    this.onClicked,
   );
 
   @override
@@ -55,88 +67,110 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
   @override
   void didUpdateWidget(PlantWeekCard oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    this.cardColor = widget.cardColor;
+    this.colorTransition = widget.colorTransition;
+    this.isSelected = widget.isSelected;
+    this.weekNumber = widget.weekNumber;
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: 76,
-          width: 55.0,
-          margin: const EdgeInsets.all(2.5),
-          decoration: BoxDecoration(
-            gradient: getLinearGradient(
-              colorTransition,
-              cardColor,
-            ),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(1.5),
-            child: Container(
-              height: 70.0,
-              width: 55.0,
+        Column(
+          children: [
+            Container(
+              height: 76,
+              width: 65.0,
+              margin: const EdgeInsets.all(2.5),
               decoration: BoxDecoration(
-                color: appThirdColor,
+                gradient: getLinearGradient(
+                  colorTransition,
+                  cardColor,
+                ),
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    height: 25.0,
-                    decoration: BoxDecoration(
-                      color: cardColor,
-                      gradient: getLinearGradient(
-                        colorTransition,
-                        cardColor,
-                      ),
-                    ),
-                    child: DankLabel(
-                      displayText: displayText,
-                      textStyle: appPlantWeekFontStyle,
-                      textAlign: TextAlign.center,
-                    ),
+              child: Padding(
+                padding: const EdgeInsets.all(1.5),
+                child: Container(
+                  height: 70.0,
+                  width: 65.0,
+                  decoration: BoxDecoration(
+                    color: appThirdColor,
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
-                  ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                      child: Container(
-                        height: 40.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        height: 25.0,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.1),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(4.0),
-                            bottomRight: Radius.circular(4.0),
+                          color: cardColor,
+                          gradient: getLinearGradient(
+                            colorTransition,
+                            cardColor,
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            DankLabel(
-                              displayText: weekNumber.toString(),
-                              textStyle: appPlantWeekFontStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            DankLabel(
-                              displayText: 'Week',
-                              textStyle: appPlantWeekFontStyle.copyWith(
-                                fontSize: 13.5,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                        child: DankLabel(
+                          displayText: displayText,
+                          textStyle: appPlantWeekFontStyle,
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                    ),
+                      ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                          child: Container(
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.1),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(4.0),
+                                bottomRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                DankLabel(
+                                  displayText: weekNumber.toString(),
+                                  textStyle: appPlantWeekFontStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                DankLabel(
+                                  displayText: 'Week',
+                                  textStyle: appPlantWeekFontStyle.copyWith(
+                                    fontSize: 13.5,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
+            Container(
+              height: 2.0,
+              width: (isHovered && !isSelected) ? 25.0 : 55.0,
+              decoration: BoxDecoration(
+                gradient: (isHovered || isSelected)
+                    ? getLinearGradient(
+                        colorTransition,
+                        cardColor,
+                      )
+                    : null,
+                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+              ),
+            ),
+          ],
         ),
         Positioned.fill(
           child: Material(
@@ -147,7 +181,19 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                 borderRadius: BorderRadius.circular(5.0),
                 hoverColor: Colors.black.withOpacity(0.4),
                 splashColor: Colors.black.withOpacity(0.4),
-                onTap: () => {selectPlantWeek()},
+                onTap: selectPlantWeek,
+                child: MouseRegion(
+                  onEnter: (value) {
+                    setState(() {
+                      isHovered = true;
+                    });
+                  },
+                  onExit: (value) {
+                    setState(() {
+                      isHovered = false;
+                    });
+                  },
+                ),
               ),
             ),
           ),
@@ -157,7 +203,9 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
   }
 
   void selectPlantWeek() {
-    print('To Do: Select Plant Week.');
+    if (onClicked != null) {
+      onClicked(this.weekNumber);
+    }
   }
 
   LinearGradient getLinearGradient(
