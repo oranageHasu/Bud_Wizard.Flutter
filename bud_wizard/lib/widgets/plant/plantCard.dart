@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/plant.dart';

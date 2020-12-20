@@ -171,4 +171,10 @@ final TextStyle appPlantWeekFontStyle = GoogleFonts.itim(
   color: appBaseWhiteTextColor,
 );
 
+final TextStyle appPlantDetailStyle = GoogleFonts.itim(
+  fontSize: 20.0,
+  fontWeight: FontWeight.bold,
+  color: appBaseWhiteTextColor,
+);
+
 //#endregion

@@ -113,4 +113,8 @@ class Plant {
 
     return retval;
   }
+
+  String seedRetailer() {
+    return 'Crop Kings Seeds';
+  }
 }
