@@ -1,6 +1,5 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/widgets/navigation%20system/dankOperationPanel.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -11,13 +10,14 @@ class DankIconButton extends StatefulWidget {
   final VoidCallback onPressed;
   final VoidCallback onHover;
   final VoidCallback onLostHover;
-  final Function(Screen) isSelected;
+  final bool isSelected;
   final Color color;
   final double iconSize;
   final EdgeInsets padding;
   final EdgeInsets margin;
   final DankButtonType buttonType;
   final bool isDisabled;
+  final bool enableAnimation;
 
   DankIconButton({
     @required IconData iconData,
@@ -26,12 +26,13 @@ class DankIconButton extends StatefulWidget {
     VoidCallback onPressed,
     VoidCallback onHover,
     VoidCallback onLostHover,
-    Function(Screen) isSelected,
+    bool isSelected = false,
     Color color = Colors.white,
     EdgeInsets padding = const EdgeInsets.all(0.0),
     EdgeInsets margin = const EdgeInsets.all(0.0),
     bool isDisabled = false,
     DankButtonType buttonType = DankButtonType.Flat,
+    bool enableAnimation = false,
   })  : this.iconData = iconData,
         this.tooltipText = tooltipText,
         this.onPressed = onPressed,
@@ -43,7 +44,8 @@ class DankIconButton extends StatefulWidget {
         this.padding = padding,
         this.margin = margin,
         this.isDisabled = isDisabled,
-        this.buttonType = buttonType;
+        this.buttonType = buttonType,
+        this.enableAnimation = enableAnimation;
 
   @override
   DankIconButtonState createState() => DankIconButtonState(
@@ -59,6 +61,7 @@ class DankIconButton extends StatefulWidget {
         this.margin,
         this.isDisabled,
         this.buttonType,
+        this.enableAnimation,
       );
 }
 
@@ -68,15 +71,15 @@ class DankIconButtonState extends State<DankIconButton> {
   VoidCallback onPressed;
   VoidCallback onHover;
   VoidCallback onLostHover;
-  Function(Screen) isSelected;
+  bool isSelected;
   Color color;
   double iconSize;
   EdgeInsets padding;
   EdgeInsets margin;
   DankButtonType buttonType;
   bool isDisabled;
+  bool enableAnimation;
   bool isHovered = false;
-  bool isButtonSelected = false;
 
   DankIconButtonState(
     this.iconData,
@@ -91,6 +94,7 @@ class DankIconButtonState extends State<DankIconButton> {
     this.margin,
     this.isDisabled,
     this.buttonType,
+    this.enableAnimation,
   );
 
   @override
@@ -106,14 +110,13 @@ class DankIconButtonState extends State<DankIconButton> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // If the parent propogated a change, reflect it in this component
-    DankOperationPanelState data = DankOperationPanel.of(context);
+  }
 
-    if (isSelected != null) {
-      setState(() {
-        isButtonSelected = isSelected(data.currentScreen);
-      });
-    }
+  @override
+  void didUpdateWidget(DankIconButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    isSelected = widget.isSelected;
   }
 
   @override
@@ -122,6 +125,7 @@ class DankIconButtonState extends State<DankIconButton> {
       tooltipText: tooltipText,
       displayTooltip: isHovered,
       child: MouseRegion(
+        cursor: SystemMouseCursors.click,
         onEnter: (value) {
           setState(() {
             isHovered = true;
@@ -144,7 +148,7 @@ class DankIconButtonState extends State<DankIconButton> {
           margin: margin,
           padding: padding,
           height: 55.0,
-          width: (isButtonSelected || isHovered) ? 65.0 : 55.0,
+          width: (enableAnimation && (isSelected || isHovered)) ? 65.0 : 55.0,
           child: (buttonType == DankButtonType.Outline)
               ? OutlineButton(
                   padding: EdgeInsets.all(15.0),
@@ -162,19 +166,19 @@ class DankIconButtonState extends State<DankIconButton> {
                     color: color,
                     size: iconSize,
                   ),
+                  mouseCursor: SystemMouseCursors.click,
                 )
               : FlatButton(
                   padding: EdgeInsets.all(18.0),
                   clipBehavior: Clip.hardEdge,
                   autofocus: true,
-                  color: (isButtonSelected || isHovered)
-                      ? appBaseColor
-                      : appThirdColor,
+                  color:
+                      (isSelected || isHovered) ? appBaseColor : appThirdColor,
                   textColor: Colors.white,
                   disabledTextColor: appBaseWhiteTextColor,
                   disabledColor: Colors.black.withOpacity(0.3),
                   hoverColor: Colors.transparent,
-                  shape: (isButtonSelected || isHovered)
+                  shape: (enableAnimation && (isSelected || isHovered))
                       ? RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         )
@@ -182,11 +186,12 @@ class DankIconButtonState extends State<DankIconButton> {
                   onPressed: (isDisabled) ? null : onPressed,
                   child: new Icon(
                     iconData,
-                    color: (isButtonSelected || isHovered)
+                    color: (isSelected || isHovered)
                         ? color
                         : color.withOpacity(0.5),
                     size: iconSize,
                   ),
+                  mouseCursor: SystemMouseCursors.click,
                 ),
         ),
       ),

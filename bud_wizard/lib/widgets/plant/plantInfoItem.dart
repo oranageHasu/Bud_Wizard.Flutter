@@ -23,8 +23,8 @@ class PlantInfoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 70.0,
-      width: 200.0,
       margin: EdgeInsets.all(5.0),
+      padding: EdgeInsets.only(right: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

@@ -1,9 +1,8 @@
 import 'dart:ui';
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/plant/plantInfo.dart';
 import 'package:flutter/material.dart';
 
 class PlantCard extends StatelessWidget {
@@ -59,17 +58,6 @@ class PlantCard extends StatelessWidget {
               ],
             ),
           ),
-          if (isSelectable)
-            Positioned.fill(
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  hoverColor: Colors.black.withOpacity(0.2),
-                  splashColor: Colors.black.withOpacity(0.2),
-                  onTap: () => {selectPlant(context)},
-                ),
-              ),
-            ),
           Positioned.fill(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,35 +76,11 @@ class PlantCard extends StatelessWidget {
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                           child: Container(
-                            height: 100.0,
+                            height: (isFeatured) ? 100.0 : 50.0,
                             color: Colors.black.withOpacity(0.7),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: DankLabel(
-                                    displayText: plant.strain,
-                                    textStyle: appHeaderFontStyle.copyWith(
-                                      fontSize: (isFeatured) ? 35.0 : 18.0,
-                                    ),
-                                    padding: EdgeInsets.only(left: 10.0),
-                                  ),
-                                ),
-                                DankLabel(
-                                  displayText:
-                                      formatEnum(plant.growthState.toString()),
-                                  textStyle: appInputLabelFontStyle.copyWith(
-                                    color: plant.getGrowthStateColor(),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Image.asset(
-                                  plant.getGenderIcon(),
-                                  fit: BoxFit.scaleDown,
-                                  height: 50.0,
-                                  width: 50.0,
-                                ),
-                              ],
+                            child: PlantInfo(
+                              plant: plant,
+                              isFeatured: isFeatured,
                             ),
                           ),
                         ),
@@ -127,6 +91,17 @@ class PlantCard extends StatelessWidget {
               ],
             ),
           ),
+          if (isSelectable)
+            Positioned.fill(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  hoverColor: Colors.black.withOpacity(0.2),
+                  splashColor: Colors.black.withOpacity(0.2),
+                  onTap: () => {selectPlant(context)},
+                ),
+              ),
+            ),
         ],
       ),
     );

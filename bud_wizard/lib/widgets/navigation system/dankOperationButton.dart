@@ -8,6 +8,7 @@ class DankOperationButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String tooltipText;
   final IconData icon;
+  final bool isSelected;
   final Screen screen;
 
   DankOperationButton({
@@ -15,10 +16,12 @@ class DankOperationButton extends StatefulWidget {
     @required String tooltipText,
     @required IconData icon,
     VoidCallback onPressed,
+    bool isSelected,
     Screen screen,
   })  : this.onPressed = onPressed,
         this.tooltipText = tooltipText,
         this.icon = icon,
+        this.isSelected = isSelected,
         this.screen = screen,
         super(key: key);
 
@@ -27,6 +30,7 @@ class DankOperationButton extends StatefulWidget {
         this.onPressed,
         this.tooltipText,
         this.icon,
+        this.isSelected,
         this.screen,
       );
 }
@@ -36,13 +40,14 @@ class _DankOperationButtonState extends State<DankOperationButton> {
   String tooltipText;
   IconData icon;
   bool isHovered = false;
-  bool buttonSelected = false;
+  bool isSelected = false;
   Screen screen;
 
   _DankOperationButtonState(
     this.onPressed,
     this.tooltipText,
     this.icon,
+    this.isSelected,
     this.screen,
   );
 
@@ -59,16 +64,13 @@ class _DankOperationButtonState extends State<DankOperationButton> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // If the parent propogated a change, reflect it in this component
-    DankOperationPanelState data = DankOperationPanel.of(context);
-
-    setState(() {
-      buttonSelected = isScreenSelected(data.currentScreen);
-    });
   }
 
-  bool isScreenSelected(Screen screen) {
-    return this.screen == screen;
+  @override
+  void didUpdateWidget(DankOperationButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    isSelected = widget.isSelected;
   }
 
   @override
@@ -80,10 +82,10 @@ class _DankOperationButtonState extends State<DankOperationButton> {
       children: [
         Center(
           child: Container(
-            height: (isHovered && !buttonSelected) ? 25.0 : 60.0,
+            height: (isHovered && !isSelected) ? 25.0 : 60.0,
             width: 4.0,
             decoration: BoxDecoration(
-              color: (buttonSelected || isHovered)
+              color: (isSelected || isHovered)
                   ? appBaseWhiteTextColor
                   : Colors.transparent,
               borderRadius: BorderRadius.only(
@@ -107,7 +109,8 @@ class _DankOperationButtonState extends State<DankOperationButton> {
           },
           onHover: onHover,
           onLostHover: onLostHover,
-          isSelected: isScreenSelected,
+          isSelected: isSelected,
+          enableAnimation: true,
         ),
         SizedBox(
           height: 70.0,

@@ -65,6 +65,7 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             DankOperationButton(
               tooltipText: 'Bud Wizard News',
               icon: Icons.home,
+              isSelected: isScreenSelected(Screen.Home),
               screen: Screen.Home,
             ),
             Container(
@@ -77,21 +78,25 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             DankOperationButton(
               tooltipText: 'Your personal grows',
               icon: Icons.grass,
+              isSelected: isScreenSelected(Screen.Grows),
               screen: Screen.Grows,
             ),
             DankOperationButton(
               tooltipText: 'Share your grows',
               icon: Icons.share,
+              isSelected: isScreenSelected(Screen.Social),
               screen: Screen.Social,
             ),
             DankOperationButton(
               tooltipText: 'A vast growers knowledge base',
               icon: Icons.help,
+              isSelected: isScreenSelected(Screen.KnowledgeBase),
               screen: Screen.KnowledgeBase,
             ),
             DankOperationButton(
               tooltipText: 'App Settings',
               icon: Icons.settings,
+              isSelected: isScreenSelected(Screen.Settings),
               screen: Screen.Settings,
             ),
             Expanded(
@@ -100,6 +105,7 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             DankOperationButton(
               tooltipText: 'Logout',
               icon: Icons.logout,
+              isSelected: isScreenSelected(Screen.Login),
               screen: Screen.Login,
             ),
           ],
@@ -107,6 +113,10 @@ class DankOperationPanelState extends State<DankOperationPanel> {
       ),
       opPanelData: this,
     );
+  }
+
+  bool isScreenSelected(Screen screen) {
+    return this.currentScreen == screen;
   }
 
   void navigateTo(Screen screen) {

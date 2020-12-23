@@ -75,7 +75,7 @@ class _GrowsCardState extends State<GrowCard> {
           onTap: selectGrow,
           child: Container(
             width: 320.0,
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(8.0),
             margin: EdgeInsets.only(bottom: 5.0),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
@@ -107,20 +107,35 @@ class _GrowsCardState extends State<GrowCard> {
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(35.0)),
-                    child: DankLabel(
-                      displayText: grow.name,
-                      textAlign: TextAlign.start,
-                      padding: EdgeInsets.only(
-                        left: 15.0,
-                        right: 15.0,
-                        top: 7.0,
-                        bottom: 7.0,
-                      ),
-                      textStyle: appLabelFontStyle.copyWith(
-                        color: (isHovered || isSelected)
-                            ? appBaseWhiteTextColor
-                            : appBaseWhiteTextColor.withOpacity(0.5),
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DankLabel(
+                          displayText: grow.name,
+                          textAlign: TextAlign.start,
+                          padding: EdgeInsets.only(
+                            left: 15.0,
+                            right: 15.0,
+                          ),
+                          textStyle: appLabelFontStyle.copyWith(
+                            color: (isHovered || isSelected)
+                                ? appBaseWhiteTextColor
+                                : appBaseWhiteTextColor.withOpacity(0.5),
+                          ),
+                        ),
+                        DankLabel(
+                          displayText:
+                              'Plants: ' + grow.plants.length.toString(),
+                          textAlign: TextAlign.start,
+                          padding: EdgeInsets.only(
+                            left: 15.0,
+                            right: 15.0,
+                          ),
+                          textStyle: appInputHintFontStyle.copyWith(
+                            color: appBaseWhiteTextColor.withOpacity(0.5),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
