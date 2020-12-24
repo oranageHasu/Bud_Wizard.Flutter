@@ -31,7 +31,7 @@ class PlantImageContainer extends StatelessWidget {
 
   void selectPlantImage(BuildContext context) {
     showGeneralDialog(
-      barrierColor: Colors.black.withOpacity(0.5),
+      barrierColor: Colors.black.withOpacity(0.7),
       transitionBuilder: (context, a1, a2, widget) {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(

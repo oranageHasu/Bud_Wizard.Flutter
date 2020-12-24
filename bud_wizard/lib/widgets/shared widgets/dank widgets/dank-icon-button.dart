@@ -18,6 +18,7 @@ class DankIconButton extends StatefulWidget {
   final DankButtonType buttonType;
   final bool isDisabled;
   final bool enableAnimation;
+  final bool displayTooltip;
 
   DankIconButton({
     @required IconData iconData,
@@ -33,6 +34,7 @@ class DankIconButton extends StatefulWidget {
     bool isDisabled = false,
     DankButtonType buttonType = DankButtonType.Flat,
     bool enableAnimation = false,
+    bool displayTooltip = true,
   })  : this.iconData = iconData,
         this.tooltipText = tooltipText,
         this.onPressed = onPressed,
@@ -45,7 +47,8 @@ class DankIconButton extends StatefulWidget {
         this.margin = margin,
         this.isDisabled = isDisabled,
         this.buttonType = buttonType,
-        this.enableAnimation = enableAnimation;
+        this.enableAnimation = enableAnimation,
+        this.displayTooltip = displayTooltip;
 
   @override
   DankIconButtonState createState() => DankIconButtonState(
@@ -62,6 +65,7 @@ class DankIconButton extends StatefulWidget {
         this.isDisabled,
         this.buttonType,
         this.enableAnimation,
+        this.displayTooltip,
       );
 }
 
@@ -79,6 +83,7 @@ class DankIconButtonState extends State<DankIconButton> {
   DankButtonType buttonType;
   bool isDisabled;
   bool enableAnimation;
+  bool displayTooltip;
   bool isHovered = false;
 
   DankIconButtonState(
@@ -95,6 +100,7 @@ class DankIconButtonState extends State<DankIconButton> {
     this.isDisabled,
     this.buttonType,
     this.enableAnimation,
+    this.displayTooltip,
   );
 
   @override
@@ -123,7 +129,7 @@ class DankIconButtonState extends State<DankIconButton> {
   Widget build(BuildContext context) {
     return DankTooltip(
       tooltipText: tooltipText,
-      displayTooltip: isHovered,
+      displayTooltip: (displayTooltip && isHovered),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (value) {

@@ -96,7 +96,6 @@ class _GrowsCardState extends State<GrowCard> {
                       Radius.circular(5.0),
                     ),
                   ),
-                  margin: EdgeInsets.only(right: 10.0),
                   child: Image.asset(
                     grow.plants[0].imagePath,
                     fit: BoxFit.fitWidth,

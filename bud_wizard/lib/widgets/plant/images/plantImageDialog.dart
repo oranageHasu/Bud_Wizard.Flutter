@@ -41,7 +41,8 @@ class PlantImageDialog extends StatelessWidget {
           ),
           DankIconButton(
             iconData: Icons.close,
-            tooltipText: 'Dismiss Image',
+            tooltipText: '',
+            displayTooltip: false,
             iconSize: 25.0,
             onPressed: () => {dismissDialog(context)},
           ),
