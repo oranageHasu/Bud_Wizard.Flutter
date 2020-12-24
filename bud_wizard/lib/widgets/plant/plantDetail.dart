@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/widgets/plant/images/plantImageDialog.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
+import 'package:bud_wizard/widgets/plant/journal/plantJournal.dart';
 import 'package:bud_wizard/widgets/plant/plantCard.dart';
 import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
@@ -72,10 +72,27 @@ class _PlantDetailState extends State<PlantDetail> {
           ),
           PlantWeekSelector(plant: currentPlant),
           PlantImageSelector(plant: currentPlant),
+          Divider(
+            color: appThirdColor,
+            height: 15.0,
+            thickness: 2.0,
+            indent: 25.0,
+            endIndent: 25.0,
+          ),
+          DankLabel(
+            displayText: 'Weekly Journal',
+            textStyle: appHeaderFontStyle.copyWith(fontSize: 20.0),
+            textAlign: TextAlign.center,
+            padding: EdgeInsets.only(top: 10.0),
+          ),
+          DankLabel(
+            displayText: 'Dec 13th, 2020 - Dec 19th, 2020',
+            textStyle: appInputHintFontStyle,
+            textAlign: TextAlign.center,
+            padding: EdgeInsets.only(top: 5.0),
+          ),
           Expanded(
-            child: Container(
-              color: appSecondColor,
-            ),
+            child: PlantJournal(),
           ),
         ],
       ),
