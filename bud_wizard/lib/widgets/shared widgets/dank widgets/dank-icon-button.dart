@@ -8,6 +8,7 @@ class DankIconButton extends StatefulWidget {
   final IconData iconData;
   final String tooltipText;
   final VoidCallback onPressed;
+  final VoidCallback onLongPress;
   final VoidCallback onHover;
   final VoidCallback onLostHover;
   final bool isSelected;
@@ -19,25 +20,33 @@ class DankIconButton extends StatefulWidget {
   final bool isDisabled;
   final bool enableAnimation;
   final bool displayTooltip;
+  final Color outlineColor;
+  final double outlineThickness;
+  final Color hoverColor;
 
   DankIconButton({
     @required IconData iconData,
     @required String tooltipText,
     @required double iconSize,
-    VoidCallback onPressed,
+    @required VoidCallback onPressed,
+    VoidCallback onLongPress,
     VoidCallback onHover,
     VoidCallback onLostHover,
     bool isSelected = false,
-    Color color = Colors.white,
+    Color color = appBaseWhiteTextColor,
     EdgeInsets padding = const EdgeInsets.all(0.0),
     EdgeInsets margin = const EdgeInsets.all(0.0),
     bool isDisabled = false,
     DankButtonType buttonType = DankButtonType.Flat,
     bool enableAnimation = false,
     bool displayTooltip = true,
+    Color outlineColor = appPrimaryColor,
+    double outlineThickness = 2.5,
+    Color hoverColor = Colors.white,
   })  : this.iconData = iconData,
         this.tooltipText = tooltipText,
         this.onPressed = onPressed,
+        this.onLongPress = onLongPress,
         this.onHover = onHover,
         this.onLostHover = onLostHover,
         this.isSelected = isSelected,
@@ -48,13 +57,17 @@ class DankIconButton extends StatefulWidget {
         this.isDisabled = isDisabled,
         this.buttonType = buttonType,
         this.enableAnimation = enableAnimation,
-        this.displayTooltip = displayTooltip;
+        this.displayTooltip = displayTooltip,
+        this.outlineColor = outlineColor,
+        this.outlineThickness = outlineThickness,
+        this.hoverColor = hoverColor;
 
   @override
   DankIconButtonState createState() => DankIconButtonState(
         this.iconData,
         this.tooltipText,
         this.onPressed,
+        this.onLongPress,
         this.onHover,
         this.onLostHover,
         this.isSelected,
@@ -66,6 +79,9 @@ class DankIconButton extends StatefulWidget {
         this.buttonType,
         this.enableAnimation,
         this.displayTooltip,
+        this.outlineColor,
+        this.outlineThickness,
+        this.hoverColor,
       );
 }
 
@@ -73,6 +89,7 @@ class DankIconButtonState extends State<DankIconButton> {
   IconData iconData;
   String tooltipText;
   VoidCallback onPressed;
+  VoidCallback onLongPress;
   VoidCallback onHover;
   VoidCallback onLostHover;
   bool isSelected;
@@ -84,6 +101,9 @@ class DankIconButtonState extends State<DankIconButton> {
   bool isDisabled;
   bool enableAnimation;
   bool displayTooltip;
+  Color outlineColor;
+  double outlineThickness;
+  Color hoverColor;
   bool isHovered = false;
 
   DankIconButtonState(
@@ -91,6 +111,7 @@ class DankIconButtonState extends State<DankIconButton> {
     this.tooltipText,
     this.onPressed,
     this.onHover,
+    this.onLongPress,
     this.onLostHover,
     this.isSelected,
     this.color,
@@ -101,6 +122,9 @@ class DankIconButtonState extends State<DankIconButton> {
     this.buttonType,
     this.enableAnimation,
     this.displayTooltip,
+    this.outlineColor,
+    this.outlineThickness,
+    this.hoverColor,
   );
 
   @override
@@ -157,16 +181,20 @@ class DankIconButtonState extends State<DankIconButton> {
           width: (enableAnimation && (isSelected || isHovered)) ? 65.0 : 55.0,
           child: (buttonType == DankButtonType.Outline)
               ? OutlineButton(
+                  highlightedBorderColor: outlineColor,
                   padding: EdgeInsets.all(15.0),
                   textColor: appBaseWhiteTextColor,
-                  disabledTextColor: appBaseWhiteTextColor,
                   disabledBorderColor: Colors.black.withOpacity(0.3),
-                  hoverColor: Colors.white.withOpacity(0.1),
-                  borderSide: BorderSide(color: appBaseColor, width: 2.0),
+                  hoverColor: hoverColor.withOpacity(0.5),
+                  borderSide: BorderSide(
+                    color: outlineColor,
+                    width: outlineThickness,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   onPressed: (isDisabled) ? null : onPressed,
+                  onLongPress: (isDisabled) ? null : onLongPress,
                   child: new Icon(
                     iconData,
                     color: color,
@@ -190,6 +218,7 @@ class DankIconButtonState extends State<DankIconButton> {
                         )
                       : StadiumBorder(),
                   onPressed: (isDisabled) ? null : onPressed,
+                  onLongPress: (isDisabled) ? null : onLongPress,
                   child: new Icon(
                     iconData,
                     color: (isSelected || isHovered)

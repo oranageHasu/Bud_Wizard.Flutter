@@ -33,6 +33,12 @@ enum DankShieldStatus {
   Error,
 }
 
+enum PlantOperation {
+  Journal,
+  Questions,
+  Statistics,
+}
+
 //endregion
 //#region HTTP Enums
 

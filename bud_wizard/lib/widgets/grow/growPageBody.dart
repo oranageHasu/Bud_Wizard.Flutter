@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/growDetail.dart';
@@ -14,14 +15,17 @@ class GrowPageBody extends StatelessWidget {
   final Future<List<Grow>> _grows;
   final Grow _currentGrow;
   final Plant _currentPlant;
+  final PlantOperation _currentOperation;
 
   GrowPageBody({
     @required Future<List<Grow>> grows,
     @required Grow currentGrow,
     @required Plant currentPlant,
+    @required PlantOperation currentOperation,
   })  : this._grows = grows,
         this._currentGrow = currentGrow,
-        this._currentPlant = currentPlant;
+        this._currentPlant = currentPlant,
+        this._currentOperation = currentOperation;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,10 @@ class GrowPageBody extends StatelessWidget {
           ),
           Expanded(
             child: (_currentPlant != null)
-                ? PlantDetail(plant: _currentPlant)
+                ? PlantDetail(
+                    plant: _currentPlant,
+                    operation: _currentOperation,
+                  )
                 : GrowDetail(
                     grows: _grows,
                     currentGrow: _currentGrow,

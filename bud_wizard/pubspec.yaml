@@ -49,6 +49,9 @@ dependencies:
   # A wonderful package that allows navigation without context
   get: ^3.22.2
 
+  # A carousel slider for images that supports iOS/Android/Web
+  carousel_slider: ^2.3.1
+
   # Firebase dependencies
   firebase_core: ^0.5.2
   firebase_analytics: ^5.0.2

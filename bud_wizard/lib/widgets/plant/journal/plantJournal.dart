@@ -15,7 +15,7 @@ class PlantJournal extends StatelessWidget {
       padding: EdgeInsets.only(
         left: 10.0,
         right: 10.0,
-        top: 15.0,
+        top: 5.0,
       ),
       child: ListView(
         scrollDirection: Axis.vertical,

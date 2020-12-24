@@ -158,7 +158,7 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
               ),
             ),
             Container(
-              height: 2.0,
+              height: 4.0,
               width: (isHovered && !isSelected) ? 25.0 : 55.0,
               decoration: BoxDecoration(
                 gradient: (isHovered || isSelected)
@@ -167,7 +167,10 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                         cardColor,
                       )
                     : null,
-                borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(25.0),
+                  bottomRight: Radius.circular(25.0),
+                ),
               ),
             ),
           ],
@@ -176,7 +179,12 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
           child: Material(
             color: Colors.transparent,
             child: Container(
-              margin: const EdgeInsets.all(2.5),
+              margin: const EdgeInsets.only(
+                bottom: 6,
+                left: 2.5,
+                right: 2.5,
+                top: 2.5,
+              ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(5.0),
                 hoverColor: Colors.black.withOpacity(0.4),
