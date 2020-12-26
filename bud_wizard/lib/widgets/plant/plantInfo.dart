@@ -50,7 +50,7 @@ class PlantInfo extends StatelessWidget {
                         DankLabel(
                           displayText: formatEnum(plant.growthState.toString()),
                           textStyle: appPlantDetailStyle.copyWith(
-                            color: plant.getGrowthStateColor(),
+                            color: getGrowthStateColor(plant.growthState),
                             fontSize: 28.0,
                           ),
                         ),
@@ -124,7 +124,7 @@ class PlantInfo extends StatelessWidget {
                   DankLabel(
                     displayText: formatEnum(plant.growthState.toString()),
                     textStyle: appPlantDetailStyle.copyWith(
-                      color: plant.getGrowthStateColor(),
+                      color: getGrowthStateColor(plant.growthState),
                       fontSize: (isFeatured) ? 28.0 : 18.0,
                     ),
                     padding: EdgeInsets.only(right: 25.0),

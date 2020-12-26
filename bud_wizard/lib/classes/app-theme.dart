@@ -1,3 +1,4 @@
+import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -183,5 +184,32 @@ final TextStyle appPlantDetailStyle = GoogleFonts.itim(
   fontWeight: FontWeight.bold,
   color: appBaseWhiteTextColor,
 );
+
+//#endregion
+//#region Theme Functions
+
+Color getGrowthStateColor(GrowState growthState) {
+  Color retval = appBaseWhiteTextColor;
+
+  switch (growthState) {
+    case GrowState.Germination:
+      retval = growGerminationColor;
+      break;
+    case GrowState.Vegetative:
+      retval = growVegetativeColor;
+      break;
+    case GrowState.Flowering:
+      retval = growFloweringColor;
+      break;
+    case GrowState.Drying:
+      retval = growDryingColor;
+      break;
+    case GrowState.Curing:
+      retval = growCuringColor;
+      break;
+  }
+
+  return retval;
+}
 
 //#endregion

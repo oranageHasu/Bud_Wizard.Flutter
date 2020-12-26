@@ -1,11 +1,16 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
+import 'package:bud_wizard/classes/formatter.dart';
+import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/services/api%20services/api-journal.dart';
+import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournal.dart';
 import 'package:bud_wizard/widgets/plant/plantCard.dart';
 import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -19,25 +24,41 @@ class PlantDetail extends StatefulWidget {
   })  : this.currentPlant = plant,
         this.currentOperation = operation;
 
+  static PlantDetailState of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<PlantDetailWidget>()
+        .plantsData;
+  }
+
   @override
-  _PlantDetailState createState() => _PlantDetailState(
+  State<StatefulWidget> createState() => PlantDetailState(
         this.currentPlant,
         this.currentOperation,
       );
 }
 
-class _PlantDetailState extends State<PlantDetail> {
+class PlantDetailState extends State<PlantDetail> {
   Plant currentPlant;
   PlantOperation currentOperation;
+  Future<Journal> _journal;
+  int _currentWeek = 1;
 
-  _PlantDetailState(
+  PlantDetailState(
     this.currentPlant,
     this.currentOperation,
   );
 
+  void setCurrentWeek(int selectedWeek) {
+    setState(() {
+      _currentWeek = selectedWeek;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
+    _journal = getJournal(currentPlant.plantId);
   }
 
   @override
@@ -58,15 +79,31 @@ class _PlantDetailState extends State<PlantDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: appSecondColor,
-      child: (currentOperation == PlantOperation.Journal)
-          ? plantJournal()
-          : other(),
+    return PlantDetailWidget(
+      plantsData: this,
+      child: Container(
+        color: appSecondColor,
+        child: (currentOperation == PlantOperation.Journal)
+            ? FutureBuilder<Journal>(
+                future: _journal,
+                builder: (context, snapshot) {
+                  Widget retval = DankLoading();
+
+                  if (snapshot.hasData) {
+                    return plantJournal(snapshot.data);
+                  } else if (snapshot.hasError) {
+                    return NoDataError();
+                  }
+
+                  return retval;
+                },
+              )
+            : other(),
+      ),
     );
   }
 
-  Widget plantJournal() {
+  Widget plantJournal(Journal journal) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.max,
@@ -76,7 +113,10 @@ class _PlantDetailState extends State<PlantDetail> {
           isFeatured: true,
           isSelectable: false,
         ),
-        PlantWeekSelector(plant: currentPlant),
+        PlantWeekSelector(
+          journal: journal,
+          currentIndex: _currentWeek,
+        ),
         DankLabel(
           displayText: 'Weekly Journal',
           textStyle: appHeaderFontStyle.copyWith(fontSize: 20.0),
@@ -84,7 +124,11 @@ class _PlantDetailState extends State<PlantDetail> {
           padding: EdgeInsets.only(top: 10.0),
         ),
         DankLabel(
-          displayText: 'Dec 13th, 2020 - Dec 19th, 2020',
+          displayText: formatDateDisplay(
+                  journal.plantWeeks[_currentWeek - 1].startDate) +
+              ' - ' +
+              formatDateDisplay(journal.plantWeeks[_currentWeek - 1].startDate
+                  .add(Duration(days: 6))),
           textStyle: appInputHintFontStyle,
           textAlign: TextAlign.center,
           padding: EdgeInsets.only(top: 5.0),
@@ -101,7 +145,10 @@ class _PlantDetailState extends State<PlantDetail> {
         ),
         PlantImageSelector(plant: currentPlant),
         Expanded(
-          child: PlantJournal(plant: currentPlant),
+          child: PlantJournal(
+            plant: currentPlant,
+            plantDays: journal.plantWeeks[_currentWeek - 1].plantDays,
+          ),
         ),
       ],
     );
@@ -117,5 +164,20 @@ class _PlantDetailState extends State<PlantDetail> {
         ),
       ],
     );
+  }
+}
+
+class PlantDetailWidget extends InheritedWidget {
+  final PlantDetailState plantsData;
+
+  PlantDetailWidget({
+    Key key,
+    @required Widget child,
+    @required this.plantsData,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(PlantDetailWidget oldWidget) {
+    return true;
   }
 }

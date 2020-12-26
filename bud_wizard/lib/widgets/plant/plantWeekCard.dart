@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/widgets/plant/plantDetail.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 
@@ -9,21 +10,18 @@ class PlantWeekCard extends StatefulWidget {
   final int weekNumber;
   final bool colorTransition;
   final bool isSelected;
-  final Function(int) onClicked;
 
   PlantWeekCard({
     @required bool isSelected,
     @required String displayText,
     @required Color cardColor,
     @required int weekNumber,
-    Function(int) onClicked,
     bool colorTransition = false,
   })  : this.displayText = displayText,
         this.cardColor = cardColor,
         this.weekNumber = weekNumber,
         this.colorTransition = colorTransition,
-        this.isSelected = isSelected,
-        this.onClicked = onClicked;
+        this.isSelected = isSelected;
 
   @override
   _PlantWeekCardState createState() => _PlantWeekCardState(
@@ -32,7 +30,6 @@ class PlantWeekCard extends StatefulWidget {
         this.weekNumber,
         this.colorTransition,
         this.isSelected,
-        this.onClicked,
       );
 }
 
@@ -42,7 +39,6 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
   int weekNumber;
   bool colorTransition;
   bool isSelected;
-  Function(int) onClicked;
   bool isHovered = false;
 
   _PlantWeekCardState(
@@ -51,7 +47,6 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
     this.weekNumber,
     this.colorTransition,
     this.isSelected,
-    this.onClicked,
   );
 
   @override
@@ -211,9 +206,8 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
   }
 
   void selectPlantWeek() {
-    if (onClicked != null) {
-      onClicked(this.weekNumber);
-    }
+    // Tell the parent its data has changed and force a re-render
+    PlantDetail.of(context).setCurrentWeek(weekNumber);
   }
 
   LinearGradient getLinearGradient(

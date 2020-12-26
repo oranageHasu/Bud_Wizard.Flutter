@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 
@@ -83,30 +80,6 @@ class Plant {
         break;
       case Gender.Unknown:
         retval = 'hermi.png';
-        break;
-    }
-
-    return retval;
-  }
-
-  Color getGrowthStateColor() {
-    Color retval = appBaseWhiteTextColor;
-
-    switch (this.growthState) {
-      case GrowState.Germination:
-        retval = growGerminationColor;
-        break;
-      case GrowState.Vegetative:
-        retval = growVegetativeColor;
-        break;
-      case GrowState.Flowering:
-        retval = growFloweringColor;
-        break;
-      case GrowState.Drying:
-        retval = growDryingColor;
-        break;
-      case GrowState.Curing:
-        retval = growCuringColor;
         break;
     }
 

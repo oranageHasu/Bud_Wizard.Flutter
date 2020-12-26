@@ -1,38 +1,37 @@
-import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/journal%20system/journalDay.dart';
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/services/api%20services/api-journal.dart';
-import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournalEntry.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:flutter/material.dart';
 
 class PlantJournal extends StatefulWidget {
   final Plant plant;
+  final List<JournalDay> plantDays;
 
   PlantJournal({
-    Plant plant,
-  }) : this.plant = plant;
+    @required Plant plant,
+    @required List<JournalDay> plantDays,
+  })  : this.plant = plant,
+        this.plantDays = plantDays;
 
   @override
   _PlantJournalState createState() => _PlantJournalState(
         this.plant,
+        this.plantDays,
       );
 }
 
 class _PlantJournalState extends State<PlantJournal> {
   Plant plant;
-  Future<Journal> _journal;
+  List<JournalDay> plantDays;
 
   _PlantJournalState(
     this.plant,
+    this.plantDays,
   );
 
   @override
   void initState() {
     super.initState();
-
-    _journal = getJournal(plant.plantId);
   }
 
   @override
@@ -40,7 +39,7 @@ class _PlantJournalState extends State<PlantJournal> {
     super.didUpdateWidget(oldWidget);
 
     plant = widget.plant;
-    _journal = getJournal(plant.plantId);
+    plantDays = widget.plantDays;
   }
 
   @override
@@ -51,29 +50,17 @@ class _PlantJournalState extends State<PlantJournal> {
         right: 10.0,
         top: 5.0,
       ),
-      child: FutureBuilder<Journal>(
-        future: _journal,
-        builder: (context, snapshot) {
-          Widget retval = DankLoading();
-
-          if (snapshot.hasData) {
-            List<JournalDay> plantDays = snapshot.data.plantWeeks[0].plantDays;
-
-            return ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                for (JournalDay day in plantDays)
-                  PlantJournalEntry(
-                    day: day,
-                  ),
-              ],
-            );
-          } else if (snapshot.hasError) {
-            return NoDataError();
-          }
-
-          return retval;
-        },
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          if (plantDays.isEmpty)
+            PlantJournalEntry(day: null)
+          else
+            for (JournalDay day in plantDays)
+              PlantJournalEntry(
+                day: day,
+              ),
+        ],
       ),
     );
   }

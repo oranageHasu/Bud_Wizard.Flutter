@@ -5,12 +5,14 @@ class JournalEntry {
   final Guid journalDayId;
   final DateTime entryDate;
   String entry;
+  bool growStateTransitionOccurred;
 
   JournalEntry({
     this.journalEntryId,
     this.journalDayId,
     this.entryDate,
     this.entry,
+    this.growStateTransitionOccurred = false,
   });
 
   factory JournalEntry.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,7 @@ class JournalEntry {
       journalDayId: new Guid(json['journalDayId']),
       entryDate: DateTime.parse(json['entryDate']),
       entry: json['entry'],
+      growStateTransitionOccurred: json['growStateTransitionOccurred'],
     );
   }
 }
