@@ -101,7 +101,7 @@ class _PlantDetailState extends State<PlantDetail> {
         ),
         PlantImageSelector(plant: currentPlant),
         Expanded(
-          child: PlantJournal(),
+          child: PlantJournal(plant: currentPlant),
         ),
       ],
     );

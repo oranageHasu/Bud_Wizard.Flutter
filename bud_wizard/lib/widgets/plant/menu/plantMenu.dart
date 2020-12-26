@@ -43,7 +43,7 @@ class _PlantMenuState extends State<PlantMenu> {
           children: [
             PlantMenuItem(
               displayText: 'Journal',
-              tooltipText: 'To Do',
+              tooltipText: 'This plant\'s history',
               isSelected: currentOperation == PlantOperation.Journal,
               onSelected: selectPlantOperation,
               opType: PlantOperation.Journal,
@@ -51,7 +51,7 @@ class _PlantMenuState extends State<PlantMenu> {
             verticalDivider(),
             PlantMenuItem(
               displayText: 'Questions',
-              tooltipText: 'To Do',
+              tooltipText: 'Have a question about this plant?',
               isSelected: currentOperation == PlantOperation.Questions,
               onSelected: selectPlantOperation,
               opType: PlantOperation.Questions,
@@ -59,7 +59,7 @@ class _PlantMenuState extends State<PlantMenu> {
             verticalDivider(),
             PlantMenuItem(
               displayText: 'Statistics',
-              tooltipText: 'To Do',
+              tooltipText: 'How does this plant compare to others?',
               isSelected: currentOperation == PlantOperation.Statistics,
               onSelected: selectPlantOperation,
               opType: PlantOperation.Statistics,

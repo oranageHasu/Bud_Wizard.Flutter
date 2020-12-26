@@ -20,6 +20,7 @@ class PlantInfo extends StatelessWidget {
     return (isFeatured)
         ? Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
               Container(
                 padding: EdgeInsets.only(right: 20.0),
@@ -30,7 +31,7 @@ class PlantInfo extends StatelessWidget {
                     DankLabel(
                       displayText: plant.strain,
                       textStyle: appHeaderFontStyle.copyWith(
-                        fontSize: (isFeatured) ? 30.0 : 18.0,
+                        fontSize: 30.0,
                       ),
                       padding: EdgeInsets.only(
                         left: 10.0,
@@ -61,23 +62,41 @@ class PlantInfo extends StatelessWidget {
               Expanded(
                 child: SizedBox.shrink(),
               ),
-              PlantInfoItem(
-                plant: plant,
-                imageUrl: 'seeds.png',
-                headerText: plant.strain,
-                subText: plant.seedRetailer(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PlantInfoItem(
+                    plant: plant,
+                    imageUrl: 'seeds.png',
+                    headerText: plant.strain,
+                    subText: plant.seedRetailer(),
+                  ),
+                  PlantInfoItem(
+                    plant: plant,
+                    imageUrl: 'nutrients.png',
+                    headerText: 'Advanced Nutrients',
+                    subText: 'Nutrients',
+                  ),
+                ],
               ),
-              PlantInfoItem(
-                plant: plant,
-                imageUrl: 'light.png',
-                headerText: '200 Watts',
-                subText: 'LED',
-              ),
-              PlantInfoItem(
-                plant: plant,
-                imageUrl: 'nutrients.png',
-                headerText: 'Advanced Nutrients',
-                subText: 'Nutrients',
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PlantInfoItem(
+                    plant: plant,
+                    imageUrl: 'light.png',
+                    headerText: '200 Watts',
+                    subText: 'LED',
+                  ),
+                  PlantInfoItem(
+                    plant: plant,
+                    imageUrl: 'clock.png',
+                    headerText: '12 hr/12 hr',
+                    subText: 'Light Schedule',
+                  ),
+                ],
               ),
             ],
           )

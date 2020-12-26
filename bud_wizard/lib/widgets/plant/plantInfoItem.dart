@@ -22,14 +22,15 @@ class PlantInfoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70.0,
+      height: 50.0,
       margin: EdgeInsets.all(5.0),
       padding: EdgeInsets.only(right: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 50.0,
+            height: 40.0,
+            width: 40.0,
             color: Colors.transparent,
             margin: EdgeInsets.only(right: 15.0),
             child: Image.asset(

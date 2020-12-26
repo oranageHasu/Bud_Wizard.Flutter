@@ -1,8 +1,17 @@
 import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/formatter.dart';
+import 'package:bud_wizard/models/journal%20system/journalDay.dart';
+import 'package:bud_wizard/models/journal%20system/journalEntry.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 
 class PlantJournalEntry extends StatelessWidget {
+  final JournalDay day;
+
+  PlantJournalEntry({
+    JournalDay day,
+  }) : this.day = day;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,21 +26,16 @@ class PlantJournalEntry extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               DankLabel(
-                displayText: 'Dec 15, 2020',
+                displayText: formatDateDisplay(day.entryDate),
                 textStyle: appLabelFontStyle,
                 padding: EdgeInsets.only(bottom: 5.0),
               ),
-              DankLabel(
-                displayText: '-Measured height; 42.5"',
-                textStyle: appLabelFontStyle.copyWith(fontSize: 15.0),
-                padding: EdgeInsets.only(left: 30.0),
-              ),
-              DankLabel(
-                displayText:
-                    '-Attempted yield projection.  Suggested to re-attempt Dec 21, 2020',
-                textStyle: appLabelFontStyle.copyWith(fontSize: 15.0),
-                padding: EdgeInsets.only(left: 30.0),
-              ),
+              for (JournalEntry entry in day.journalEntries)
+                DankLabel(
+                  displayText: '-' + entry.entry,
+                  textStyle: appLabelFontStyle.copyWith(fontSize: 15.0),
+                  padding: EdgeInsets.only(left: 30.0),
+                ),
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.da
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:simple_tooltip/simple_tooltip.dart';
 
 class PlantMenuItem extends StatefulWidget {
   final String displayText;
@@ -62,6 +63,7 @@ class _PlantMenuItemState extends State<PlantMenuItem> {
     return DankTooltip(
       tooltipText: tooltipText,
       displayTooltip: _isHovered,
+      tooltipDirection: TooltipDirection.down,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (value) {

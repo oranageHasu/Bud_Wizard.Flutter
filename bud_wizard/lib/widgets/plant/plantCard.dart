@@ -76,7 +76,7 @@ class PlantCard extends StatelessWidget {
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                           child: Container(
-                            height: (isFeatured) ? 100.0 : 50.0,
+                            height: (isFeatured) ? 120.0 : 50.0,
                             color: Colors.black.withOpacity(0.7),
                             child: PlantInfo(
                               plant: plant,

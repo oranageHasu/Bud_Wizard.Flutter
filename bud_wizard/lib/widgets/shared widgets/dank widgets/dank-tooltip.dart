@@ -7,21 +7,24 @@ class DankTooltip extends StatelessWidget {
   final String tooltipText;
   final Widget child;
   final bool displayTooltip;
+  final TooltipDirection tooltipDirection;
 
   DankTooltip({
     @required Widget child,
     @required bool displayTooltip,
     String tooltipText,
+    TooltipDirection tooltipDirection = TooltipDirection.right,
   })  : this.tooltipText = tooltipText,
         this.displayTooltip = displayTooltip,
-        this.child = child;
+        this.child = child,
+        this.tooltipDirection = tooltipDirection;
 
   @override
   Widget build(BuildContext context) {
     return SimpleTooltip(
       animationDuration: Duration(milliseconds: 0),
       show: displayTooltip,
-      tooltipDirection: TooltipDirection.right,
+      tooltipDirection: tooltipDirection,
       content: Container(
         child: DankLabel(
           displayText: tooltipText,
@@ -33,8 +36,8 @@ class DankTooltip extends StatelessWidget {
       child: child,
       ballonPadding: EdgeInsets.all(5.0),
       borderWidth: 0.0,
-      arrowLength: 16,
-      arrowTipDistance: 9,
+      arrowLength: 10,
+      arrowTipDistance: 3,
     );
   }
 }

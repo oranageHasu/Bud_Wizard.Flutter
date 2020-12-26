@@ -85,7 +85,6 @@ class Plant {
         retval = 'hermi.png';
         break;
     }
-    print('gender icon string: ' + retval);
 
     return retval;
   }
