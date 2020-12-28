@@ -3,12 +3,16 @@ import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/question%20system/question.dart';
 import 'package:bud_wizard/services/api%20services/api-journal.dart';
+import 'package:bud_wizard/services/api%20services/api-question.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournal.dart';
 import 'package:bud_wizard/widgets/plant/plantCard.dart';
 import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-expanded-section.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +45,7 @@ class PlantDetailState extends State<PlantDetail> {
   Plant currentPlant;
   PlantOperation currentOperation;
   Future<Journal> _journal;
+  Future<List<Question>> _questions;
   int _currentWeek = 1;
 
   PlantDetailState(
@@ -59,6 +64,7 @@ class PlantDetailState extends State<PlantDetail> {
     super.initState();
 
     _journal = getJournal(currentPlant.plantId);
+    _questions = getQuestions(currentPlant.plantId);
   }
 
   @override
@@ -159,8 +165,35 @@ class PlantDetailState extends State<PlantDetail> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Expanded(
-          child: SizedBox.shrink(),
+        FutureBuilder<List<Question>>(
+          future: _questions,
+          builder: (context, snapshot) {
+            Widget retval = DankLoading();
+
+            if (snapshot.hasData) {
+              return questionList(snapshot.data);
+            } else if (snapshot.hasError) {
+              return NoDataError();
+            }
+
+            return retval;
+          },
+        )
+      ],
+    );
+  }
+
+  Widget questionList(List<Question> questions) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        DankExpandedSection(
+          expand: true,
+          child: DankLabel(
+            displayText: 'Test',
+            textStyle: appLabelFontStyle,
+          ),
         ),
       ],
     );

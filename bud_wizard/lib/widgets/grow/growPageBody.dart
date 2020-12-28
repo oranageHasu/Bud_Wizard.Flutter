@@ -56,7 +56,11 @@ class GrowPageBody extends StatelessWidget {
                   );
                 }
               } else if (snapshot.hasError) {
-                return NoDataError();
+                return Container(
+                  width: 320.0,
+                  margin: EdgeInsets.all(10.0),
+                  child: SizedBox.shrink(),
+                );
               }
 
               return retval;

@@ -27,5 +27,6 @@ const String apiRouteLogout = 'authentication/logout';
 // API Entity Routes
 const String apiRouteGrows = 'grow';
 const String apiRouteJournal = 'journal';
+const String apiRouteQuestion = 'question';
 
 //endregion
