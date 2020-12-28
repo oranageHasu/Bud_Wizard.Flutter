@@ -68,5 +68,6 @@ Future<dioHttp.Response> executeRequest(
           e.response.statusCode.toString());
     }
   }
+
   return response;
 }

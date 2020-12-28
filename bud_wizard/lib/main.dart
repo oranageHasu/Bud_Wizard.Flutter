@@ -1,14 +1,11 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/constants.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/router-services.dart';
 import 'package:bud_wizard/services/session-service.dart';
-import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
-
 import 'package:flutter/material.dart';
-
-// Import the firebase_core plugin
-import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +21,7 @@ class MyApp extends StatelessWidget {
           bottomAppBarColor: appBaseColor,
           hoverColor: Colors.black38,
         ),
+        navigatorKey: Get.key,
         initialRoute: uiRouteApp,
         onGenerateRoute: (RouteSettings settings) {
           return determineRoute(settings);
@@ -52,49 +50,25 @@ class AppBasePage extends StatefulWidget {
 class _AppBasePageState extends State<AppBasePage> {
   // Set default `_initialized` and `_error` state to false
   bool _initialized = false;
-  bool _error = false;
-
-  // Define an async function to initialize FlutterFire
-  void initializeFlutterFire() async {
-    try {
-      // Wait for Firebase to initialize and set `_initialized` state to true
-      await Firebase.initializeApp();
-      setState(() {
-        _initialized = true;
-      });
-    } catch (e) {
-      // Set `_error` state to true if Firebase initialization fails
-      setState(() {
-        _error = true;
-      });
-    }
-  }
 
   @override
   void initState() {
     super.initState();
 
-    initializeFlutterFire();
-
     // Load any session data, if the app was running and hard refreshed
     initSession();
+
+    _initialized = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    // Show error message if initialization failed
-    if (_error) {
-      print("An error occurred initializing Firebase.");
-      return GrowPage();
+    if (_initialized) {
+      log("App initialized successfully.");
+      return LoginPage();
+    } else {
+      log("App failed to initialize, you rookie.");
+      return LoginPage();
     }
-
-    // Show a loader until FlutterFire is initialized
-    if (!_initialized) {
-      print("Firebase initialization failed.");
-      return GrowPage();
-    }
-
-    print("App initialized successfully.");
-    return LoginPage();
   }
 }

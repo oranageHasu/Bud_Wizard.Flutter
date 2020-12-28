@@ -38,7 +38,11 @@ Future<SessionInfo> getSessionData() async {
       throw Exception('Failed to get Session info.');
     }
 
-    log('Completed loading Session Info for: ' + retval.user.username);
+    log('Completed loading Session Info for: ' +
+        retval.user.username +
+        ' (' +
+        retval.user.email +
+        ')');
   } catch (exception) {
     log('Unable to get Session Info.');
   }

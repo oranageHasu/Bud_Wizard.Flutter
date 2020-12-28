@@ -1,5 +1,6 @@
 class Login {
   String username;
+  String email;
   String password;
   String newPassword;
   String accessToken;
@@ -13,6 +14,7 @@ class Login {
       password: json['password'],
     );
 
+    login.email = json['email'];
     login.accessToken = json['accessToken'];
     login.tooManyFailedAttempts = json['tooManyFailedAttempts'] == 1;
 
