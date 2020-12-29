@@ -1,67 +1,156 @@
-import 'package:bud_wizard/models/journal%20system/journalDay.dart';
+import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/formatter.dart';
+import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/widgets/plant/journal/plantJournalEntry.dart';
+import 'package:bud_wizard/services/api%20services/api-journal.dart';
+import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
+import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
+import 'package:bud_wizard/widgets/plant/journal/plantJournalList.dart';
+import 'package:bud_wizard/widgets/plant/plantCard.dart';
+import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:flutter/material.dart';
 
 class PlantJournal extends StatefulWidget {
-  final Plant plant;
-  final List<JournalDay> plantDays;
+  final Plant currentPlant;
 
   PlantJournal({
-    @required Plant plant,
-    @required List<JournalDay> plantDays,
-  })  : this.plant = plant,
-        this.plantDays = plantDays;
+    Plant currentPlant,
+  }) : this.currentPlant = currentPlant;
+
+  static PlantJournalState of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<PlantJournalWidget>()
+        .journalData;
+  }
 
   @override
-  _PlantJournalState createState() => _PlantJournalState(
-        this.plant,
-        this.plantDays,
+  State<StatefulWidget> createState() => PlantJournalState(
+        this.currentPlant,
       );
 }
 
-class _PlantJournalState extends State<PlantJournal> {
-  Plant plant;
-  List<JournalDay> plantDays;
+class PlantJournalState extends State<PlantJournal> {
+  Plant currentPlant;
+  Future<Journal> _journal;
+  int _currentWeek = 1;
 
-  _PlantJournalState(
-    this.plant,
-    this.plantDays,
+  PlantJournalState(
+    this.currentPlant,
   );
+
+  void setCurrentWeek(int week) {
+    setState(() {
+      _currentWeek = week;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+
+    _journal = getJournal(currentPlant.plantId);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   void didUpdateWidget(PlantJournal oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    plant = widget.plant;
-    plantDays = widget.plantDays;
+    if (oldWidget.currentPlant != widget.currentPlant) {
+      currentPlant = widget.currentPlant;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        left: 10.0,
-        right: 10.0,
-        top: 5.0,
-      ),
-      child: ListView(
-        scrollDirection: Axis.vertical,
+    return FutureBuilder<Journal>(
+      future: _journal,
+      builder: (context, snapshot) {
+        Widget retval = DankLoading();
+
+        if (snapshot.hasData) {
+          return content(snapshot.data);
+        } else if (snapshot.hasError) {
+          return NoDataError();
+        }
+
+        return retval;
+      },
+    );
+  }
+
+  Widget content(Journal journal) {
+    return PlantJournalWidget(
+      journalData: this,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          if (plantDays.isEmpty)
-            PlantJournalEntry(day: null)
-          else
-            for (JournalDay day in plantDays)
-              PlantJournalEntry(
-                day: day,
-              ),
+          PlantCard(
+            plant: currentPlant,
+            isFeatured: true,
+            isSelectable: false,
+          ),
+          PlantWeekSelector(
+            journal: journal,
+            currentIndex: _currentWeek,
+          ),
+          DankLabel(
+            displayText: 'Weekly Journal',
+            textStyle: appHeaderFontStyle.copyWith(fontSize: 20.0),
+            textAlign: TextAlign.center,
+            padding: EdgeInsets.only(top: 10.0),
+          ),
+          DankLabel(
+            displayText: formatDateDisplay(
+                    journal.plantWeeks[_currentWeek - 1].startDate) +
+                ' - ' +
+                formatDateDisplay(journal.plantWeeks[_currentWeek - 1].startDate
+                    .add(Duration(days: 6))),
+            textStyle: appInputHintFontStyle,
+            textAlign: TextAlign.center,
+            padding: EdgeInsets.only(top: 5.0),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 5.0),
+            child: Divider(
+              color: appThirdColor,
+              height: 2.0,
+              thickness: 2.0,
+              indent: 25.0,
+              endIndent: 25.0,
+            ),
+          ),
+          PlantImageSelector(plant: currentPlant),
+          Expanded(
+            child: PlantJournalList(
+              plant: currentPlant,
+              plantDays: journal.plantWeeks[_currentWeek - 1].plantDays,
+            ),
+          ),
         ],
       ),
     );
+  }
+}
+
+class PlantJournalWidget extends InheritedWidget {
+  final PlantJournalState journalData;
+
+  PlantJournalWidget({
+    Key key,
+    @required Widget child,
+    @required this.journalData,
+  }) : super(key: key, child: child);
+
+  @override
+  bool updateShouldNotify(PlantJournalWidget oldWidget) {
+    return true;
   }
 }

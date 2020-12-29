@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/widgets/plant/plantDetail.dart';
+import 'package:bud_wizard/widgets/plant/journal/plantJournal.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 
@@ -207,7 +207,7 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
 
   void selectPlantWeek() {
     // Tell the parent its data has changed and force a re-render
-    PlantDetail.of(context).setCurrentWeek(weekNumber);
+    PlantJournal.of(context).setCurrentWeek(weekNumber);
   }
 
   LinearGradient getLinearGradient(
