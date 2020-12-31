@@ -129,8 +129,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       DankButton(
                         buttonText: "Sign In",
-                        callback: performLogin,
+                        onPressed: performLogin,
                         margin: EdgeInsets.only(top: 10.0),
+                        padding: EdgeInsets.all(15.0),
+                        borderRadius: 10.0,
                       ),
                       SizedBox(height: 25.0),
                     ],

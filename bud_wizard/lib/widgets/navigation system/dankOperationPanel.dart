@@ -55,9 +55,6 @@ class DankOperationPanelState extends State<DankOperationPanel> {
       child: Container(
         width: 100.0,
         color: Colors.transparent,
-        padding: EdgeInsets.only(
-          top: 15.0,
-        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,

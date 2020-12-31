@@ -4,22 +4,46 @@ import 'package:flutter/material.dart';
 
 class DankButton extends StatelessWidget {
   final String buttonText;
-  final VoidCallback callback;
+  final VoidCallback onPressed;
+  final EdgeInsets padding;
   final EdgeInsets margin;
   final bool isDisabled;
   final DankButtonType buttonType;
+  final Color textColor;
+  final Color disabledTextColor;
+  final Color backgroundColor;
+  final Color borderColor;
+  final double borderRadius;
+  final DankFlatButtonType flatButtonShape;
+  final TextStyle textStyle;
 
   DankButton({
     @required buttonText,
-    @required callback,
+    @required onPressed,
     EdgeInsets margin = const EdgeInsets.all(0.0),
+    EdgeInsets padding = const EdgeInsets.all(0.0),
     bool isDisabled = false,
     DankButtonType buttonType = DankButtonType.Outline,
+    Color textColor = appBaseWhiteTextColor,
+    Color disabledTextColor = appBaseWhiteTextColor,
+    Color backgroundColor = appPrimaryColor,
+    Color borderColor = appPrimaryColor,
+    double borderRadius = 0.0,
+    DankFlatButtonType flatButtonShape = DankFlatButtonType.RoundedRectangle,
+    TextStyle textStyle = appButtonFontStyle,
   })  : this.buttonText = buttonText,
-        this.callback = callback,
+        this.onPressed = onPressed,
         this.margin = margin,
+        this.padding = padding,
         this.isDisabled = isDisabled,
-        this.buttonType = buttonType;
+        this.buttonType = buttonType,
+        this.textColor = textColor,
+        this.disabledTextColor = disabledTextColor,
+        this.backgroundColor = backgroundColor,
+        this.borderColor = borderColor,
+        this.borderRadius = borderRadius,
+        this.flatButtonShape = flatButtonShape,
+        this.textStyle = textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -27,36 +51,40 @@ class DankButton extends StatelessWidget {
       margin: margin,
       child: (buttonType == DankButtonType.Outline)
           ? OutlineButton(
-              padding: EdgeInsets.all(15.0),
-              textColor: appBaseWhiteTextColor,
-              disabledTextColor: appBaseWhiteTextColor,
+              padding: padding,
+              textColor: textColor,
+              disabledTextColor: disabledTextColor,
               disabledBorderColor: Colors.black.withOpacity(0.3),
               hoverColor: Colors.white.withOpacity(0.1),
-              borderSide: BorderSide(color: appBaseColor, width: 2.0),
+              borderSide: BorderSide(color: borderColor, width: 2.0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
-              onPressed: (isDisabled) ? null : callback,
+              onPressed: (isDisabled) ? null : onPressed,
               child: Text(
                 buttonText,
                 textAlign: TextAlign.center,
-                style: appButtonFontStyle,
+                style: textStyle,
               ),
             )
           : FlatButton(
-              padding: EdgeInsets.all(18.0),
+              padding: padding,
               clipBehavior: Clip.none,
-              color: appBaseColor,
-              textColor: Colors.black,
-              disabledTextColor: appBaseWhiteTextColor,
+              color: backgroundColor,
+              textColor: textColor,
+              disabledTextColor: disabledTextColor,
               disabledColor: Colors.black.withOpacity(0.3),
               hoverColor: Colors.black.withOpacity(0.3),
-              shape: StadiumBorder(),
-              onPressed: (isDisabled) ? null : callback,
+              shape: (flatButtonShape == DankFlatButtonType.RoundedRectangle)
+                  ? RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(borderRadius),
+                    )
+                  : StadiumBorder(),
+              onPressed: (isDisabled) ? null : onPressed,
               child: Text(
                 buttonText,
                 textAlign: TextAlign.center,
-                style: appButtonFontStyle,
+                style: textStyle,
               ),
             ),
     );

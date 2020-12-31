@@ -211,7 +211,7 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
                     children: [
                       DankButton(
                         buttonText: okButtonText,
-                        callback: () {
+                        onPressed: () {
                           dismissDialog(context, true);
                         },
                         margin: EdgeInsets.only(right: 10.0),
@@ -220,7 +220,7 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
                       ),
                       DankButton(
                         buttonText: cancelButtonText,
-                        callback: () {
+                        onPressed: () {
                           dismissDialog(context, false);
                         },
                         margin: EdgeInsets.only(left: 10.0),

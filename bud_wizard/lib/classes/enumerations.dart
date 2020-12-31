@@ -27,6 +27,11 @@ enum DankButtonType {
   Outline,
 }
 
+enum DankFlatButtonType {
+  RoundedRectangle,
+  Stadium,
+}
+
 enum DankShieldStatus {
   Success,
   Warning,

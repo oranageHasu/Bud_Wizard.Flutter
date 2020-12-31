@@ -90,9 +90,9 @@ const Color appContentBackgroundColor = Color.fromRGBO(11, 12, 16, 1.0);
 // Other App Theme Colors (e.g. Fonts, Events, sepcial Widgets, etc.)
 const Color appBaseWhiteTextColor = Color.fromRGBO(252, 252, 252, 1.0);
 const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 0.8);
-const Color appSuccessColor = Color.fromRGBO(120, 222, 2, 0.6);
+const Color appSuccessColor = Color.fromRGBO(196, 250, 187, 1.0);
 const Color appWarningColor = Color.fromRGBO(255, 140, 54, 0.6);
-const Color appErrorColor = Color.fromRGBO(245, 66, 66, 0.6);
+const Color appErrorColor = Color.fromRGBO(250, 187, 187, 1.0);
 const Color appDropdownColor = Color.fromRGBO(81, 80, 82, 1);
 const Color appBorderUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
 

@@ -4,6 +4,7 @@ import 'package:flutter_guid/flutter_guid.dart';
 class Question {
   final Guid questionId;
   final Guid plantId;
+  String questionTitle;
   String questionText;
   DateTime dateAsked = DateTime.now();
   List<Answer> answers = new List<Answer>();
@@ -13,6 +14,7 @@ class Question {
   Question({
     this.questionId,
     this.plantId,
+    this.questionTitle,
     this.questionText,
   });
 
@@ -20,6 +22,7 @@ class Question {
     Question retval = new Question(
       questionId: new Guid(json['questionId']),
       plantId: new Guid(json['plantId']),
+      questionTitle: json['questionTitle'],
       questionText: json['questionText'],
     );
 

@@ -9,7 +9,7 @@ String formatDateDisplay(DateTime date) {
 }
 
 String formatDateDisplayDetailed(DateTime date) {
-  return DateFormat('MMM d, yyyy hh:mm aaa').format(date);
+  return DateFormat('MMM d, yyyy @ hh:mm aaa').format(date);
 }
 
 String formatEnum(String enumStr) {
