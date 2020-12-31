@@ -19,6 +19,7 @@ class PlantDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(minWidth: 500.0),
       color: appSecondColor,
       child: getCurrentScreen(),
     );
