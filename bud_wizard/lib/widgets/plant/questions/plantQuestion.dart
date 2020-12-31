@@ -99,7 +99,9 @@ class _PlantQuestionState extends State<PlantQuestion> {
                         ),
                       ),
                       child: DankLabel(
-                        displayText: 'Answers',
+                        displayText: (question.answers.length == 1)
+                            ? 'Answer'
+                            : 'Answers',
                         textAlign: TextAlign.center,
                         textStyle: appInputHintFontStyle.copyWith(
                           color: appThirdColor,
@@ -110,7 +112,7 @@ class _PlantQuestionState extends State<PlantQuestion> {
                       ),
                     ),
                     DankLabel(
-                      displayText: '2 Views',
+                      displayText: (true) ? '2 Views' : '1 View',
                       textAlign: TextAlign.center,
                       textStyle: appLabelFontStyle.copyWith(
                         fontSize: 12.0,
@@ -137,9 +139,9 @@ class _PlantQuestionState extends State<PlantQuestion> {
                           decoration: BoxDecoration(
                             color: appBaseBackgroundColor,
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(2.5),
-                              topRight: Radius.circular(2.5),
-                              bottomLeft: Radius.circular(2.5),
+                              topLeft: Radius.circular(5.0),
+                              topRight: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(5.0),
                             ),
                           ),
                           child: Column(
@@ -201,33 +203,19 @@ class _PlantQuestionState extends State<PlantQuestion> {
                         children: [
                           Container(
                             width: 80.0,
-                            child: (answer.acceptedAnswer)
-                                ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Icon(
-                                        Icons.check,
-                                        color: appSuccessColor,
-                                        size: 35.0,
-                                      ),
-                                      DankLabel(
-                                        displayText: 'Accepted Answer',
-                                        textStyle: appLabelFontStyle.copyWith(
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                : SizedBox.shrink(),
+                            child: SizedBox.shrink(),
                           ),
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
                                 color: appThirdColor,
                                 borderRadius: BorderRadius.circular(5),
+                                border: (answer.acceptedAnswer)
+                                    ? Border.all(
+                                        color: appSuccessColor,
+                                        width: 1.5,
+                                      )
+                                    : Border.all(color: appThirdColor),
                               ),
                               padding: EdgeInsets.only(
                                 left: 10.0,
@@ -235,75 +223,104 @@ class _PlantQuestionState extends State<PlantQuestion> {
                               margin: EdgeInsets.only(
                                 top: 10.0,
                               ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Icon(
-                                    Icons.thumb_up,
-                                    color: appBaseWhiteTextColor,
-                                    size: 15.0,
-                                  ),
-                                  DankLabel(
-                                    displayText: (counter += 1).toString(),
-                                    textStyle: appLabelFontStyle.copyWith(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    padding: EdgeInsets.only(
-                                      right: 15.0,
-                                      left: 5.0,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        DankLabel(
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: DankLabel(
                                           displayText: answer.answerText,
                                           textStyle: appInputFontStyle,
                                           textAlign: TextAlign.left,
-                                          padding: EdgeInsets.all(5.0),
+                                          padding: EdgeInsets.only(
+                                            right: 10.0,
+                                            top: 10.0,
+                                            bottom: 10.0,
+                                          ),
                                         ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.person,
-                                              color: appBaseWhiteTextColor,
-                                              size: 15.0,
-                                            ),
-                                            DankLabel(
-                                              displayText: answer.username,
-                                              textStyle: appInputHintFontStyle
-                                                  .copyWith(
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromRGBO(
-                                                    255, 251, 179, 1.0),
+                                      ),
+                                      if (answer.acceptedAnswer)
+                                        Container(
+                                          padding: EdgeInsets.only(left: 25.0),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.check,
+                                                color: appSuccessColor,
+                                                size: 18.0,
                                               ),
-                                              textAlign: TextAlign.left,
-                                              padding: EdgeInsets.all(5.0),
-                                            ),
-                                            Expanded(
-                                              child: DankLabel(
-                                                displayText: 'answered ' +
-                                                    formatDateDisplayDetailed(
-                                                      answer.answerDate,
-                                                    ),
-                                                textStyle: appInputHintFontStyle
-                                                    .copyWith(
-                                                  fontSize: 14.0,
+                                              DankLabel(
+                                                displayText: 'Accepted Answer',
+                                                textStyle:
+                                                    appLabelFontStyle.copyWith(
+                                                  fontSize: 12.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
-                                                textAlign: TextAlign.right,
-                                                padding: EdgeInsets.all(5.0),
+                                                padding: EdgeInsets.all(10.0),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ],
-                                    ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.person,
+                                        color: appBaseWhiteTextColor,
+                                        size: 15.0,
+                                      ),
+                                      DankLabel(
+                                        displayText: answer.username,
+                                        textStyle:
+                                            appInputHintFontStyle.copyWith(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromRGBO(
+                                              255, 251, 179, 1.0),
+                                        ),
+                                        textAlign: TextAlign.left,
+                                        padding: EdgeInsets.only(
+                                          right: 15.0,
+                                          left: 5.0,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.thumb_up,
+                                        color: appBaseWhiteTextColor,
+                                        size: 15.0,
+                                      ),
+                                      DankLabel(
+                                        displayText: (counter += 1).toString(),
+                                        textStyle: appLabelFontStyle.copyWith(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        padding: EdgeInsets.only(
+                                          right: 15.0,
+                                          left: 5.0,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: DankLabel(
+                                          displayText: 'answered ' +
+                                              formatDateDisplayDetailed(
+                                                answer.answerDate,
+                                              ),
+                                          textStyle:
+                                              appInputHintFontStyle.copyWith(
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.right,
+                                          padding: EdgeInsets.all(10.0),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

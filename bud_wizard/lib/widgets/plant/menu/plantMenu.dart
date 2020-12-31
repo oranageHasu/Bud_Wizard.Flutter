@@ -2,6 +2,7 @@ import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/plant/menu/plantMenuItem.dart';
+import 'package:bud_wizard/widgets/user/userPopupDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -64,6 +65,10 @@ class _PlantMenuState extends State<PlantMenu> {
               onSelected: selectPlantOperation,
               opType: PlantOperation.Statistics,
             ),
+            Expanded(
+              child: SizedBox.shrink(),
+            ),
+            UserPopupDialog(),
           ],
         ),
       ),
