@@ -1,11 +1,13 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/question%20system/question.dart';
+import 'package:bud_wizard/widgets/plant/questions/addAnswerDialog.dart';
 import 'package:bud_wizard/widgets/plant/questions/plantQuestionAnswerList.dart';
 import 'package:bud_wizard/widgets/plant/questions/plantQuestionInfoCard.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-expanded-section.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PlantQuestion extends StatefulWidget {
   final Question question;
@@ -49,6 +51,7 @@ class _PlantQuestionState extends State<PlantQuestion> {
         top: 10.0,
         bottom: 10.0,
       ),
+      padding: EdgeInsets.all(10.0),
       child: Column(
         children: [
           Row(
@@ -143,6 +146,7 @@ class _PlantQuestionState extends State<PlantQuestion> {
             child: PlantQuestionAnswerList(
               answers: question.answers,
               isVerified: question.isVerified,
+              onAnswerQuestion: answerQuestion,
             ),
           ),
         ],
@@ -154,5 +158,35 @@ class _PlantQuestionState extends State<PlantQuestion> {
     setState(() {
       _expanded = !_expanded;
     });
+  }
+
+  void answerQuestion() async {
+    bool opResult = await showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionBuilder: (context, a1, a2, widget) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: AddAnswerDialog(
+              question: question,
+            ),
+          ),
+        );
+      },
+      transitionDuration: Duration(milliseconds: 400),
+      barrierDismissible: false,
+      barrierLabel: '',
+      context: Get.context,
+      pageBuilder: (context, animation1, animation2) {
+        return SizedBox(height: 20.0);
+      },
+    );
+
+    if (opResult) {
+      // Tell the parent its data has changed and force a re-render
+      print('To Do: Refresh current plant (after saving new Answer)');
+    }
   }
 }

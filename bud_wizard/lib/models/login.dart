@@ -18,6 +18,10 @@ class Login {
     login.accessToken = json['accessToken'];
     login.tooManyFailedAttempts = json['tooManyFailedAttempts'] == 1;
 
+    if (login.username.isEmpty) {
+      login.username = 'TestUser';
+    }
+
     return login;
   }
 

@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 
 class PlantQuestionAnswerList extends StatelessWidget {
   final List<Answer> answers;
+  final VoidCallback onAnswerQuestion;
   final bool isVerified;
 
   PlantQuestionAnswerList({
     @required List<Answer> answers,
+    @required VoidCallback onAnswerQuestion,
     bool isVerified = false,
   })  : this.answers = answers,
+        this.onAnswerQuestion = onAnswerQuestion,
         this.isVerified = isVerified;
 
   @override
@@ -26,7 +29,7 @@ class PlantQuestionAnswerList extends StatelessWidget {
                 alignment: FractionalOffset.bottomRight,
                 child: DankButton(
                   buttonText: 'Add Answer',
-                  onPressed: addAnswer,
+                  onPressed: onAnswerQuestion,
                   buttonType: DankButtonType.Flat,
                   margin: EdgeInsets.only(top: 5.0),
                   padding: EdgeInsets.all(15.0),
@@ -40,9 +43,5 @@ class PlantQuestionAnswerList extends StatelessWidget {
             : SizedBox.shrink(),
       ],
     );
-  }
-
-  void addAnswer() {
-    print('To Do: Add Answer');
   }
 }

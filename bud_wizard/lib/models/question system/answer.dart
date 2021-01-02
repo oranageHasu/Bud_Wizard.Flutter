@@ -28,4 +28,18 @@ class Answer {
 
     return answer;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (answerId != null)
+        'answerId': answerId.toString()
+      else
+        'answerId': null,
+      'questionId': questionId.toString(),
+      'username': username,
+      'answerText': answerText,
+      'answerDate': answerDate.toString(),
+      'acceptedAnswer': acceptedAnswer,
+    };
+  }
 }

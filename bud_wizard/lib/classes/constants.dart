@@ -28,5 +28,6 @@ const String apiRouteLogout = 'authentication/logout';
 const String apiRouteGrows = 'grow';
 const String apiRouteJournal = 'journal';
 const String apiRouteQuestion = 'question';
+const String apiRouteAnswer = 'answer';
 
 //endregion

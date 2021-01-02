@@ -12,6 +12,7 @@ class DankTextField extends StatelessWidget {
   final Function(String) onChanged;
   final Function(String) onLostFocus;
   final Function(String) onValidate;
+  final VoidCallback onFocus;
   final FocusNode focusNode;
   final TextEditingController textController;
   final Icon prefixIcon;
@@ -23,6 +24,8 @@ class DankTextField extends StatelessWidget {
   final bool digitsOnly;
   final double borderRadius = 10.0;
   final Color borderColorUnselected;
+  final TextInputType keybordType;
+  final int maxLines;
 
   DankTextField({
     String labelText = '',
@@ -34,9 +37,10 @@ class DankTextField extends StatelessWidget {
     Function(String) onChanged,
     Function(String) onLostFocus,
     Function(String) onValidate,
+    VoidCallback onFocus,
     FocusNode focusNode,
     TextEditingController textController,
-    Icon prefixIcon = const Icon(null),
+    Icon prefixIcon,
     bool autofocus = false,
     EdgeInsets margin = const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
     EdgeInsets textPadding = const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
@@ -44,6 +48,8 @@ class DankTextField extends StatelessWidget {
     bool displayMaxCharacterValidation = false,
     bool digitsOnly = false,
     Color borderColorUnselected = Colors.transparent,
+    TextInputType keybordType = TextInputType.text,
+    int maxLines = 1,
   })  : this.labelText = labelText,
         this.hintText = hintText,
         this.minWidth = minWidth,
@@ -53,6 +59,7 @@ class DankTextField extends StatelessWidget {
         this.onChanged = onChanged,
         this.onLostFocus = onLostFocus,
         this.onValidate = onValidate,
+        this.onFocus = onFocus,
         this.focusNode = focusNode,
         this.textController = textController,
         this.prefixIcon = prefixIcon,
@@ -62,7 +69,9 @@ class DankTextField extends StatelessWidget {
         this.maxTextCharacters = maxTextCharacters,
         this.displayMaxCharacterValidation = displayMaxCharacterValidation,
         this.digitsOnly = digitsOnly,
-        this.borderColorUnselected = borderColorUnselected;
+        this.borderColorUnselected = borderColorUnselected,
+        this.keybordType = keybordType,
+        this.maxLines = maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +83,13 @@ class DankTextField extends StatelessWidget {
         onFocusChange: (hasFocus) {
           if (!hasFocus && onLostFocus != null) {
             onLostFocus(textController.value.text);
+          } else if (onFocus != null) {
+            onFocus();
           }
         },
         child: TextFormField(
+          keyboardType: keybordType,
+          maxLines: maxLines,
           controller: textController,
           focusNode: focusNode,
           obscureText: isPassword,
@@ -91,6 +104,8 @@ class DankTextField extends StatelessWidget {
             hintText: hintText,
             labelText: labelText,
             labelStyle: appInputLabelFontStyle,
+            alignLabelWithHint:
+                (keybordType == TextInputType.multiline) ? true : false,
             hintStyle: appInputHintFontStyle,
             prefixIcon: prefixIcon,
             counterStyle: appInputCounterFontStyle,
