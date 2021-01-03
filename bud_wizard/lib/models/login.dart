@@ -6,7 +6,10 @@ class Login {
   String accessToken;
   bool tooManyFailedAttempts = false;
 
-  Login({this.username, this.password});
+  Login({
+    this.username,
+    this.password,
+  });
 
   factory Login.fromJson(Map<String, dynamic> json) {
     Login login = new Login(
@@ -18,7 +21,7 @@ class Login {
     login.accessToken = json['accessToken'];
     login.tooManyFailedAttempts = json['tooManyFailedAttempts'] == 1;
 
-    if (login.username.isEmpty) {
+    if (login.username == null || login.username.isEmpty) {
       login.username = 'TestUser';
     }
 
