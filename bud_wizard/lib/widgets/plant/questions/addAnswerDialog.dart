@@ -89,7 +89,7 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
                   padding: EdgeInsets.all(0.0),
                   margin: EdgeInsets.all(0.0),
                   width: 600.0,
-                  height: 400.0,
+                  height: 390.0,
                   color: appBaseBackgroundColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
