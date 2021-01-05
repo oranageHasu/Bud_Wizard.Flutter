@@ -10,20 +10,33 @@ enum _DragState {
 }
 
 class DankDropZone extends StatefulWidget {
+  final Function(List<File>) onAddFiles;
+
+  DankDropZone({
+    @required Function(List<File>) onAddFiles,
+  }) : this.onAddFiles = onAddFiles;
+
   @override
   State<StatefulWidget> createState() {
-    return _DankDropZoneState();
+    return _DankDropZoneState(
+      this.onAddFiles,
+    );
   }
 }
 
 class _DankDropZoneState extends State<StatefulWidget> {
+  final Function(List<File>) onAddFiles;
   final StreamController<Point<double>> _pointStreamController =
       new StreamController<Point<double>>.broadcast();
   final StreamController<_DragState> _dragStateStreamController =
       new StreamController<_DragState>.broadcast();
   StreamSubscription<MouseEvent> _onDragOverSubscription;
   StreamSubscription<MouseEvent> _onDropSubscription;
-  List<File> _files = <File>[];
+  List<File> _files = new List<File>();
+
+  _DankDropZoneState(
+    this.onAddFiles,
+  );
 
   @override
   void initState() {
@@ -44,25 +57,36 @@ class _DankDropZoneState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Container(
-        height: 250.0,
-        width: 600.0,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(
-            color: appBaseColor,
-            width: 2.0,
-          ),
-        ),
-        child: Center(
-          child: DankLabel(
-            displayText: 'Drag & Drop Images Here',
-            textStyle: appHeaderFontStyle.copyWith(fontSize: 35.0),
-          ),
-        ),
+    return Container(
+      height: 180.0,
+      width: 600.0,
+      child: Center(
+        child: (_files.length == 0)
+            ? DankLabel(
+                displayText: 'Drag & Drop Images Here',
+                textStyle: appHeaderFontStyle.copyWith(fontSize: 35.0),
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (File file in _files)
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.attach_file,
+                            size: 35.0,
+                            color: appBaseWhiteTextColor.withOpacity(0.4),
+                          ),
+                          DankLabel(
+                            displayText: file.name,
+                            textStyle: appInputFontStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
       ),
     );
   }
@@ -73,17 +97,13 @@ class _DankDropZoneState extends State<StatefulWidget> {
 
     _pointStreamController.sink.add(null);
 
-    _addFiles(value.dataTransfer.files);
-  }
+    if (onAddFiles != null) {
+      this.setState(() {
+        _files = _files..addAll(value.dataTransfer.files);
+      });
 
-  void _addFiles(List<File> newFiles) {
-    this.setState(() {
-      _files = _files..addAll(newFiles);
-
-      for (File file in _files) {
-        print(file.name);
-      }
-    });
+      onAddFiles(value.dataTransfer.files);
+    }
   }
 
   void _onDragOver(MouseEvent value) {

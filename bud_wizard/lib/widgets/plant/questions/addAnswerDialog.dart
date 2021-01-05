@@ -11,6 +11,7 @@ import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.d
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 
 class AddAnswerDialog extends StatefulWidget {
@@ -86,10 +87,8 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
               child: Form(
                 key: _formKey,
                 child: Container(
-                  padding: EdgeInsets.all(0.0),
-                  margin: EdgeInsets.all(0.0),
                   width: 600.0,
-                  height: 390.0,
+                  height: 400.0,
                   color: appBaseBackgroundColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -171,24 +170,35 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 DankButton(
-                                  buttonText: 'Done',
-                                  onPressed: () {
-                                    dismissDialog(context, true);
-                                  },
-                                  margin: EdgeInsets.only(right: 10.0),
-                                  isDisabled: _isDisabled,
-                                  buttonType: DankButtonType.Flat,
-                                  borderRadius: 5.0,
-                                  padding: EdgeInsets.all(15.0),
-                                ),
-                                DankButton(
                                   buttonText: 'Cancel',
                                   onPressed: () {
-                                    dismissDialog(context, false);
+                                    dismissDialog(false);
                                   },
-                                  margin: EdgeInsets.only(left: 10.0),
+                                  buttonType: DankButtonType.Outline,
                                   borderRadius: 5.0,
-                                  padding: EdgeInsets.all(15.0),
+                                  borderColor: Colors.transparent,
+                                  padding: EdgeInsets.only(
+                                    left: 40.0,
+                                    right: 40.0,
+                                    top: 20.0,
+                                    bottom: 20.0,
+                                  ),
+                                  margin: EdgeInsets.only(right: 10.0),
+                                ),
+                                DankButton(
+                                  buttonText: 'Done',
+                                  onPressed: () {
+                                    dismissDialog(true);
+                                  },
+                                  buttonType: DankButtonType.Flat,
+                                  borderRadius: 5.0,
+                                  isDisabled: _isDisabled,
+                                  padding: EdgeInsets.only(
+                                    left: 40.0,
+                                    right: 40.0,
+                                    top: 20.0,
+                                    bottom: 20.0,
+                                  ),
                                 ),
                               ],
                             ),
@@ -243,7 +253,7 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
     });
   }
 
-  void dismissDialog(BuildContext context, bool opResult) async {
+  void dismissDialog(bool opResult) async {
     Answer newAnswer;
 
     if (opResult) {
@@ -258,11 +268,9 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
         answerText: _answerTextController.text,
       );
 
-      print('Username: ' + _user.username);
-
       _saveResult = postAnswer(newAnswer);
     } else {
-      Navigator.pop(context, false);
+      Get.back(result: false);
     }
   }
 }

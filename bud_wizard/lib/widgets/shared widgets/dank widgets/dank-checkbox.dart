@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class DankCheckbox extends StatelessWidget {
   final Function(bool) onChanged;
+  final EdgeInsets padding;
   final EdgeInsets margin;
   final String tooltipText;
   final bool isDisabled;
@@ -11,11 +12,13 @@ class DankCheckbox extends StatelessWidget {
 
   DankCheckbox({
     @required onChanged,
+    EdgeInsets padding = const EdgeInsets.all(0.0),
     EdgeInsets margin = const EdgeInsets.all(0.0),
     String tooltipText = '',
     bool isDisabled = false,
     bool value = false,
   })  : this.onChanged = onChanged,
+        this.padding = padding,
         this.margin = margin,
         this.tooltipText = tooltipText,
         this.isDisabled = isDisabled,
@@ -31,7 +34,8 @@ class DankCheckbox extends StatelessWidget {
         tooltipText: tooltipText,
         displayTooltip: false,
         child: Container(
-          padding: const EdgeInsets.all(0.0),
+          padding: padding,
+          margin: margin,
           width: 20.0,
           child: Checkbox(
             value: value,

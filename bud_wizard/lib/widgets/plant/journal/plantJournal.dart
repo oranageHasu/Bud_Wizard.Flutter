@@ -185,7 +185,7 @@ class PlantJournalState extends State<PlantJournal> {
       });
 
       bool opResult = await showGeneralDialog(
-        barrierColor: Colors.black.withOpacity(0.7),
+        barrierColor: Colors.black.withOpacity(0.85),
         transitionBuilder: (context, a1, a2, widget) {
           final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
           return Transform(

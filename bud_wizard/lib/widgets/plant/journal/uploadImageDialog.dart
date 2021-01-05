@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'dart:html';
 import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/models/login.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-checkbox.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-drop-zone.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UploadImageDialog extends StatefulWidget {
   final JournalWeek journalWeek;
@@ -25,8 +31,9 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
 
   Future<bool> _saveResult;
   Login _user;
-  bool _isDisabled = true;
+  List<File> _files = <File>[];
   bool _isLoading = false;
+  bool _performML = true;
 
   _UploadImageDialogState(
     this.journalWeek,
@@ -39,7 +46,6 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
     if (_user == null) {
       sessionInfo.then((data) {
         _user = data.user;
-        print('From SessionInfo: ' + _user.username);
       }, onError: (e) {
         log(e);
       });
@@ -58,13 +64,82 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Dialog(
-            backgroundColor: appBaseBackgroundColor,
+            backgroundColor: appThirdColor,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(15),
             ),
             elevation: 16,
-            child: DankDropZone(),
+            child: Column(
+              children: [
+                DankDropZone(
+                  onAddFiles: addFiles,
+                ),
+                Container(
+                  height: 80.0,
+                  width: 600.0,
+                  color: appBaseBackgroundColor,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      DankCheckbox(
+                        onChanged: onChanged,
+                        value: _performML,
+                        margin: EdgeInsets.only(
+                          left: 25.0,
+                          right: 5.0,
+                        ),
+                        tooltipText:
+                            'Analyze this plant image, using advanced Machine Learning and Data Science algorithms',
+                      ),
+                      DankLabel(
+                        displayText: (_files.length <= 1)
+                            ? 'Analyze Image'
+                            : 'Analyze Images',
+                        textStyle: appInputHintFontStyle,
+                      ),
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              DankButton(
+                                buttonText: 'Cancel',
+                                onPressed: onCancelPressed,
+                                buttonType: DankButtonType.Outline,
+                                borderRadius: 5.0,
+                                borderColor: Colors.transparent,
+                                padding: EdgeInsets.only(
+                                  left: 40.0,
+                                  right: 40.0,
+                                  top: 20.0,
+                                  bottom: 20.0,
+                                ),
+                                margin: EdgeInsets.only(right: 10.0),
+                              ),
+                              DankButton(
+                                buttonText: 'Upload',
+                                onPressed: onUploadPressed,
+                                buttonType: DankButtonType.Flat,
+                                borderRadius: 5.0,
+                                isDisabled: _files.length == 0,
+                                padding: EdgeInsets.only(
+                                  left: 40.0,
+                                  right: 40.0,
+                                  top: 20.0,
+                                  bottom: 20.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           (_isLoading)
               ? FutureBuilder<bool>(
@@ -100,6 +175,26 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
         ],
       ),
     );
+  }
+
+  void onUploadPressed() {
+    print('To Do: Upload');
+  }
+
+  void onCancelPressed() {
+    Get.back(result: false);
+  }
+
+  void onChanged(bool val) {
+    setState(() {
+      _performML = val;
+    });
+  }
+
+  void addFiles(List<File> newFiles) {
+    this.setState(() {
+      _files = _files..addAll(newFiles);
+    });
   }
 
   void dismissDialog(BuildContext context, bool opResult) async {
