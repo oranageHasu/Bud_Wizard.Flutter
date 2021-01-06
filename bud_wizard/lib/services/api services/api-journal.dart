@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/journal%20system/journal.dart';
+import 'package:bud_wizard/models/plantUpload.dart';
 import 'package:bud_wizard/services/api%20services/api-services.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 
@@ -25,6 +29,33 @@ Future<Journal> getJournal(Guid plantId) async {
       } else {
         throw Exception(
             'Failed to get Plant Journal for: ' + plantId.toString());
+      }
+    }
+  } catch (ex) {
+    throw Exception(ex);
+  }
+
+  return retval;
+}
+
+Future<bool> postJournalImages(PlantUpload plantUpload) async {
+  bool retval;
+
+  try {
+    if (plantUpload != null) {
+      // Generate the request URL
+      String url = generateAPIPath(apiRouteJournalUpload);
+
+      log(plantUpload.images[0]);
+      log('farts');
+      // Make the HTTP request
+      Response response =
+          await executeRequest(url, HttpMethod.POST, json.encode(plantUpload));
+
+      log('after farts');
+      // Process the result
+      if (response != null && response.statusCode == 200) {
+        retval = true;
       }
     }
   } catch (ex) {

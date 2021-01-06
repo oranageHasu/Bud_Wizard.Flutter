@@ -24,9 +24,12 @@ const String apiRouteSession = 'Session';
 const String apiRouteAuthLogin = 'authentication/authenticate';
 const String apiRouteLogout = 'authentication/logout';
 
+// Journal API Routes
+const String apiRouteJournal = 'journal';
+const String apiRouteJournalUpload = 'journal/upload';
+
 // API Entity Routes
 const String apiRouteGrows = 'grow';
-const String apiRouteJournal = 'journal';
 const String apiRouteQuestion = 'question';
 const String apiRouteAnswer = 'answer';
 

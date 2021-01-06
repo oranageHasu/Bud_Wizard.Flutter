@@ -193,6 +193,7 @@ class PlantJournalState extends State<PlantJournal> {
             child: Opacity(
               opacity: a1.value,
               child: UploadImageDialog(
+                plantId: currentPlant.plantId,
                 journalWeek: week,
               ),
             ),

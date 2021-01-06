@@ -1,9 +1,12 @@
 import 'dart:async';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/models/login.dart';
+import 'package:bud_wizard/models/plantUpload.dart';
+import 'package:bud_wizard/services/api%20services/api-journal.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
@@ -11,31 +14,38 @@ import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-checkbox
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-drop-zone.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_guid/flutter_guid.dart';
 import 'package:get/get.dart';
 
 class UploadImageDialog extends StatefulWidget {
+  final Guid plantId;
   final JournalWeek journalWeek;
 
   UploadImageDialog({
+    @required Guid plantId,
     @required JournalWeek journalWeek,
-  }) : this.journalWeek = journalWeek;
+  })  : this.plantId = plantId,
+        this.journalWeek = journalWeek;
 
   @override
   _UploadImageDialogState createState() => _UploadImageDialogState(
+        this.plantId,
         this.journalWeek,
       );
 }
 
 class _UploadImageDialogState extends State<UploadImageDialog> {
+  Guid plantId;
   JournalWeek journalWeek;
 
-  Future<bool> _saveResult;
+  Future<bool> _uploadResult;
   Login _user;
   List<File> _files = <File>[];
   bool _isLoading = false;
   bool _performML = true;
 
   _UploadImageDialogState(
+    this.plantId,
     this.journalWeek,
   );
 
@@ -76,7 +86,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                   onAddFiles: addFiles,
                 ),
                 Container(
-                  height: 80.0,
+                  height: 70.0,
                   width: 600.0,
                   color: appBaseBackgroundColor,
                   child: Row(
@@ -96,7 +106,9 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                         displayText: (_files.length <= 1)
                             ? 'Analyze Image'
                             : 'Analyze Images',
-                        textStyle: appInputHintFontStyle,
+                        textStyle: appInputHintFontStyle.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Expanded(
                         child: Container(
@@ -143,7 +155,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
           ),
           (_isLoading)
               ? FutureBuilder<bool>(
-                  future: _saveResult,
+                  future: _uploadResult,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -178,7 +190,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
   }
 
   void onUploadPressed() {
-    print('To Do: Upload');
+    dismissDialog(true);
   }
 
   void onCancelPressed() {
@@ -197,13 +209,48 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
     });
   }
 
-  void dismissDialog(BuildContext context, bool opResult) async {
+  void dismissDialog(bool opResult) async {
     if (opResult) {
       setState(() {
         _isLoading = true;
       });
+
+      PlantUpload upload = new PlantUpload(
+        plantId: plantId,
+        userId: _user.userId,
+        images: getImages(),
+        growWeek: journalWeek.weekNumber,
+      );
+
+      _uploadResult = postJournalImages(upload);
     } else {
-      Navigator.pop(context, false);
+      Get.back(result: false);
     }
+  }
+
+  List<String> getImages() {
+    List<String> retval = new List<String>();
+    FileReader reader = new FileReader();
+    bool done = true;
+
+    for (File file in _files) {
+      reader.readAsDataUrl(file);
+      done = false;
+
+      reader.onLoad.listen((data) {
+        print('finished');
+        retval.add(reader.result);
+        done = true;
+      });
+      reader.onError.listen((fileEvent) {
+        log("Some Error occured while reading the file");
+        done = true;
+      });
+
+      while (!done) {}
+    }
+
+    print('Length: ' + retval.length.toString());
+    return retval;
   }
 }

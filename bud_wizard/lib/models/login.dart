@@ -1,4 +1,7 @@
+import 'package:flutter_guid/flutter_guid.dart';
+
 class Login {
+  final Guid userId = new Guid('77c1e2cb-6792-4acd-ae31-3ab61a150822');
   String username;
   String email;
   String password;

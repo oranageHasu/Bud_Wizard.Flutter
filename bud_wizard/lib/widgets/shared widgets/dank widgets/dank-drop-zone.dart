@@ -58,7 +58,7 @@ class _DankDropZoneState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180.0,
+      height: 150.0,
       width: 600.0,
       child: Center(
         child: (_files.length == 0)
