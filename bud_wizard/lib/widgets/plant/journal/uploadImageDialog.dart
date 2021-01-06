@@ -40,7 +40,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
 
   Future<bool> _uploadResult;
   Login _user;
-  List<File> _files = <File>[];
+  List<String> _base64Images = new List<String>();
   bool _isLoading = false;
   bool _performML = true;
 
@@ -93,7 +93,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       DankCheckbox(
-                        onChanged: onChanged,
+                        onChanged: onAnalyzeDataChanged,
                         value: _performML,
                         margin: EdgeInsets.only(
                           left: 25.0,
@@ -103,7 +103,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                             'Analyze this plant image, using advanced Machine Learning and Data Science algorithms',
                       ),
                       DankLabel(
-                        displayText: (_files.length <= 1)
+                        displayText: (_base64Images.length <= 1)
                             ? 'Analyze Image'
                             : 'Analyze Images',
                         textStyle: appInputHintFontStyle.copyWith(
@@ -135,7 +135,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                                 onPressed: onUploadPressed,
                                 buttonType: DankButtonType.Flat,
                                 borderRadius: 5.0,
-                                isDisabled: _files.length == 0,
+                                isDisabled: _base64Images.length == 0,
                                 padding: EdgeInsets.only(
                                   left: 40.0,
                                   right: 40.0,
@@ -197,16 +197,14 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
     Get.back(result: false);
   }
 
-  void onChanged(bool val) {
+  void onAnalyzeDataChanged(bool val) {
     setState(() {
       _performML = val;
     });
   }
 
   void addFiles(List<File> newFiles) {
-    this.setState(() {
-      _files = _files..addAll(newFiles);
-    });
+    getImages(newFiles);
   }
 
   void dismissDialog(bool opResult) async {
@@ -218,7 +216,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
       PlantUpload upload = new PlantUpload(
         plantId: plantId,
         userId: _user.userId,
-        images: getImages(),
+        images: _base64Images,
         growWeek: journalWeek.weekNumber,
       );
 
@@ -228,29 +226,19 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
     }
   }
 
-  List<String> getImages() {
-    List<String> retval = new List<String>();
-    FileReader reader = new FileReader();
-    bool done = true;
-
-    for (File file in _files) {
+  void getImages(List<File> newFiles) {
+    for (File file in newFiles) {
+      FileReader reader = new FileReader();
       reader.readAsDataUrl(file);
-      done = false;
 
       reader.onLoad.listen((data) {
-        print('finished');
-        retval.add(reader.result);
-        done = true;
+        setState(() {
+          _base64Images.add(reader.result);
+        });
       });
       reader.onError.listen((fileEvent) {
-        log("Some Error occured while reading the file");
-        done = true;
+        log("ERROR - Unable to read plant image file.");
       });
-
-      while (!done) {}
     }
-
-    print('Length: ' + retval.length.toString());
-    return retval;
   }
 }
