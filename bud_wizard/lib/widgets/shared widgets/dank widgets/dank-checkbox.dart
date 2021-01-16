@@ -11,7 +11,7 @@ class DankCheckbox extends StatelessWidget {
   final bool value;
 
   DankCheckbox({
-    @required onChanged,
+    @required Function(bool) onChanged,
     EdgeInsets padding = const EdgeInsets.all(0.0),
     EdgeInsets margin = const EdgeInsets.all(0.0),
     String tooltipText = '',

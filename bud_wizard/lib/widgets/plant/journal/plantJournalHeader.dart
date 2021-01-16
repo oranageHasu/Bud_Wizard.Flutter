@@ -4,6 +4,7 @@ import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/plant/journal/uploadImageDialog.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:get/get.dart';
@@ -51,8 +52,8 @@ class PlantJournalHeader extends StatelessWidget {
           margin: EdgeInsets.only(right: 20.0),
           child: InkWell(
             onTap: addJournalEntry,
-            child: Tooltip(
-              message: 'Click to add a new journey entry',
+            child: DankBasicTooltip(
+              tooltipText: 'Click to add a new journey entry',
               child: Icon(
                 Icons.edit,
                 size: 45.0,
@@ -66,8 +67,8 @@ class PlantJournalHeader extends StatelessWidget {
           margin: EdgeInsets.only(right: 10.0),
           child: InkWell(
             onTap: uploadImage,
-            child: Tooltip(
-              message: 'Click to add an image to this week',
+            child: DankBasicTooltip(
+              tooltipText: 'Click to add an image to this week',
               child: Icon(
                 Icons.add_a_photo,
                 size: 45.0,

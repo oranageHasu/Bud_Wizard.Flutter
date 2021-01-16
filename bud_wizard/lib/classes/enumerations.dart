@@ -44,6 +44,11 @@ enum PlantOperation {
   Statistics,
 }
 
+enum ChartType {
+  BudYieldProjection,
+  WateringFrequency,
+}
+
 //endregion
 //#region HTTP Enums
 

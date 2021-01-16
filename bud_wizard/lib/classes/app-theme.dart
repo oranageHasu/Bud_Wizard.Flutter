@@ -103,6 +103,11 @@ const Color growFloweringColor = Color.fromRGBO(222, 203, 0, 1.0);
 const Color growDryingColor = Color.fromRGBO(222, 170, 0, 1.0);
 const Color growCuringColor = Color.fromRGBO(222, 93, 0, 1.0);
 
+// Chart colors
+const Color chartLinesColor = Color(0xff37434d);
+const Color chartAvgUserColor = Color(0xFFc45e47);
+const Color chartAvgColor = Color(0xFFc49c47);
+
 //#endregion
 //#region App Font styles
 

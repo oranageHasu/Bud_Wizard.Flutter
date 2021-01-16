@@ -1,5 +1,6 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-menu-item.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/utils/menuBoxClipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -136,8 +137,8 @@ class _DankIconMenuState extends State<DankIconMenu>
         });
       },
       cursor: SystemMouseCursors.click,
-      child: Tooltip(
-        message: 'Click to display this menu',
+      child: DankBasicTooltip(
+        tooltipText: 'Click to display this menu',
         child: GestureDetector(
           onTap: () {
             if (_isMenuOpen) {

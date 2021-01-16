@@ -34,10 +34,16 @@ class DankTooltip extends StatelessWidget {
       backgroundColor: appBaseContentBackgroundColor,
       borderRadius: 5.0,
       child: child,
-      ballonPadding: EdgeInsets.all(5.0),
+      ballonPadding: EdgeInsets.all(0.0),
       borderWidth: 0.0,
       arrowLength: 10,
       arrowTipDistance: 3,
+      customShadows: [
+        BoxShadow(
+          color: appBaseColor,
+          blurRadius: 8.0,
+        ),
+      ],
     );
   }
 }
