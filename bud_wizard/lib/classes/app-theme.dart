@@ -185,6 +185,20 @@ final TextStyle appPlantDetailStyle = GoogleFonts.itim(
   color: appBaseWhiteTextColor,
 );
 
+final TextStyle appChartYAxisFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 14.0,
+  fontWeight: FontWeight.bold,
+  color: appBaseWhiteTextColor.withOpacity(0.6),
+);
+
+final TextStyle appChartXAxisFontStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontSize: 17.0,
+  fontWeight: FontWeight.bold,
+  color: appBaseWhiteTextColor.withOpacity(0.6),
+);
+
 //#endregion
 //#region Theme Functions
 

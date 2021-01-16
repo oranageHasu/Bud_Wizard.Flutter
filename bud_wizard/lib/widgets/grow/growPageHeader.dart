@@ -4,7 +4,7 @@ import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/widgets/grow/growSearch.dart';
 import 'package:bud_wizard/widgets/plant/menu/plantMenu.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
-import 'package:bud_wizard/widgets/user/userPopupDialog.dart';
+import 'package:bud_wizard/widgets/user/userIconMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -59,7 +59,7 @@ class GrowPageHeader extends StatelessWidget {
                           Expanded(
                             child: SizedBox.shrink(),
                           ),
-                          UserPopupDialog(),
+                          UserIconMenu(),
                         ],
                       ),
                     ),

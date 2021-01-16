@@ -86,7 +86,7 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             ),
             DankOperationButton(
               tooltipText: 'A vast growers knowledge base',
-              icon: Icons.help,
+              icon: Icons.menu_book,
               isSelected: isScreenSelected(Screen.KnowledgeBase),
               screen: Screen.KnowledgeBase,
             ),

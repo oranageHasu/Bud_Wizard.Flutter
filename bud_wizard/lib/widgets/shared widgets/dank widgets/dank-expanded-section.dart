@@ -5,61 +5,77 @@ class DankExpandedSection extends StatefulWidget {
   final bool expand;
 
   DankExpandedSection({
-    this.expand = false,
-    this.child,
+    @required this.expand,
+    @required this.child,
   });
 
   @override
-  _DankExpandedSectionState createState() => _DankExpandedSectionState();
+  _DankExpandedSectionState createState() => _DankExpandedSectionState(
+        this.expand,
+        this.child,
+      );
 }
 
 class _DankExpandedSectionState extends State<DankExpandedSection>
     with SingleTickerProviderStateMixin {
-  AnimationController expandController;
-  Animation<double> animation;
+  Widget child;
+  bool expand;
+  AnimationController _expandController;
+  Animation<double> _animation;
+
+  _DankExpandedSectionState(
+    this.expand,
+    this.child,
+  );
 
   @override
   void initState() {
     super.initState();
-    prepareAnimations();
+
+    _prepareAnimations();
     _runExpandCheck();
-  }
-
-  ///Setting up the animation
-  void prepareAnimations() {
-    expandController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    animation = CurvedAnimation(
-      parent: expandController,
-      curve: Curves.fastOutSlowIn,
-    );
-  }
-
-  void _runExpandCheck() {
-    if (widget.expand) {
-      expandController.forward();
-    } else {
-      expandController.reverse();
-    }
   }
 
   @override
   void didUpdateWidget(DankExpandedSection oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     _runExpandCheck();
   }
 
   @override
   void dispose() {
-    expandController.dispose();
+    _expandController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizeTransition(
-        axisAlignment: 1.0, sizeFactor: animation, child: widget.child);
+      axisAlignment: 1.0,
+      sizeFactor: _animation,
+      child: child,
+    );
+  }
+
+  void _prepareAnimations() {
+    _expandController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    _animation = CurvedAnimation(
+      parent: _expandController,
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  void _runExpandCheck() {
+    if (widget.expand) {
+      _expandController.forward();
+    } else {
+      _expandController.reverse();
+    }
   }
 }

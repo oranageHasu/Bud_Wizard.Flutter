@@ -4,6 +4,7 @@ import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/navigation%20system/underConstruction.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournal.dart';
 import 'package:bud_wizard/widgets/plant/questions/plantQuestions.dart';
+import 'package:bud_wizard/widgets/plant/statistics/plantStatistics.dart';
 import 'package:flutter/material.dart';
 
 class PlantDetail extends StatelessWidget {
@@ -38,7 +39,7 @@ class PlantDetail extends StatelessWidget {
         break;
 
       case PlantOperation.Statistics:
-        retval = UnderConstruction();
+        retval = PlantStatistics(currentPlant: currentPlant);
         break;
     }
 

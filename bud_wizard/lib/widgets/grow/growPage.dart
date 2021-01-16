@@ -3,6 +3,7 @@ import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/services/api%20services/api-grow.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growPageBody.dart';
 import 'package:bud_wizard/widgets/grow/growPageHeader.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
@@ -63,7 +64,16 @@ class GrowPageState extends State<GrowPage> {
   @override
   void initState() {
     super.initState();
-    _grows = getGrows(new Guid('77c1e2cb-6792-4acd-ae31-3ab61a150822'));
+    _grows =
+        getGrows(new Guid('77c1e2cb-6792-4acd-ae31-3ab61a150822')).then((data) {
+      if (data != null && data.length >= 1) {
+        setCurrentGrow(data[0]);
+      }
+
+      return data;
+    }, onError: (e) {
+      log(e);
+    });
   }
 
   @override
