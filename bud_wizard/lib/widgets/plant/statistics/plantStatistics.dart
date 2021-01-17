@@ -62,11 +62,17 @@ class _PlantStatisticsState extends State<PlantStatistics> {
 
         if (snapshot.hasData) {
           return Column(
+            /* Graphs to include:
+              - Buid Yield
+              - Water Freq
+              - Nutrients across time (line graph)
+              - Total Nutrient Usage (pie or bar graph)
+              - Plant Height over flowering stages (time) (line graph, gradient for plant stages)
+            */
             children: [
               buildLineChart(ChartType.BudYieldProjection),
               buildLineChart(ChartType.WateringFrequency),
-              DankLineChart3(),
-              DankLineChart4(),
+              buildLineChart(ChartType.HeightOverTime),
             ],
           );
         } else if (snapshot.hasError) {
@@ -88,9 +94,121 @@ class _PlantStatisticsState extends State<PlantStatistics> {
       case ChartType.WateringFrequency:
         retval = wateringFrequency();
         break;
+      case ChartType.HeightOverTime:
+        retval = heightOverTime();
+        break;
     }
 
     return retval;
+  }
+
+  Widget heightOverTime() {
+    return DankLineChart(
+      title: 'Plant Height Over Time',
+      showGridLines: true,
+      showBelowBarData: true,
+      showFixedDotDisplay: true,
+      border: Border.all(
+        color: chartLinesColor,
+        width: 1,
+      ),
+      xAxisTitle: 'Time',
+      yAxisTitle: 'Height',
+      yAxisLabels: [
+        DankLineChartDataLabel(
+          value: 0,
+          label: 'cm',
+        ),
+        DankLineChartDataLabel(
+          value: 50,
+          label: 'cm',
+        ),
+        DankLineChartDataLabel(
+          value: 100,
+          label: 'cm',
+        ),
+        DankLineChartDataLabel(
+          value: 150,
+          label: 'cm',
+        ),
+        DankLineChartDataLabel(
+          value: 200,
+          label: 'cm',
+        ),
+        DankLineChartDataLabel(
+          value: 250,
+          label: 'cm',
+        ),
+      ],
+      xAxisLabels: [
+        DankLineChartDataLabel(
+          value: 0,
+          label: 'APR',
+        ),
+        DankLineChartDataLabel(
+          value: 30,
+          label: 'MAY',
+        ),
+        DankLineChartDataLabel(
+          value: 60,
+          label: 'JUN',
+        ),
+        DankLineChartDataLabel(
+          value: 90,
+          label: 'JULY',
+        ),
+        DankLineChartDataLabel(
+          value: 120,
+          label: 'AUG',
+        ),
+        DankLineChartDataLabel(
+          value: 150,
+          label: 'SEPT',
+        ),
+        DankLineChartDataLabel(
+          value: 180,
+          label: 'OCT',
+        ),
+        DankLineChartDataLabel(
+          value: 210,
+          label: 'DEC',
+        ),
+        DankLineChartDataLabel(
+          value: 240,
+          label: 'JAN',
+        ),
+        DankLineChartDataLabel(
+          value: 270,
+          label: 'FEB',
+        ),
+      ],
+      data: [
+        // Fake User Data
+        DankLineChartData(
+          title: 'Plant Height Over Time',
+          plotColor: [
+            growVegetativeColor,
+            growFloweringColor,
+            growDryingColor,
+          ],
+          plotData: [
+            FlSpot(0, 1),
+            FlSpot(14, 12),
+            FlSpot(28, 20),
+            FlSpot(42, 44),
+            FlSpot(85, 59),
+            FlSpot(105, 67),
+            FlSpot(155, 89),
+            FlSpot(210, 137),
+            FlSpot(250, 176),
+            FlSpot(270, 179),
+          ],
+          plotColorStops: [0, 200],
+          pointsOfInterestIndexs: [5, 8],
+          pointsOfInterestNotations: ['Flowering Begins', 'Harvest'],
+        ),
+      ],
+    );
   }
 
   Widget wateringFrequency() {
@@ -102,6 +220,8 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         color: chartLinesColor,
         width: 1,
       ),
+      xAxisTitle: 'Time',
+      yAxisTitle: 'Amount of Water',
       yAxisLabels: [
         DankLineChartDataLabel(
           value: 0,
@@ -170,7 +290,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         // Fake User Data
         DankLineChartData(
           title: 'Daily Water Usage',
-          plotColor: [appBaseColor],
+          plotColor: [appBaseColor, appBaseColor],
           plotData: [
             FlSpot(0, 250),
             FlSpot(14, 350),
@@ -187,7 +307,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
       alternativeData: [
         DankLineChartData(
           title: 'Avg Water Usage',
-          plotColor: [chartAvgColor],
+          plotColor: [chartAvgColor, chartAvgColor],
           plotData: [
             FlSpot(0, 412.5),
             FlSpot(270, 412.5),
@@ -200,6 +320,8 @@ class _PlantStatisticsState extends State<PlantStatistics> {
   Widget budYieldProject() {
     return DankLineChart(
       title: 'Bud Yield Projection',
+      xAxisTitle: 'Time',
+      yAxisTitle: 'Bud Weight',
       yAxisLabels: [
         DankLineChartDataLabel(
           value: 15,
@@ -229,30 +351,30 @@ class _PlantStatisticsState extends State<PlantStatistics> {
       xAxisLabels: [
         DankLineChartDataLabel(
           value: 0,
-          label: 'SEPT 1',
+          label: 'SEPT',
         ),
         DankLineChartDataLabel(
           value: 30,
-          label: 'OCT 1',
+          label: 'OCT',
         ),
         DankLineChartDataLabel(
           value: 60,
-          label: 'DEC 1',
+          label: 'DEC',
         ),
         DankLineChartDataLabel(
           value: 90,
-          label: 'JAN 1',
+          label: 'JAN',
         ),
         DankLineChartDataLabel(
           value: 120,
-          label: 'FEB 1',
+          label: 'FEB',
         ),
       ],
       data: [
         // Fake User Data
         DankLineChartData(
           title: 'You',
-          plotColor: [appBaseColor],
+          plotColor: [appBaseColor, appBaseColor],
           plotData: [
             FlSpot(1, 10),
             FlSpot(14, 16),
@@ -266,7 +388,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         // Fake Community Average
         DankLineChartData(
           title: 'Avg User',
-          plotColor: [chartAvgUserColor],
+          plotColor: [chartAvgUserColor, chartAvgUserColor],
           plotData: [
             FlSpot(1, 10),
             FlSpot(15, 12),

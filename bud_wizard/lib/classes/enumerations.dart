@@ -47,6 +47,7 @@ enum PlantOperation {
 enum ChartType {
   BudYieldProjection,
   WateringFrequency,
+  HeightOverTime,
 }
 
 //endregion

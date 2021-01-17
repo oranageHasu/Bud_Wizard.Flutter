@@ -7,15 +7,24 @@ import 'package:flutter/material.dart';
 class DankLineChartData {
   List<FlSpot> plotData;
   List<Color> plotColor;
+  List<double> plotColorStops;
+  List<int> pointsOfInterestIndexs;
+  List<String> pointsOfInterestNotations;
   String title;
 
   DankLineChartData({
     @required List<FlSpot> plotData,
     @required List<Color> plotColor,
+    @required List<double> plotColorStops,
     @required String title,
+    List<int> pointsOfInterestIndexs = const [],
+    List<String> pointsOfInterestNotations,
   })  : this.plotData = plotData,
         this.plotColor = plotColor,
-        this.title = title;
+        this.plotColorStops = plotColorStops,
+        this.title = title,
+        this.pointsOfInterestIndexs = pointsOfInterestIndexs,
+        this.pointsOfInterestNotations = pointsOfInterestNotations;
 }
 
 class DankLineChartDataLabel {
@@ -34,6 +43,8 @@ class DankLineChart extends StatefulWidget {
   final List<DankLineChartData> data;
   final List<DankLineChartDataLabel> xAxisLabels;
   final List<DankLineChartDataLabel> yAxisLabels;
+  final String xAxisTitle;
+  final String yAxisTitle;
   final Color chartBackgroundColor;
   final double barWidth;
   final bool showXAxisTitles;
@@ -41,6 +52,7 @@ class DankLineChart extends StatefulWidget {
   final bool showGridLines;
   final bool isCurved;
   final bool showDotData;
+  final bool showFixedDotDisplay;
   final bool showBelowBarData;
   final Border border;
   final String alternativeDataTitle;
@@ -51,6 +63,8 @@ class DankLineChart extends StatefulWidget {
     @required List<DankLineChartData> data,
     @required List<DankLineChartDataLabel> xAxisLabels,
     @required List<DankLineChartDataLabel> yAxisLabels,
+    String xAxisTitle = '',
+    String yAxisTitle = '',
     Color chartBackgroundColor = appBackgroundColor,
     double barWidth = 4.0,
     bool showXAxisTitles = true,
@@ -58,6 +72,7 @@ class DankLineChart extends StatefulWidget {
     bool showGridLines = false,
     bool isCurved = true,
     bool showDotData = true,
+    bool showFixedDotDisplay = false,
     bool showBelowBarData = false,
     String alternativeDataTitle = '<Title Here>',
     List<DankLineChartData> alternativeData,
@@ -81,6 +96,8 @@ class DankLineChart extends StatefulWidget {
         this.data = data,
         this.xAxisLabels = xAxisLabels,
         this.yAxisLabels = yAxisLabels,
+        this.xAxisTitle = xAxisTitle,
+        this.yAxisTitle = yAxisTitle,
         this.chartBackgroundColor = chartBackgroundColor,
         this.barWidth = barWidth,
         this.showXAxisTitles = showXAxisTitles,
@@ -88,6 +105,7 @@ class DankLineChart extends StatefulWidget {
         this.showGridLines = showGridLines,
         this.isCurved = isCurved,
         this.showDotData = showDotData,
+        this.showFixedDotDisplay = showFixedDotDisplay,
         this.showBelowBarData = showBelowBarData,
         this.border = border,
         this.alternativeDataTitle = alternativeDataTitle,
@@ -174,7 +192,7 @@ class _DankLineChartState extends State<DankLineChart> {
               : SizedBox.shrink(),
           Positioned(
             top: 10.0,
-            left: 670.0,
+            left: 640.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -198,7 +216,11 @@ class _DankLineChartState extends State<DankLineChart> {
           width: 20.0,
           height: 4.0,
           decoration: BoxDecoration(
-            color: chartData.plotColor[0],
+            gradient: LinearGradient(
+              colors: (chartData.plotColor.length == 1)
+                  ? null
+                  : chartData.plotColor,
+            ),
             borderRadius: BorderRadius.circular(5.0),
           ),
           margin: EdgeInsets.only(right: 5.0),
@@ -212,14 +234,10 @@ class _DankLineChartState extends State<DankLineChart> {
   }
 
   LineChartData buildLineChartData() {
+    final List<LineChartBarData> lineBarsData = buildLinesBarData();
+    final LineChartBarData tooltipsOnBar = lineBarsData[0];
+
     return LineChartData(
-      lineTouchData: LineTouchData(
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
-        ),
-        touchCallback: (LineTouchResponse touchResponse) {},
-        handleBuiltInTouches: true,
-      ),
       gridData: FlGridData(
         show: widget.showGridLines,
         drawVerticalLine: true,
@@ -249,6 +267,10 @@ class _DankLineChartState extends State<DankLineChart> {
           getTextStyles: (value) => appChartXAxisFontStyle,
           margin: 10,
           getTitles: findXAxisLabel,
+          checkToShowTitle:
+              (minValue, maxValue, sideTitles, appliedInterval, value) {
+            return true;
+          },
         ),
         leftTitles: SideTitles(
           showTitles: widget.showYAxisTitles,
@@ -256,6 +278,11 @@ class _DankLineChartState extends State<DankLineChart> {
           getTitles: findYAxisLabel,
           margin: 10,
           reservedSize: 45,
+          interval: 5,
+          checkToShowTitle:
+              (minValue, maxValue, sideTitles, appliedInterval, value) {
+            return true;
+          },
         ),
       ),
       borderData: FlBorderData(
@@ -267,6 +294,95 @@ class _DankLineChartState extends State<DankLineChart> {
       minY: getYAxisMin(),
       maxY: getYAxisMax(),
       lineBarsData: buildLinesBarData(),
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+            tooltipRoundedRadius: 5.0,
+            tooltipPadding: EdgeInsets.all(8),
+            tooltipBgColor: Colors.blueGrey.withOpacity(0.4),
+            maxContentWidth: 300.0,
+            getTooltipItems: (lineBarSpots) {
+              List<LineTooltipItem> retval = List<LineTooltipItem>();
+
+              for (LineBarSpot spot in lineBarSpots) {
+                String text = spot.y.toString() + widget.yAxisLabels[0].label;
+                if (widget.data[0].pointsOfInterestNotations != null) {
+                  bool opResult = widget.data[0].pointsOfInterestIndexs
+                      .contains(spot.spotIndex);
+
+                  if (opResult) {
+                    text = text +
+                        '\n' +
+                        widget.data[0].pointsOfInterestNotations[widget
+                            .data[0].pointsOfInterestIndexs
+                            .indexOf(spot.spotIndex)];
+                  }
+                }
+
+                retval.add(
+                  LineTooltipItem(
+                    text,
+                    appInputLabelFontStyle.copyWith(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              }
+
+              return retval;
+            }),
+        touchCallback: (LineTouchResponse touchResponse) {},
+        handleBuiltInTouches: !widget.showFixedDotDisplay,
+        getTouchedSpotIndicator:
+            (LineChartBarData barData, List<int> spotIndexes) {
+          return spotIndexes.map((index) {
+            return TouchedSpotIndicatorData(
+              FlLine(
+                color: lerpGradient(barData.colors, barData.colorStops,
+                    (index / barData.spots.length)),
+                strokeWidth: 1.5,
+              ),
+              FlDotData(
+                show: widget.showFixedDotDisplay,
+                getDotPainter: (spot, percent, barData, index) =>
+                    FlDotCirclePainter(
+                  radius: 8,
+                  color: lerpGradient(
+                      barData.colors, barData.colorStops, percent / 100),
+                  strokeWidth: 2,
+                  strokeColor: Colors.black,
+                ),
+              ),
+            );
+          }).toList();
+        },
+      ),
+      showingTooltipIndicators:
+          widget.data[0].pointsOfInterestIndexs.map((index) {
+        return ShowingTooltipIndicators(
+          index,
+          [
+            LineBarSpot(
+              tooltipsOnBar,
+              lineBarsData.indexOf(tooltipsOnBar),
+              tooltipsOnBar.spots[index],
+            ),
+          ],
+        );
+      }).toList(),
+      axisTitleData: FlAxisTitleData(
+        bottomTitle: AxisTitle(
+          showTitle: true,
+          titleText: widget.xAxisTitle,
+          textStyle: appInputHintFontStyle,
+        ),
+        leftTitle: AxisTitle(
+          showTitle: true,
+          titleText: widget.yAxisTitle,
+          textStyle: appInputHintFontStyle,
+          margin: 5.5,
+        ),
+      ),
     );
   }
 
@@ -276,15 +392,25 @@ class _DankLineChartState extends State<DankLineChart> {
     for (DankLineChartData chartData in widget.data) {
       retval.add(
         LineChartBarData(
+          showingIndicators: chartData.pointsOfInterestIndexs,
           spots: chartData.plotData,
           isCurved: widget.isCurved,
           barWidth: widget.barWidth,
           colors: chartData.plotColor,
           dotData: FlDotData(
             show: widget.showDotData,
+            getDotPainter: (spot, percent, barData, index) =>
+                FlDotCirclePainter(
+              radius: 5,
+              color: lerpGradient(
+                  barData.colors, barData.colorStops, percent / 100),
+              strokeWidth: 2,
+              strokeColor: Colors.black.withOpacity(0.5),
+            ),
           ),
           belowBarData: BarAreaData(
             show: widget.showBelowBarData,
+            gradientColorStops: chartData.plotColorStops,
             colors: chartData.plotColor
                 .map((color) => color.withOpacity(0.15))
                 .toList(),
@@ -313,6 +439,31 @@ class _DankLineChartState extends State<DankLineChart> {
     }
 
     return retval;
+  }
+
+  // Lerps between a [LinearGradient] colors, based on [t]
+  Color lerpGradient(List<Color> colors, List<double> stops, double t) {
+    if (stops == null || stops.length != colors.length) {
+      stops = [];
+
+      // provided gradientColorStops is invalid and we calculate it here
+      colors.asMap().forEach((index, color) {
+        final percent = 1.0 / colors.length;
+        stops.add(percent * index);
+      });
+    }
+
+    for (var s = 0; s < stops.length - 1; s++) {
+      final leftStop = stops[s], rightStop = stops[s + 1];
+      final leftColor = colors[s], rightColor = colors[s + 1];
+      if (t <= leftStop) {
+        return leftColor;
+      } else if (t < rightStop) {
+        final sectionT = (t - leftStop) / (rightStop - leftStop);
+        return Color.lerp(leftColor, rightColor, sectionT);
+      }
+    }
+    return colors.last;
   }
 
   bool containsYAxisLabel(double value) {
