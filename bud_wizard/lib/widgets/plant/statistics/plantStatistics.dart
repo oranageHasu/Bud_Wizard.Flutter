@@ -4,12 +4,10 @@ import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/models/question%20system/question.dart';
 import 'package:bud_wizard/services/api%20services/api-question.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/charts/dank-line-chart.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:bud_wizard/widgets/plant/statistics/Dank-Line-Chart.dart';
-import 'package:bud_wizard/widgets/plant/statistics/Dank-Line-Chart3.dart';
-import 'package:bud_wizard/widgets/plant/statistics/Dank-Line-Chart4.dart';
 
 class PlantStatistics extends StatefulWidget {
   final Plant currentPlant;
@@ -291,6 +289,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         DankLineChartData(
           title: 'Daily Water Usage',
           plotColor: [appBaseColor, appBaseColor],
+          plotColorStops: [],
           plotData: [
             FlSpot(0, 250),
             FlSpot(14, 350),
@@ -308,6 +307,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         DankLineChartData(
           title: 'Avg Water Usage',
           plotColor: [chartAvgColor, chartAvgColor],
+          plotColorStops: [],
           plotData: [
             FlSpot(0, 412.5),
             FlSpot(270, 412.5),
@@ -375,6 +375,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         DankLineChartData(
           title: 'You',
           plotColor: [appBaseColor, appBaseColor],
+          plotColorStops: [],
           plotData: [
             FlSpot(1, 10),
             FlSpot(14, 16),
@@ -389,6 +390,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         DankLineChartData(
           title: 'Avg User',
           plotColor: [chartAvgUserColor, chartAvgUserColor],
+          plotColorStops: [],
           plotData: [
             FlSpot(1, 10),
             FlSpot(15, 12),
