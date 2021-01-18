@@ -107,6 +107,8 @@ const Color growCuringColor = Color.fromRGBO(222, 93, 0, 1.0);
 const Color chartLinesColor = Color(0xff37434d);
 const Color chartAvgUserColor = Color(0xFFc45e47);
 const Color chartAvgColor = Color(0xFFc49c47);
+const Color chartComplementaryColor1 = Color(0xFFc4476e);
+const Color chartComplementaryColor2 = Color(0xFF476ec4);
 
 //#endregion
 //#region App Font styles

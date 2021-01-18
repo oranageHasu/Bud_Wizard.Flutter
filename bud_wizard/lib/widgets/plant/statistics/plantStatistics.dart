@@ -5,6 +5,7 @@ import 'package:bud_wizard/models/question%20system/question.dart';
 import 'package:bud_wizard/services/api%20services/api-question.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/charts/dank-line-chart.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/charts/dank-pie-chart.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
               buildLineChart(ChartType.BudYieldProjection),
               buildLineChart(ChartType.WateringFrequency),
               buildLineChart(ChartType.HeightOverTime),
+              DankPieChart(),
             ],
           );
         } else if (snapshot.hasError) {
