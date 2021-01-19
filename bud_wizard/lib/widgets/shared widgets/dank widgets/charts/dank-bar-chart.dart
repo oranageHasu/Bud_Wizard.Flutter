@@ -125,7 +125,6 @@ class _DankBarChartState extends State<DankBarChart> {
               ),
               Container(
                 height: 250.0,
-                constraints: BoxConstraints(maxWidth: 700.0),
                 child: Padding(
                   padding: EdgeInsets.only(
                     right: 30.0,
@@ -147,8 +146,8 @@ class _DankBarChartState extends State<DankBarChart> {
 
   BarChartData mainBarData() {
     return BarChartData(
-      alignment: BarChartAlignment.center,
-      groupsSpace: 80,
+      alignment: BarChartAlignment.spaceAround,
+      groupsSpace: 5,
       minY: getYAxisMin(),
       maxY: getYAxisMax(),
       gridData: FlGridData(

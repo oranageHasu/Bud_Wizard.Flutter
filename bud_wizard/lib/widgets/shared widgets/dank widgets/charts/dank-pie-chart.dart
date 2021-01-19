@@ -60,7 +60,6 @@ class _DankPieChartState extends State<DankPieChart> {
     return Container(
       margin: EdgeInsets.only(
         top: 10.0,
-        left: 5.0,
         right: 10.0,
       ),
       padding: EdgeInsets.all(15.0),

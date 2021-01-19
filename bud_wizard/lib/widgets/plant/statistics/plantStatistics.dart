@@ -61,27 +61,35 @@ class _PlantStatisticsState extends State<PlantStatistics> {
         Widget retval = DankLoading();
 
         if (snapshot.hasData) {
-          return Column(
-            /* Graphs to include:
+          return Container(
+            constraints: BoxConstraints(
+              minWidth: 720,
+              maxWidth: 1200.0,
+            ),
+            child: Column(
+              /* Graphs to include:
               - Buid Yield
               - Water Freq
               - Nutrients across time (line graph)
               - Total Nutrient Usage (pie or bar graph)
               - Plant Height over flowering stages (time) (line graph, gradient for plant stages)
             */
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildChart(ChartType.BudYieldProjection),
-              buildChart(ChartType.WateringFrequency),
-              buildChart(ChartType.HeightOverTime),
-              Row(
-                children: [
-                  buildChart(ChartType.NutrientTotalUsage),
-                  buildChart(ChartType.MacroNutrientsBreakdown),
-                ],
-              ),
-            ],
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildChart(ChartType.BudYieldProjection),
+                buildChart(ChartType.WateringFrequency),
+                buildChart(ChartType.HeightOverTime),
+                Row(
+                  children: [
+                    Expanded(
+                      child: buildChart(ChartType.NutrientTotalUsage),
+                    ),
+                    buildChart(ChartType.MacroNutrientsBreakdown),
+                  ],
+                ),
+              ],
+            ),
           );
         } else if (snapshot.hasError) {
           return NoDataError();

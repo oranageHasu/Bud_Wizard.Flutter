@@ -157,9 +157,12 @@ class _DankLineChartState extends State<DankLineChart> {
                     left: 15.0,
                     bottom: 10.0,
                   ),
-                  child: LineChart(
-                    buildLineChartData(),
-                    swapAnimationDuration: Duration(milliseconds: 250),
+                  child: AspectRatio(
+                    aspectRatio: 7,
+                    child: LineChart(
+                      buildLineChartData(),
+                      swapAnimationDuration: Duration(milliseconds: 250),
+                    ),
                   ),
                 ),
               ),
@@ -193,7 +196,7 @@ class _DankLineChartState extends State<DankLineChart> {
               : SizedBox.shrink(),
           Positioned(
             top: 10.0,
-            left: 640.0,
+            right: 150.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
