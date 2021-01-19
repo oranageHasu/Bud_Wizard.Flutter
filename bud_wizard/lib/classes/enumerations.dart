@@ -48,6 +48,9 @@ enum ChartType {
   BudYieldProjection,
   WateringFrequency,
   HeightOverTime,
+  MacroNutrientsBreakdown,
+  NutrientTotalUsage,
+  NutrientsOverTime,
 }
 
 //endregion

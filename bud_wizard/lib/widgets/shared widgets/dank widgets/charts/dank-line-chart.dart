@@ -152,15 +152,16 @@ class _DankLineChartState extends State<DankLineChart> {
               Container(
                 height: 200.0,
                 child: Padding(
-                  padding: EdgeInsets.only(right: 30.0, left: 15.0),
+                  padding: EdgeInsets.only(
+                    right: 30.0,
+                    left: 15.0,
+                    bottom: 10.0,
+                  ),
                   child: LineChart(
                     buildLineChartData(),
                     swapAnimationDuration: Duration(milliseconds: 250),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
               ),
             ],
           ),

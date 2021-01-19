@@ -109,6 +109,7 @@ const Color chartAvgUserColor = Color(0xFFc45e47);
 const Color chartAvgColor = Color(0xFFc49c47);
 const Color chartComplementaryColor1 = Color(0xFFc4476e);
 const Color chartComplementaryColor2 = Color(0xFF476ec4);
+const Color chartMonochromaticColor = Color(0xFF60ab93);
 
 //#endregion
 //#region App Font styles

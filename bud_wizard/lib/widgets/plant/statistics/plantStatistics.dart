@@ -4,6 +4,7 @@ import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/models/question%20system/question.dart';
 import 'package:bud_wizard/services/api%20services/api-question.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/charts/dank-bar-chart.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/charts/dank-line-chart.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/charts/dank-pie-chart.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
@@ -68,11 +69,18 @@ class _PlantStatisticsState extends State<PlantStatistics> {
               - Total Nutrient Usage (pie or bar graph)
               - Plant Height over flowering stages (time) (line graph, gradient for plant stages)
             */
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildLineChart(ChartType.BudYieldProjection),
-              buildLineChart(ChartType.WateringFrequency),
-              buildLineChart(ChartType.HeightOverTime),
-              DankPieChart(),
+              buildChart(ChartType.BudYieldProjection),
+              buildChart(ChartType.WateringFrequency),
+              buildChart(ChartType.HeightOverTime),
+              Row(
+                children: [
+                  buildChart(ChartType.NutrientTotalUsage),
+                  buildChart(ChartType.MacroNutrientsBreakdown),
+                ],
+              ),
             ],
           );
         } else if (snapshot.hasError) {
@@ -84,7 +92,7 @@ class _PlantStatisticsState extends State<PlantStatistics> {
     );
   }
 
-  Widget buildLineChart(ChartType type) {
+  Widget buildChart(ChartType type) {
     Widget retval;
 
     switch (type) {
@@ -97,9 +105,124 @@ class _PlantStatisticsState extends State<PlantStatistics> {
       case ChartType.HeightOverTime:
         retval = heightOverTime();
         break;
+      case ChartType.MacroNutrientsBreakdown:
+        retval = macroNutrientsBreakdown();
+        break;
+      case ChartType.NutrientTotalUsage:
+        retval = nutrientTotalUsage();
+        break;
     }
 
     return retval;
+  }
+
+  Widget nutrientTotalUsage() {
+    return DankBarChart(
+      showGridLines: true,
+      chartData: DankBarChartData(
+        title: 'Total Nutrient Usage',
+        data: [
+          87.5,
+          93.4,
+          35.5,
+        ],
+      ),
+      border: Border.all(
+        color: chartLinesColor,
+        width: 1,
+      ),
+      xAxisTitle: 'Nutrient',
+      yAxisTitle: 'Amt Of Nutrient Used',
+      yAxisLabels: [
+        DankBarChartDataLabel(
+          value: 0,
+          label: 'ml',
+        ),
+        DankBarChartDataLabel(
+          value: 25,
+          label: 'ml',
+        ),
+        DankBarChartDataLabel(
+          value: 50,
+          label: 'ml',
+        ),
+        DankBarChartDataLabel(
+          value: 75,
+          label: 'ml',
+        ),
+        DankBarChartDataLabel(
+          value: 100,
+          label: 'ml',
+        ),
+        DankBarChartDataLabel(
+          value: 125,
+          label: 'ml',
+        ),
+        DankBarChartDataLabel(
+          value: 150,
+          label: 'ml',
+        ),
+      ],
+      xAxisLabels: [
+        DankBarChartDataLabel(
+          value: 0,
+          label: 'Sensi Grow',
+          brand: 'Advanced Nutrients',
+        ),
+        DankBarChartDataLabel(
+          value: 1,
+          label: 'Sensi Bloom',
+          brand: 'Advanced Nutrients',
+        ),
+        DankBarChartDataLabel(
+          value: 2,
+          label: 'pH Up',
+          brand: 'Growth',
+        ),
+      ],
+    );
+  }
+
+  Widget macroNutrientsBreakdown() {
+    return DankPieChart(
+      chartData: DankPieChartData(
+        title: 'Macro Nutrient Breakdown',
+        data: [
+          DankPieChartDataItem(
+            value: 39.0,
+            unit: "%",
+            iconPath: '',
+            label: 'Nitrogen',
+            labelAbbr: 'N',
+            color: appBaseColor,
+          ),
+          DankPieChartDataItem(
+            value: 26.0,
+            unit: "%",
+            iconPath: '',
+            label: 'Phosphorus',
+            labelAbbr: 'P',
+            color: chartAvgUserColor,
+          ),
+          DankPieChartDataItem(
+            value: 23.0,
+            unit: "%",
+            iconPath: '',
+            label: 'Potassium',
+            labelAbbr: 'K',
+            color: chartComplementaryColor1,
+          ),
+          DankPieChartDataItem(
+            value: 12.0,
+            unit: "%",
+            iconPath: '',
+            label: 'Other',
+            labelAbbr: '?',
+            color: chartComplementaryColor2,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget heightOverTime() {
