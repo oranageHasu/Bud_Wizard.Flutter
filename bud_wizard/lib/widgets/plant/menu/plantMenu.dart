@@ -57,6 +57,7 @@ class _PlantMenuState extends State<PlantMenu> {
               isSelected: currentOperation == PlantOperation.Questions,
               onSelected: selectPlantOperation,
               opType: PlantOperation.Questions,
+              unreadNotificationCount: 3,
             ),
             verticalDivider(),
             PlantMenuItem(
@@ -65,6 +66,8 @@ class _PlantMenuState extends State<PlantMenu> {
               isSelected: currentOperation == PlantOperation.Statistics,
               onSelected: selectPlantOperation,
               opType: PlantOperation.Statistics,
+              unreadNotificationCount: 1,
+              displayNotificationAsAlert: true,
             ),
             Expanded(
               child: SizedBox.shrink(),
