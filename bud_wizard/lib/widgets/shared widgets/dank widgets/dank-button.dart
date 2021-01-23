@@ -55,6 +55,7 @@ class DankButton extends StatelessWidget {
               textColor: textColor,
               disabledTextColor: disabledTextColor,
               disabledBorderColor: Colors.black.withOpacity(0.3),
+              color: appBaseColor,
               hoverColor: Colors.white.withOpacity(0.1),
               borderSide: BorderSide(color: borderColor, width: 2.0),
               shape: RoundedRectangleBorder(
