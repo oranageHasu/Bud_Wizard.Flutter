@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 10.0),
                         Container(
-                          width: 280.0,
+                          width: 320.0,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                                   DankLabel(
                                     displayText: _appName[i],
                                     textStyle: appHeaderFontStyle,
-                                    textAlign: TextAlign.left,
+                                    letterSpacing: 4.0,
                                   ),
                                   true,
                                 ),
@@ -208,15 +208,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   int getFadeDelay(int index) {
-    int retval = 0;
-
-    if (index <= 3) {
-      retval = index * 1000;
-    } else {
-      retval = index * 550;
-    }
-
-    return retval;
+    return (index + 1) * 350;
   }
 
   void performLogin() async {

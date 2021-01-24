@@ -100,6 +100,7 @@ class GrowPageState extends State<GrowPage> {
                   isPlantSelected: _currentPlant != null,
                   currentGrow: _currentGrow,
                   currentPlantOp: _currentOperation,
+                  isNotificationDisplayed: true,
                 ),
                 Divider(
                   color: appBaseContentBackgroundColor,

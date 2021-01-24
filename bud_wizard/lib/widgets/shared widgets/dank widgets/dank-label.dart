@@ -8,6 +8,7 @@ class DankLabel extends StatelessWidget {
   final TextAlign textAlign;
   final EdgeInsets padding;
   final TextStyle textStyle;
+  final double letterSpacing;
 
   DankLabel({
     @required String displayText,
@@ -15,11 +16,13 @@ class DankLabel extends StatelessWidget {
     TextAlign textAlign = TextAlign.left,
     EdgeInsets padding = const EdgeInsets.all(0.0),
     TextStyle textStyle = appLabelFontStyle,
+    double letterSpacing = 0.0,
   })  : this.displayText = displayText,
         this.width = width,
         this.textAlign = textAlign,
         this.padding = padding,
-        this.textStyle = textStyle;
+        this.textStyle = textStyle,
+        this.letterSpacing = letterSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,10 @@ class DankLabel extends StatelessWidget {
       padding: padding,
       child: Text(
         displayText,
-        style: textStyle.copyWith(decoration: TextDecoration.none),
+        style: textStyle.copyWith(
+          decoration: TextDecoration.none,
+          letterSpacing: letterSpacing,
+        ),
         textAlign: textAlign,
       ),
     );

@@ -1,15 +1,19 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growSearch.dart';
 import 'package:bud_wizard/widgets/plant/menu/plantMenu.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/user/userIconMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class GrowPageHeader extends StatelessWidget {
+class GrowPageHeader extends StatefulWidget {
   final bool isPlantSelected;
+  final bool isNotificationDisplayed;
   final Grow currentGrow;
   final PlantOperation currentPlantOp;
 
@@ -17,19 +21,143 @@ class GrowPageHeader extends StatelessWidget {
     @required Grow currentGrow,
     @required PlantOperation currentPlantOp,
     bool isPlantSelected = false,
+    bool isNotificationDisplayed = false,
   })  : this.currentGrow = currentGrow,
         this.currentPlantOp = currentPlantOp,
-        this.isPlantSelected = isPlantSelected;
+        this.isPlantSelected = isPlantSelected,
+        this.isNotificationDisplayed = isNotificationDisplayed;
+
+  @override
+  _GrowPageHeaderState createState() => _GrowPageHeaderState(
+        isNotificationDisplayed,
+      );
+}
+
+class _GrowPageHeaderState extends State<GrowPageHeader> {
+  bool isNotificationDisplayed;
+
+  _GrowPageHeaderState(
+    this.isNotificationDisplayed,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(GrowPageHeader oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        if (isNotificationDisplayed) notification(),
+        header(),
+      ],
+    );
+  }
+
+  Widget notification() {
     return Container(
-      margin: EdgeInsets.only(bottom: 0.0),
+      height: 40.0,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromRGBO(71, 165, 196, 1.0),
+            Color.fromRGBO(71, 184, 196, 1.0),
+            appBaseColor,
+          ],
+          stops: [
+            0,
+            0.2,
+            1,
+          ],
+        ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DankLabel(
+                  displayText: 'Want to increase your yields?  Get a',
+                  textStyle: appLabelFontStyle.copyWith(
+                    fontSize: 14.0,
+                  ),
+                ),
+                DankLabel(
+                  displayText: ' FREE ',
+                  textStyle: appLabelFontStyle.copyWith(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                DankLabel(
+                  displayText: 'year of Bud Wizard Pro.',
+                  textStyle: appLabelFontStyle.copyWith(
+                    fontSize: 14.0,
+                  ),
+                  padding: EdgeInsets.only(
+                    right: 20.0,
+                  ),
+                ),
+                DankButton(
+                  buttonText: 'Learn More',
+                  onPressed: learnMore,
+                  borderColor: appBaseWhiteTextColor.withOpacity(0.3),
+                  borderRadius: 5,
+                  textPadding: EdgeInsets.only(
+                    left: 10.0,
+                    right: 10.0,
+                  ),
+                  invertHoverColor: true,
+                  hoverColor: Colors.white.withOpacity(0.8),
+                ),
+              ],
+            ),
+          ),
+          DankIconButton(
+            iconData: Icons.clear,
+            displayTooltip: false,
+            tooltipText: '',
+            iconSize: 20.0,
+            onPressed: dismissNotification,
+            buttonType: DankButtonType.Outline,
+            outlineColor: Colors.transparent,
+            showClickInteraction: false,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget header() {
+    double borderRadius = (isNotificationDisplayed) ? 0.0 : 10.0;
+
+    return Container(
       decoration: BoxDecoration(
         color: appThirdColor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
+          topLeft: Radius.circular(borderRadius),
         ),
       ),
       child: IntrinsicHeight(
@@ -37,8 +165,8 @@ class GrowPageHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GrowSearch(),
-            (isPlantSelected)
-                ? PlantMenu(currentOperation: currentPlantOp)
+            (widget.isPlantSelected)
+                ? PlantMenu(currentOperation: widget.currentPlantOp)
                 : Expanded(
                     child: Container(
                       color: appSecondColor,
@@ -48,12 +176,16 @@ class GrowPageHeader extends StatelessWidget {
                         children: [
                           Center(
                             child: DankLabel(
-                              displayText:
-                                  (currentGrow != null) ? currentGrow.name : '',
+                              displayText: (widget.currentGrow != null)
+                                  ? widget.currentGrow.name
+                                  : '',
                               textStyle: appLabelFontStyle,
                               textAlign: TextAlign.center,
                               padding: EdgeInsets.only(
-                                  left: 20.0, right: 20.0, bottom: 2.0),
+                                left: 20.0,
+                                right: 20.0,
+                                bottom: 2.0,
+                              ),
                             ),
                           ),
                           Expanded(
@@ -68,5 +200,15 @@ class GrowPageHeader extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void dismissNotification() {
+    setState(() {
+      isNotificationDisplayed = false;
+    });
+  }
+
+  void learnMore() {
+    log('To Do: Learn More clicked.');
   }
 }
