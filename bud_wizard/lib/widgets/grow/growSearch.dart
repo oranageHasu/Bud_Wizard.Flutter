@@ -1,10 +1,14 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/services/api%20services/api-grow.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
+import 'package:bud_wizard/widgets/grow/growSearchDialog.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_guid/flutter_guid.dart';
+import 'package:get/get.dart';
 
 class GrowSearch extends StatefulWidget {
   @override
@@ -22,27 +26,39 @@ class GrowSearchState extends State<GrowSearch> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320.0,
+      width: 300.0,
       margin: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          DankTextField(
-            textController: searchboxController,
-            onSubmit: (value) {
-              print('To Do: GrowsSearch onSubmit.');
-            },
-            onChanged: searchTextChanged,
-            labelText: 'Find a grow',
-            hintText: 'Type keywords to perform a search',
-            minWidth: 320,
-            maxWidth: 320,
-            prefixIcon: Icon(
-              Icons.search,
-              color: appBaseWhiteTextColor,
+        children: [
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: displaySearchDialog,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 3.0,
+                    ),
+                    Icon(
+                      Icons.search,
+                      color: appHintTextColor,
+                    ),
+                    DankLabel(
+                      displayText: 'Find other user\'s grows or plants',
+                      textStyle: appInputHintFontStyle,
+                      padding: EdgeInsets.all(7.5),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            margin: EdgeInsets.all(0.0),
           ),
         ],
       ),
@@ -56,5 +72,32 @@ class GrowSearchState extends State<GrowSearch> {
 
     // Tell the parent its data has changed and force a re-render
     GrowPage.of(context).setGrows(grows);
+  }
+
+  void displaySearchDialog() async {
+    bool opResult = await showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.85),
+      transitionBuilder: (context, a1, a2, widget) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: GrowSearchDialog(),
+          ),
+        );
+      },
+      transitionDuration: Duration(milliseconds: 400),
+      barrierDismissible: true,
+      barrierLabel: '',
+      context: Get.context,
+      pageBuilder: (context, animation1, animation2) {
+        return SizedBox(height: 20.0);
+      },
+    );
+
+    if (opResult) {
+      log('To Do: Do something post-search');
+    }
   }
 }

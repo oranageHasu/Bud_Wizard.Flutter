@@ -83,8 +83,8 @@ class _PlantMenuState extends State<PlantMenu> {
   Widget verticalDivider() {
     return Container(
       margin: EdgeInsets.only(
-        top: 20.0,
-        bottom: 20.0,
+        top: 10.0,
+        bottom: 10.0,
       ),
       child: VerticalDivider(
         color: appThirdColor,

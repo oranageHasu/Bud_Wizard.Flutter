@@ -18,7 +18,7 @@ class GrowSelector extends StatelessWidget {
       direction: Axis.vertical,
       children: [
         Container(
-          width: 320.0,
+          width: 300.0,
           margin: EdgeInsets.all(10.0),
           child: Column(
             children: [
