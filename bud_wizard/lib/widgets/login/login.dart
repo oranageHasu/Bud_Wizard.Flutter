@@ -162,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           child: DankLabel(
             displayText:
-                'Allow shared community and the Bud Wizard magic to increase the quality and yield of your crops, while providing you a secure/anonymous environment',
+                'Allow shared community knowledge and the Bud Wizard magic to increase the quality and yield of your crops, while providing you a secure/anonymous environment',
             textStyle: appLabelFontStyle.copyWith(fontSize: 14.0),
             textAlign: TextAlign.center,
           ),
