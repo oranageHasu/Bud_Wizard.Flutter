@@ -28,6 +28,7 @@ class DankLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
+      constraints: (width != null) ? BoxConstraints(maxWidth: width) : null,
       padding: padding,
       child: Text(
         displayText,

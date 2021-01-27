@@ -145,8 +145,7 @@ const TextStyle appInputCounterFontStyle = TextStyle(
   color: appBaseWhiteTextColor,
 );
 
-final TextStyle appLabelHeaderFontStyle = TextStyle(
-  fontFamily: 'Montserrat',
+final TextStyle appLabelHeaderFontStyle = GoogleFonts.nunito(
   fontSize: 30.0,
   color: appBaseColor,
 );

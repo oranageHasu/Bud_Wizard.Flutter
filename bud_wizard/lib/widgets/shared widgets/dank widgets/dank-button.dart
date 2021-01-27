@@ -144,7 +144,7 @@ class _DankButtonState extends State<DankButton> {
                 textColor: widget.textColor,
                 disabledTextColor: widget.disabledTextColor,
                 disabledColor: Colors.black.withOpacity(0.3),
-                hoverColor: Colors.black.withOpacity(0.3),
+                hoverColor: widget.hoverColor,
                 shape: (widget.flatButtonShape ==
                         DankFlatButtonType.RoundedRectangle)
                     ? RoundedRectangleBorder(

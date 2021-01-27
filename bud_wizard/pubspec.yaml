@@ -55,6 +55,9 @@ dependencies:
   # Charts library - * Requires BSD License * - Research wtf this means
   fl_chart: ^0.12.2
 
+  # Pretty nice loading animation package
+  flutter_spinkit: ^4.1.2+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
