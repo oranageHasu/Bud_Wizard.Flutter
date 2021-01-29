@@ -134,167 +134,175 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                 )
-              : SizedBox(height: 60.0),
+              : SizedBox.shrink(),
         ],
       ),
     );
   }
 
   Widget buttonPanel() {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            top: 60.0,
-            bottom: 10.0,
-          ),
-          child: DankLabel(
-            displayText: 'Discover Unbelievable Yields...',
-            textStyle: appLabelHeaderFontStyle,
-            textAlign: TextAlign.center,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: 70.0),
-          constraints: BoxConstraints(
-            minWidth: 450.0,
-            maxWidth: 650.0,
-          ),
-          child: DankLabel(
-            displayText:
-                'Allow shared community knowledge and the Bud Wizard magic to increase the quality and yield of your crops, while providing you a secure/anonymous environment',
-            textStyle: appLabelFontStyle.copyWith(fontSize: 14.0),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        Container(
-          width: 300.0,
-          margin: EdgeInsets.only(bottom: 10.0),
-          child: DankButton(
-            buttonType: DankButtonType.Flat,
-            buttonText: 'Sign Up',
-            onPressed: signUp,
-            textColor: appBaseColor,
-            backgroundColor: appBaseWhiteTextColor,
-            hoverColor: Colors.black.withOpacity(0.05),
-            padding: EdgeInsets.only(
-              top: 20.0,
-              bottom: 20.0,
+    return Container(
+      height: 300.0,
+      margin: EdgeInsets.only(top: 40.0),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              bottom: 10.0,
             ),
-            borderRadius: 12.0,
-          ),
-        ),
-        Container(
-          width: 300.0,
-          margin: EdgeInsets.only(bottom: 10.0),
-          child: DankButton(
-            buttonType: DankButtonType.Flat,
-            buttonText: 'Continue with Google',
-            onPressed: googleLogin,
-            textColor: appBaseWhiteTextColor,
-            backgroundColor: Colors.blueAccent,
-            hoverColor: Colors.black.withOpacity(0.05),
-            padding: EdgeInsets.only(
-              top: 20.0,
-              bottom: 20.0,
+            child: DankLabel(
+              displayText: 'Discover Unbelievable Yields...',
+              textStyle: appLabelHeaderFontStyle,
+              textAlign: TextAlign.center,
             ),
-            borderRadius: 12.0,
           ),
-        ),
-        Container(
-          width: 300.0,
-          margin: EdgeInsets.only(bottom: 30.0),
-          child: DankButton(
-            buttonType: DankButtonType.Flat,
-            buttonText: 'Log In',
-            onPressed: budWizardLogin,
-            textColor: appBaseColor,
-            backgroundColor: Colors.black,
-            hoverColor: Colors.white.withOpacity(0.05),
-            padding: EdgeInsets.only(
-              top: 20.0,
-              bottom: 20.0,
+          Container(
+            constraints: BoxConstraints(
+              minWidth: 450.0,
+              maxWidth: 650.0,
             ),
-            borderRadius: 12.0,
+            child: DankLabel(
+              displayText:
+                  'Allow shared community knowledge and the Bud Wizard magic to increase the quality and yield of your crops, while providing you a secure/anonymous environment',
+              textStyle: appLabelFontStyle.copyWith(fontSize: 14.0),
+              textAlign: TextAlign.center,
+            ),
           ),
-        )
-      ],
+          Container(
+            width: 300.0,
+            margin: EdgeInsets.only(
+              top: 20.0,
+              bottom: 10.0,
+            ),
+            child: DankButton(
+              buttonType: DankButtonType.Flat,
+              buttonText: 'Sign Up',
+              onPressed: signUp,
+              textColor: appBaseColor,
+              backgroundColor: appBaseWhiteTextColor,
+              hoverColor: Colors.black.withOpacity(0.05),
+              padding: EdgeInsets.only(
+                top: 20.0,
+                bottom: 20.0,
+              ),
+              borderRadius: 12.0,
+            ),
+          ),
+          Container(
+            width: 300.0,
+            margin: EdgeInsets.only(bottom: 10.0),
+            child: DankButton(
+              buttonType: DankButtonType.Flat,
+              buttonText: 'Continue with Google',
+              onPressed: googleLogin,
+              textColor: appBaseWhiteTextColor,
+              backgroundColor: Colors.blueAccent,
+              hoverColor: Colors.black.withOpacity(0.05),
+              padding: EdgeInsets.only(
+                top: 20.0,
+                bottom: 20.0,
+              ),
+              borderRadius: 12.0,
+            ),
+          ),
+          Container(
+            width: 300.0,
+            child: DankButton(
+              buttonType: DankButtonType.Flat,
+              buttonText: 'Log In',
+              onPressed: budWizardLogin,
+              textColor: appBaseColor,
+              backgroundColor: Colors.black,
+              hoverColor: Colors.white.withOpacity(0.05),
+              padding: EdgeInsets.only(
+                top: 20.0,
+                bottom: 20.0,
+              ),
+              borderRadius: 12.0,
+            ),
+          )
+        ],
+      ),
     );
   }
 
   Widget loginPanel() {
-    return Container(
-      constraints: BoxConstraints(maxWidth: 500.0),
-      margin: EdgeInsets.only(
-        bottom: 50.0,
-        top: 35.0,
-        left: 35.0,
-        right: 35.0,
+    return FadeIn(
+      2500,
+      Container(
+        height: 330.0,
+        constraints: BoxConstraints(maxWidth: 500.0),
+        margin: EdgeInsets.only(
+          top: 10.0,
+          left: 35.0,
+          right: 35.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DankTextField(
+              borderColorUnselected: Colors.white.withOpacity(0.1),
+              textController: _usernameController,
+              autofocus: true,
+              onSubmit: (value) {
+                FocusScope.of(context).requestFocus(_passwordFocusNode);
+              },
+              labelText: 'Username',
+              hintText: 'Enter your Username',
+              minWidth: 100,
+              maxWidth: 400,
+              prefixIcon: Icon(
+                Icons.person,
+                color: appBaseWhiteTextColor,
+              ),
+              margin: EdgeInsets.only(
+                top: 5.0,
+                bottom: 5.0,
+              ),
+            ),
+            DankTextField(
+              borderColorUnselected: Colors.white.withOpacity(0.1),
+              textController: _passwordController,
+              onSubmit: (value) {
+                performLogin();
+              },
+              focusNode: _passwordFocusNode,
+              labelText: 'Password',
+              hintText: 'Enter your password',
+              minWidth: 100,
+              maxWidth: 400,
+              prefixIcon: Icon(
+                Icons.lock,
+                color: appBaseWhiteTextColor,
+              ),
+              isPassword: true,
+              margin: EdgeInsets.only(
+                top: 5.0,
+                bottom: 5.0,
+              ),
+            ),
+            SizedBox(
+              height: 25.0,
+              child: Visibility(
+                visible: _failedLogin,
+                child: Text("Username or Password is invalid",
+                    style: appErrorFontStyle),
+                replacement: SizedBox.shrink(),
+              ),
+            ),
+            DankButton(
+              buttonText: "Sign In",
+              onPressed: performLogin,
+              margin: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.all(15.0),
+              borderRadius: 10.0,
+            ),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DankTextField(
-            borderColorUnselected: Colors.white.withOpacity(0.1),
-            textController: _usernameController,
-            autofocus: true,
-            onSubmit: (value) {
-              FocusScope.of(context).requestFocus(_passwordFocusNode);
-            },
-            labelText: 'Username',
-            hintText: 'Enter your Username',
-            minWidth: 100,
-            maxWidth: 400,
-            prefixIcon: Icon(
-              Icons.person,
-              color: appBaseWhiteTextColor,
-            ),
-            margin: EdgeInsets.only(
-              top: 5.0,
-              bottom: 5.0,
-            ),
-          ),
-          DankTextField(
-            borderColorUnselected: Colors.white.withOpacity(0.1),
-            textController: _passwordController,
-            onSubmit: (value) {
-              performLogin();
-            },
-            focusNode: _passwordFocusNode,
-            labelText: 'Password',
-            hintText: 'Enter your password',
-            minWidth: 100,
-            maxWidth: 400,
-            prefixIcon: Icon(
-              Icons.lock,
-              color: appBaseWhiteTextColor,
-            ),
-            isPassword: true,
-            margin: EdgeInsets.only(
-              top: 5.0,
-              bottom: 5.0,
-            ),
-          ),
-          SizedBox(
-            height: 25.0,
-            child: Visibility(
-              visible: _failedLogin,
-              child: Text("Username or Password is invalid",
-                  style: appErrorFontStyle),
-              replacement: SizedBox.shrink(),
-            ),
-          ),
-          DankButton(
-            buttonText: "Sign In",
-            onPressed: performLogin,
-            margin: EdgeInsets.only(top: 10.0),
-            padding: EdgeInsets.all(15.0),
-            borderRadius: 10.0,
-          ),
-        ],
-      ),
+      true,
     );
   }
 

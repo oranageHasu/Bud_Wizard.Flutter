@@ -190,7 +190,7 @@ class _DankIconMenuState extends State<DankIconMenu>
             child: Stack(
               children: [
                 Positioned(
-                  top: _buttonPosition.dy + _buttonSize.height - 22,
+                  top: _buttonPosition.dy + _buttonSize.height - 16,
                   left: _buttonPosition.dx,
                   width: _menuWidth,
                   child: Material(

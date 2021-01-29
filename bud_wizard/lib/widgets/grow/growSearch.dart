@@ -76,7 +76,7 @@ class GrowSearchState extends State<GrowSearch> {
 
   void displaySearchDialog() async {
     bool opResult = await showGeneralDialog(
-      barrierColor: Colors.black.withOpacity(0.85),
+      barrierColor: Colors.black.withOpacity(0.9),
       transitionBuilder: (context, a1, a2, widget) {
         final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
         return Transform(
