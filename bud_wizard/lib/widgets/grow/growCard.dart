@@ -1,5 +1,5 @@
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';

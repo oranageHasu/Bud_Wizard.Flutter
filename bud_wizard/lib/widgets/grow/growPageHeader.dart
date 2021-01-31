@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growSearch.dart';
 import 'package:bud_wizard/widgets/plant/menu/plantMenu.dart';
@@ -76,14 +76,14 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color.fromRGBO(71, 165, 196, 1.0),
-            Color.fromRGBO(71, 184, 196, 1.0),
             appBaseColor,
+            Color.fromRGBO(71, 184, 196, 1.0),
+            Color.fromRGBO(71, 165, 196, 1.0),
           ],
           stops: [
             0,
-            0.2,
-            1,
+            0.7,
+            0.9,
           ],
         ),
         borderRadius: BorderRadius.only(

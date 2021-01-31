@@ -1,6 +1,7 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
+import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/grow/add/originStory.dart';
@@ -119,6 +120,12 @@ class AddGrowState extends State<AddGrow> {
   void setGrowSetting(GrowSetting setting) {
     setState(() {
       _newGrow.setting = setting;
+    });
+  }
+
+  void setGrowLighting(List<GrowLight> lights) {
+    setState(() {
+      _newGrow.growLights = lights;
     });
   }
 }

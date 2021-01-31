@@ -1,4 +1,4 @@
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/widgets/plant/plantCard.dart';
 import 'package:flutter/material.dart';
 

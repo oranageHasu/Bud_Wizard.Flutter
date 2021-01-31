@@ -1,11 +1,12 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
+import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:bud_wizard/widgets/grow/add/addGrow.dart';
+import 'package:bud_wizard/widgets/grow/add/growLightSelector.dart';
 import 'package:bud_wizard/widgets/grow/add/growSettingSelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/slideIn.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-chip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-date-picker.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
@@ -22,7 +23,7 @@ class OriginStory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DankLabel(
           displayText:
@@ -36,7 +37,7 @@ class OriginStory extends StatelessWidget {
             delay: Duration(milliseconds: 700),
             isVisible: true,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
                   margin: EdgeInsets.only(top: 40.0),
@@ -47,10 +48,30 @@ class OriginStory extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                              DankDatePicker(
+                                label: 'Start Date: ',
+                                defaultDate: DateTime.now(),
+                                onDateChanged: (DateTime date) {
+                                  AddGrow.of(context).updateGrowDate(date);
+                                },
+                              ),
+                              GrowSettingSelector(
+                                grow: grow,
+                                selectionChanged: (GrowSetting setting) {
+                                  AddGrow.of(context).setGrowSetting(setting);
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
                           DankTextField(
                             labelText: 'Enter Grow Name',
                             hintText: 'Type the name of your grow',
-                            maxWidth: 600.0,
+                            maxWidth: 542.0,
                             margin: EdgeInsets.only(
                               bottom: 8.0,
                             ),
@@ -63,30 +84,23 @@ class OriginStory extends StatelessWidget {
                                 'A well named grow can help expose your plants to other users.',
                             onLearnMore: learnMoreAboutGrows,
                           ),
-                          DankDatePicker(
-                            defaultDate: DateTime.now(),
-                            onDateChanged: (DateTime date) {
-                              AddGrow.of(context).updateGrowDate(date);
-                            },
-                          ),
                         ],
                       ),
                       SizedBox(
-                        width: 50.0,
+                        width: 10.0,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          GrowSettingSelector(
-                            grow: grow,
-                            selectionChanged: (GrowSetting setting) {
-                              AddGrow.of(context).setGrowSetting(setting);
-                            },
-                          ),
                           Visibility(
                             visible: grow != null &&
                                 grow.setting == GrowSetting.Indoor,
-                            child: buildLightSelector(),
+                            child: GrowLightSelector(
+                              grow: grow,
+                              selectionChanged: (List<GrowLight> lights) {
+                                AddGrow.of(context).setGrowLighting(lights);
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -99,54 +113,6 @@ class OriginStory extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Widget buildLightSelector() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        DankLabel(
-          displayText: 'Lighting:',
-          textStyle: appLabelFontStyle,
-          textAlign: TextAlign.start,
-          padding: EdgeInsets.only(
-            bottom: 10.0,
-            top: 20.0,
-          ),
-        ),
-        Row(
-          children: [
-            DankChip(
-              onTapped: removeLight,
-              label: DankLabel(
-                displayText: 'spider farmer sf1000',
-                textStyle: appLabelFontStyle.copyWith(
-                  fontSize: 14.0,
-                  color: appBaseColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            DankChip(
-              onTapped: removeLight,
-              label: DankLabel(
-                displayText: 'spider farmer sf2000',
-                textStyle: appLabelFontStyle.copyWith(
-                  fontSize: 14.0,
-                  color: appBaseColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  void removeLight() {
-    print('To Do: Remove Light');
   }
 
   void learnMoreAboutGrows() {

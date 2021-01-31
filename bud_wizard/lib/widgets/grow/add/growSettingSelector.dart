@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-radio-button.dart';
 import 'package:flutter/material.dart';
@@ -43,36 +43,47 @@ class _GrowSettingSelectorState extends State<GrowSettingSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        DankLabel(
-          displayText: 'Grow Location:',
-          textStyle: appLabelFontStyle,
-          textAlign: TextAlign.start,
-          padding: EdgeInsets.only(bottom: 5.0),
-        ),
-        Row(
-          children: [
-            DankRadioButton(
-              id: GrowSetting.Indoor.index,
-              currentIndex: _currentLocation,
-              displayText: 'Indoors',
-              onTapped: _selectionChanged,
-            ),
-            Container(
-              width: 15.0,
-            ),
-            DankRadioButton(
-              id: GrowSetting.Outdoor.index,
-              currentIndex: _currentLocation,
-              displayText: 'Outdoors',
-              onTapped: _selectionChanged,
-            ),
-          ],
-        ),
-      ],
+    return Container(
+      margin: EdgeInsets.only(left: 15.0),
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: appBaseBackgroundColor,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          DankLabel(
+            displayText: 'Grow Location:',
+            textStyle: appLabelFontStyle,
+            textAlign: TextAlign.start,
+            padding: EdgeInsets.only(bottom: 5.0),
+          ),
+          Row(
+            children: [
+              Container(
+                width: 15.0,
+              ),
+              DankRadioButton(
+                id: GrowSetting.Indoor.index,
+                currentIndex: _currentLocation,
+                displayText: 'Indoors',
+                onTapped: _selectionChanged,
+              ),
+              Container(
+                width: 15.0,
+              ),
+              DankRadioButton(
+                id: GrowSetting.Outdoor.index,
+                currentIndex: _currentLocation,
+                displayText: 'Outdoors',
+                onTapped: _selectionChanged,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

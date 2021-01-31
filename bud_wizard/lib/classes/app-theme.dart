@@ -223,6 +223,9 @@ Color getGrowthStateColor(GrowState growthState) {
   Color retval = appBaseWhiteTextColor;
 
   switch (growthState) {
+    case GrowState.NotApplicable:
+      retval = appBorderUnselectedColor;
+      break;
     case GrowState.Germination:
       retval = growGerminationColor;
       break;

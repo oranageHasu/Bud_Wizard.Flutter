@@ -89,8 +89,8 @@ class _DankRadioButtonState extends State<DankRadioButton> {
                 ],
               ),
               child: Container(
-                height: 18.0,
-                width: 18.0,
+                height: 12.0,
+                width: 12.0,
                 margin: EdgeInsets.all(3.0),
                 decoration: BoxDecoration(
                   color: getColor(),

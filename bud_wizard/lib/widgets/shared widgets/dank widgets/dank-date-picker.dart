@@ -1,17 +1,19 @@
 import 'package:bud_wizard/classes/app-theme.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class DankDatePicker extends StatefulWidget {
+  final String label;
   final DateTime defaultDate;
   final Function(DateTime) onDateChanged;
 
   DankDatePicker({
+    @required String label,
     @required DateTime defaultDate,
     @required Function(DateTime) onDateChanged,
-  })  : this.defaultDate = defaultDate,
+  })  : this.label = label,
+        this.defaultDate = defaultDate,
         this.onDateChanged = onDateChanged;
 
   @override
@@ -20,6 +22,7 @@ class DankDatePicker extends StatefulWidget {
 
 class _DankDatePickerState extends State<DankDatePicker> {
   DateTime _selectedDate;
+  bool _isHovered = false;
 
   @override
   void initState() {
@@ -45,26 +48,76 @@ class _DankDatePickerState extends State<DankDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        DankLabel(
-          displayText: "${_selectedDate.toLocal()}".split(' ')[0],
-          textStyle: appLabelFontStyle,
-        ),
-        DankIconButton(
-          onPressed: () => _selectDate(context),
-          iconData: Icons.calendar_today,
-          iconSize: 30.0,
-          color: appBaseWhiteTextColor,
-          tooltipText: 'Click to select a date',
-          margin: EdgeInsets.only(left: 10.0),
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.fromLTRB(10.0, 13.5, 10.0, 13.5),
+      decoration: BoxDecoration(
+        color: appBackgroundColor,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          DankLabel(
+            displayText: widget.label,
+            textStyle: appLabelFontStyle,
+            padding: EdgeInsets.only(right: 10.0),
+          ),
+          DankLabel(
+            displayText: "${_selectedDate.toLocal()}".split(' ')[0],
+            textStyle: appLabelFontStyle,
+          ),
+          GestureDetector(
+            onTap: _selectDate,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              onEnter: (pointerEvent) {
+                setState(() {
+                  _isHovered = true;
+                });
+              },
+              onExit: (pointerEvent) {
+                setState(() {
+                  _isHovered = false;
+                });
+              },
+              child: Container(
+                width: 45.0,
+                height: 45.0,
+                margin: EdgeInsets.only(
+                  left: 10.0,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(
+                    color: appBaseColor,
+                    width: 2.0,
+                  ),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: (_isHovered)
+                          ? appBaseColor.withOpacity(0.3)
+                          : Colors.transparent,
+                      blurRadius: 25.0,
+                    ),
+                  ],
+                ),
+                child: Icon(
+                  Icons.calendar_today,
+                  color: (_isHovered)
+                      ? appBaseWhiteTextColor
+                      : Colors.grey.shade400,
+                  size: 20.0,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  _selectDate(BuildContext context) async {
+  _selectDate() async {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate,

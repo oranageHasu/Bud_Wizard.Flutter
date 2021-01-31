@@ -1,5 +1,5 @@
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/add/addGrow.dart';
 import 'package:bud_wizard/widgets/grow/growActivity.dart';

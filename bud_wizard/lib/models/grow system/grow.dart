@@ -1,3 +1,4 @@
+import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
@@ -9,8 +10,8 @@ class Grow {
   String name;
   DateTime startDate;
   GrowSetting setting;
-  LightStyle light;
   bool isDeleted;
+  List<GrowLight> growLights;
   List<Plant> plants;
 
   Grow({
@@ -19,7 +20,7 @@ class Grow {
     String name,
     DateTime startDate,
     GrowSetting setting = GrowSetting.Indoor,
-    LightStyle light = LightStyle.LED,
+    List<GrowLight> growLights,
     bool isDeleted = false,
     List<Plant> plants,
   })  : this.userId = userId,
@@ -27,7 +28,7 @@ class Grow {
         this.name = name,
         this.startDate = startDate,
         this.setting = setting,
-        this.light = light,
+        this.growLights = growLights,
         this.isDeleted = isDeleted,
         this.plants = plants;
 
@@ -39,11 +40,12 @@ class Grow {
       startDate: DateTime.parse(json['startDate']),
       setting: GrowSetting.values
           .firstWhere((e) => e.index == json['setting'] as int),
-      light:
-          LightStyle.values.firstWhere((e) => e.index == json['light'] as int),
+      growLights: (json['growLights'] as List)
+          .map((growLight) => new GrowLight.fromJson(growLight))
+          .toList(),
       isDeleted: json['isDeleted'],
       plants: (json['plants'] as List)
-          .map((plants) => new Plant.fromJson(plants))
+          .map((plant) => new Plant.fromJson(plant))
           .toList(),
     );
   }

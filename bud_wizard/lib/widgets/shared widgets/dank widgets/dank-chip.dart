@@ -48,7 +48,7 @@ class _DankChipState extends State<DankChip> {
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-        color: appBaseBackgroundColor,
+        color: appBaseContentBackgroundColor,
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Row(
@@ -69,7 +69,7 @@ class _DankChipState extends State<DankChip> {
                 });
               },
               child: Container(
-                margin: EdgeInsets.only(left: 10.0),
+                margin: EdgeInsets.only(left: 7.0),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: (_isRemoveHovered)
@@ -86,7 +86,7 @@ class _DankChipState extends State<DankChip> {
                     color: (_isRemoveHovered)
                         ? appErrorColor
                         : Colors.red.withOpacity(0.5),
-                    size: 20.0,
+                    size: 15.0,
                   ),
                 ),
               ),

@@ -101,10 +101,17 @@ enum GeneticType {
 }
 
 enum GrowState {
+  @JsonValue(-1)
+  NotApplicable,
+  @JsonValue(0)
   Germination,
+  @JsonValue(1)
   Vegetative,
+  @JsonValue(2)
   Flowering,
+  @JsonValue(3)
   Drying,
+  @JsonValue(4)
   Curing,
 }
 

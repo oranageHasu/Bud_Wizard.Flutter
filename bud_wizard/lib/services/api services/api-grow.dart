@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/services/api%20services/api-services.dart';
-import 'package:bud_wizard/models/grow.dart';
+import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 
 Future<List<Grow>> getGrows(Guid userId, {String searchText = ''}) async {
