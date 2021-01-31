@@ -120,8 +120,8 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
 
   Widget scrollButton(SlideDirection direction) {
     return FadeIn(
-      500,
-      Container(
+      duration: 500,
+      child: Container(
         margin: (direction == SlideDirection.Left)
             ? EdgeInsets.only(left: 20.0, top: 10.0)
             : EdgeInsets.only(right: 20.0, top: 10.0),
@@ -141,7 +141,7 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
           displayTooltip: false,
         ),
       ),
-      _scrollButtonsVisible,
+      isVisible: _scrollButtonsVisible,
     );
   }
 

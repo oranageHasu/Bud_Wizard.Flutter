@@ -92,7 +92,7 @@ const Color appBaseWhiteTextColor = Color.fromRGBO(252, 252, 252, 1.0);
 const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 0.8);
 const Color appSuccessColor = Color.fromRGBO(196, 250, 187, 1.0);
 const Color appWarningColor = Color.fromRGBO(255, 140, 54, 0.6);
-const Color appErrorColor = Color.fromRGBO(250, 127, 127, 1.0);
+const Color appErrorColor = Color.fromRGBO(250, 70, 70, 1.0);
 const Color appDropdownColor = Color.fromRGBO(81, 80, 82, 1);
 const Color appBorderUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
 
@@ -204,6 +204,16 @@ final TextStyle appChartXAxisFontStyle = TextStyle(
   fontSize: 17.0,
   fontWeight: FontWeight.bold,
   color: appBaseWhiteTextColor.withOpacity(0.6),
+);
+
+final TextStyle appInstructionHeaderFontStyle = GoogleFonts.architectsDaughter(
+  fontSize: 25.0,
+  color: appBaseWhiteTextColor,
+);
+
+final TextStyle appInstructionLabelFontStyle = GoogleFonts.architectsDaughter(
+  fontSize: 18.0,
+  color: appBaseWhiteTextColor,
 );
 
 //#endregion

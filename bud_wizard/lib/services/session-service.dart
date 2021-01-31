@@ -12,10 +12,10 @@ import 'package:get/get.dart';
 Future<SessionInfo> sessionInfo;
 
 Future<void> initSession() async {
-  sessionInfo = getSessionData();
+  sessionInfo = _getSessionData();
 }
 
-Future<SessionInfo> getSessionData() async {
+Future<SessionInfo> _getSessionData() async {
   SessionInfo retval;
 
   try {

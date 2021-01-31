@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/plant.dart';
@@ -12,15 +13,23 @@ class Grow {
   bool isDeleted;
   List<Plant> plants;
 
-  Grow(
-      {this.growId,
-      this.userId,
-      this.name,
-      this.startDate,
-      this.setting,
-      this.light,
-      this.isDeleted,
-      this.plants});
+  Grow({
+    @required Guid userId,
+    Guid growId,
+    String name,
+    DateTime startDate,
+    GrowSetting setting = GrowSetting.Indoor,
+    LightStyle light = LightStyle.LED,
+    bool isDeleted = false,
+    List<Plant> plants,
+  })  : this.userId = userId,
+        this.growId = growId,
+        this.name = name,
+        this.startDate = startDate,
+        this.setting = setting,
+        this.light = light,
+        this.isDeleted = isDeleted,
+        this.plants = plants;
 
   factory Grow.fromJson(Map<String, dynamic> json) {
     return Grow(

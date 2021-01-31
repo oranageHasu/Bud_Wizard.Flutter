@@ -69,14 +69,14 @@ class _LoginPageState extends State<LoginPage> {
                 ],
                 stops: [
                   0.0,
-                  0.7,
+                  0.8,
                 ],
               ),
             ),
           ),
           FadeIn(
-            2500,
-            Center(
+            duration: 2500,
+            child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-            true,
+            isVisible: true,
           ),
           (_isLoading)
               ? FutureBuilder<Login>(
@@ -228,8 +228,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget loginPanel() {
     return FadeIn(
-      2500,
-      Container(
+      duration: 2500,
+      child: Container(
         height: 330.0,
         constraints: BoxConstraints(maxWidth: 500.0),
         margin: EdgeInsets.only(
@@ -302,7 +302,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-      true,
+      isVisible: true,
     );
   }
 

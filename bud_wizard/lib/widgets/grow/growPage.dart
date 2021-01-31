@@ -23,47 +23,11 @@ class GrowPageState extends State<GrowPage> {
   Future<List<Grow>> _grows;
   Grow _currentGrow;
   Plant _currentPlant;
-  PlantOperation _currentOperation = PlantOperation.Journal;
-
-  void setGrows(Future<List<Grow>> grows) {
-    setState(() {
-      _grows = grows;
-      _currentPlant = null;
-      _currentOperation = PlantOperation.Journal;
-    });
-  }
-
-  void setCurrentGrow(Grow grow) {
-    setState(() {
-      _currentGrow = grow;
-      _currentOperation = PlantOperation.Journal;
-
-      if (_currentGrow != null &&
-          _currentGrow.plants != null &&
-          _currentGrow.plants.length == 1) {
-        _currentPlant = _currentGrow.plants[0];
-      } else {
-        _currentPlant = null;
-      }
-    });
-  }
-
-  void setCurrentPlant(Plant plant) {
-    setState(() {
-      _currentPlant = plant;
-      _currentOperation = PlantOperation.Journal;
-    });
-  }
-
-  void setCurrentPlantOperation(PlantOperation operation) {
-    setState(() {
-      _currentOperation = operation;
-    });
-  }
+  PlantOperation _currentPlantOp = PlantOperation.Journal;
+  GrowOperation _currentGrowOp = GrowOperation.EditGrows;
 
   @override
   void initState() {
-    super.initState();
     _grows =
         getGrows(new Guid('77c1e2cb-6792-4acd-ae31-3ab61a150822')).then((data) {
       if (data != null && data.length >= 1) {
@@ -74,6 +38,8 @@ class GrowPageState extends State<GrowPage> {
     }, onError: (e) {
       log(e);
     });
+
+    super.initState();
   }
 
   @override
@@ -99,7 +65,7 @@ class GrowPageState extends State<GrowPage> {
                 GrowPageHeader(
                   isPlantSelected: _currentPlant != null,
                   currentGrow: _currentGrow,
-                  currentPlantOp: _currentOperation,
+                  currentPlantOp: _currentPlantOp,
                   isNotificationDisplayed: true,
                 ),
                 Divider(
@@ -111,7 +77,8 @@ class GrowPageState extends State<GrowPage> {
                   grows: _grows,
                   currentGrow: _currentGrow,
                   currentPlant: _currentPlant,
-                  currentOperation: _currentOperation,
+                  currentPlantOp: _currentPlantOp,
+                  currentGrowOp: _currentGrowOp,
                 ),
               ],
             ),
@@ -119,6 +86,48 @@ class GrowPageState extends State<GrowPage> {
         ),
       ),
     );
+  }
+
+  void setGrows(Future<List<Grow>> grows) {
+    setState(() {
+      _grows = grows;
+      _currentPlant = null;
+      _currentPlantOp = PlantOperation.Journal;
+    });
+  }
+
+  void setCurrentGrow(Grow grow) {
+    setState(() {
+      _currentGrow = grow;
+      _currentPlantOp = PlantOperation.Journal;
+
+      if (_currentGrow != null &&
+          _currentGrow.plants != null &&
+          _currentGrow.plants.length == 1) {
+        _currentPlant = _currentGrow.plants[0];
+      } else {
+        _currentPlant = null;
+      }
+    });
+  }
+
+  void setCurrentPlant(Plant plant) {
+    setState(() {
+      _currentPlant = plant;
+      _currentPlantOp = PlantOperation.Journal;
+    });
+  }
+
+  void setCurrentPlantOperation(PlantOperation operation) {
+    setState(() {
+      _currentPlantOp = operation;
+    });
+  }
+
+  void startNewGrow() {
+    setState(() {
+      _currentGrowOp = GrowOperation.AddGrow;
+    });
   }
 }
 

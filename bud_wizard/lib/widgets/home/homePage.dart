@@ -36,13 +36,13 @@ class _HomePageState extends State<HomePage> {
         children: [
           Center(
             child: FadeIn(
-              2000,
-              Text(
+              duration: 2000,
+              child: Text(
                 'Welcome to Bud Wizard',
                 style: appHeaderFontStyle,
                 textAlign: TextAlign.center,
               ),
-              _isVisible,
+              isVisible: _isVisible,
             ),
           ),
         ],

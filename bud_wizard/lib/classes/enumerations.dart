@@ -38,7 +38,14 @@ enum DankShieldStatus {
   Error,
 }
 
+enum GrowOperation {
+  AddGrow,
+  EditGrows,
+  ReadOnlyGrows,
+}
+
 enum PlantOperation {
+  AddPlant,
   Journal,
   Questions,
   Statistics,

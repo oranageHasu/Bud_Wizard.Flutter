@@ -58,6 +58,12 @@ dependencies:
   # Pretty nice loading animation package
   flutter_spinkit: ^4.1.2+1
 
+  # More icons via community
+  community_material_icon: ^5.8.55
+
+  # Nice tool for progressively loading images
+  progressive_image: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -92,6 +98,10 @@ flutter:
      - family: Montserrat
        fonts:
          - asset: fonts/Montserrat-Regular.ttf
+     - family: MaterialIcons
+       fonts:
+         - asset: fonts/MaterialIcons-Regular.ttf
+      
     
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

@@ -16,7 +16,7 @@ class DankOperationButton extends StatefulWidget {
     @required String tooltipText,
     @required IconData icon,
     VoidCallback onPressed,
-    bool isSelected,
+    bool isSelected = false,
     Screen screen,
   })  : this.onPressed = onPressed,
         this.tooltipText = tooltipText,
@@ -26,30 +26,11 @@ class DankOperationButton extends StatefulWidget {
         super(key: key);
 
   @override
-  _DankOperationButtonState createState() => _DankOperationButtonState(
-        this.onPressed,
-        this.tooltipText,
-        this.icon,
-        this.isSelected,
-        this.screen,
-      );
+  _DankOperationButtonState createState() => _DankOperationButtonState();
 }
 
 class _DankOperationButtonState extends State<DankOperationButton> {
-  VoidCallback onPressed;
-  String tooltipText;
-  IconData icon;
-  bool isHovered = false;
-  bool isSelected = false;
-  Screen screen;
-
-  _DankOperationButtonState(
-    this.onPressed,
-    this.tooltipText,
-    this.icon,
-    this.isSelected,
-    this.screen,
-  );
+  bool _isHovered = false;
 
   @override
   void initState() {
@@ -69,8 +50,6 @@ class _DankOperationButtonState extends State<DankOperationButton> {
   @override
   void didUpdateWidget(DankOperationButton oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    isSelected = widget.isSelected;
   }
 
   @override
@@ -82,10 +61,10 @@ class _DankOperationButtonState extends State<DankOperationButton> {
       children: [
         Center(
           child: Container(
-            height: (isHovered && !isSelected) ? 25.0 : 60.0,
+            height: (_isHovered && !widget.isSelected) ? 25.0 : 60.0,
             width: 4.0,
             decoration: BoxDecoration(
-              color: (isSelected || isHovered)
+              color: (widget.isSelected || _isHovered)
                   ? appBaseWhiteTextColor
                   : Colors.transparent,
               borderRadius: BorderRadius.only(
@@ -100,16 +79,16 @@ class _DankOperationButtonState extends State<DankOperationButton> {
           width: 10.0,
         ),
         DankIconButton(
-          iconData: icon,
-          tooltipText: tooltipText,
+          iconData: widget.icon,
+          tooltipText: widget.tooltipText,
           iconSize: 35.0,
           buttonType: DankButtonType.Flat,
           onPressed: () {
-            DankOperationPanel.of(context).navigateTo(screen);
+            DankOperationPanel.of(context).navigateTo(widget.screen);
           },
           onHover: onHover,
           onLostHover: onLostHover,
-          isSelected: isSelected,
+          isSelected: widget.isSelected,
           enableAnimation: true,
         ),
         SizedBox(
@@ -122,13 +101,13 @@ class _DankOperationButtonState extends State<DankOperationButton> {
 
   void onHover() {
     setState(() {
-      isHovered = true;
+      _isHovered = true;
     });
   }
 
   void onLostHover() {
     setState(() {
-      isHovered = false;
+      _isHovered = false;
     });
   }
 }

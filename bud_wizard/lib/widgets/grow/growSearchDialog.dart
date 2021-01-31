@@ -2,11 +2,10 @@ import 'dart:async';
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/models/grow.dart';
 import 'package:bud_wizard/models/login.dart';
-import 'package:bud_wizard/services/api%20services/api-plant.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-clickable-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -105,38 +104,9 @@ class _GrowSearchDialogState extends State<GrowSearchDialog> {
                         return SizedBox.shrink();
                       },
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        DankLabel(
-                          displayText: 'PRO TIP:',
-                          textStyle: appLabelFontStyle.copyWith(
-                            fontSize: 12.0,
-                            color: appBaseColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        DankLabel(
-                          displayText:
-                              'Search uses Plant Tags to narrow results.',
-                          textStyle: appLabelFontStyle.copyWith(
-                            fontSize: 12.0,
-                            color: appBorderUnselectedColor,
-                          ),
-                          padding: EdgeInsets.only(
-                            left: 5.0,
-                            right: 10.0,
-                          ),
-                        ),
-                        DankClickableLabel(
-                          displayText: 'Learn more',
-                          onTapped: learnMoreAboutPlantTags,
-                          textStyle: appLabelFontStyle.copyWith(
-                            fontSize: 12.0,
-                            color: Colors.lightBlue,
-                          ),
-                        ),
-                      ],
+                    DankProTip(
+                      proTipText: 'Search uses Plant Tags to narrow results.',
+                      onLearnMore: learnMoreAboutPlantTags,
                     ),
                   ],
                 ),

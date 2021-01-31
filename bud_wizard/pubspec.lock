@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0-nullsafety.5"
+  community_material_icon:
+    dependency: "direct main"
+    description:
+      name: community_material_icon
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.8.55"
   convert:
     dependency: transitive
     description:
@@ -277,6 +284,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
+  progressive_image:
+    dependency: "direct main"
+    description:
+      name: progressive_image
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   sa_anicoto:
     dependency: transitive
     description:

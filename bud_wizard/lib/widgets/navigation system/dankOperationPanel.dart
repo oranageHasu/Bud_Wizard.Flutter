@@ -3,6 +3,7 @@ import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/services/api%20services/api-login.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankOperationButton.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
 class DankOperationPanel extends StatefulWidget {
@@ -74,19 +75,19 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             ),
             DankOperationButton(
               tooltipText: 'Your personal grows',
-              icon: Icons.grass,
+              icon: CommunityMaterialIcons.cannabis,
               isSelected: isScreenSelected(Screen.Grows),
               screen: Screen.Grows,
             ),
             DankOperationButton(
               tooltipText: 'Share your grows',
-              icon: Icons.share,
+              icon: CommunityMaterialIcons.share_variant,
               isSelected: isScreenSelected(Screen.Social),
               screen: Screen.Social,
             ),
             DankOperationButton(
               tooltipText: 'A vast growers knowledge base',
-              icon: Icons.menu_book,
+              icon: CommunityMaterialIcons.book_open_page_variant,
               isSelected: isScreenSelected(Screen.KnowledgeBase),
               screen: Screen.KnowledgeBase,
             ),
