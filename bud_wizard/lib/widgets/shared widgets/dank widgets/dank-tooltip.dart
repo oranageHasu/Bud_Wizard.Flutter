@@ -40,8 +40,9 @@ class DankTooltip extends StatelessWidget {
       arrowTipDistance: 3,
       customShadows: [
         BoxShadow(
-          color: appBaseColor,
-          blurRadius: 8.0,
+          color: appBaseColor.withOpacity(0.1),
+          blurRadius: 25.0,
+          spreadRadius: 15.0,
         ),
       ],
     );

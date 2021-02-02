@@ -24,8 +24,9 @@ class DankBasicTooltip extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
-            color: appBaseColor,
-            blurRadius: 5.0,
+            color: appBaseColor.withOpacity(0.1),
+            blurRadius: 25.0,
+            spreadRadius: 15.0,
           ),
         ],
       ),

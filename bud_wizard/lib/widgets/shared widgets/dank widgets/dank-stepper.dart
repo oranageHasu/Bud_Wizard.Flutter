@@ -26,14 +26,17 @@ class DankStepper extends StatefulWidget {
   final List<DankStepItem> steps;
   final Color selectedColor;
   final Color unselectedColor;
+  final VoidCallback onFinished;
 
   DankStepper({
     @required List<DankStepItem> steps,
     @required selectedColor,
     @required unselectedColor,
+    @required VoidCallback onFinished,
   })  : this.steps = steps,
         this.selectedColor = selectedColor,
-        this.unselectedColor = unselectedColor;
+        this.unselectedColor = unselectedColor,
+        this.onFinished = onFinished;
 
   static DankStepperState of(BuildContext context) {
     return context
@@ -71,9 +74,7 @@ class DankStepperState extends State<DankStepper> {
   }
 
   void setCurrentIndex(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+    clickAction(index);
   }
 
   @override
@@ -99,12 +100,12 @@ class DankStepperState extends State<DankStepper> {
               ],
             ),
             Container(
-              height: 300.0,
+              height: 385.0,
               constraints: (MediaQuery.of(context).size.height > 720)
-                  ? BoxConstraints(maxHeight: 300.0)
+                  ? BoxConstraints(minHeight: 385.0)
                   : null,
               margin: EdgeInsets.only(
-                top: 45.0,
+                top: 35.0,
                 bottom: 25.0,
                 left: 40.0,
                 right: 40.0,
@@ -160,7 +161,21 @@ class DankStepperState extends State<DankStepper> {
   }
 
   void cancelPressed() {
-    print('To Do: Finished creating Grow');
+    print('To Do: Cancel creating Grow');
+  }
+
+  void clickAction(int index) {
+    setState(() {
+      _currentIndex = index;
+
+      if (_currentIndex == widget.steps.length - 1) {
+        _forwardActionText = 'Finished';
+      } else {
+        _forwardActionText = 'Next';
+      }
+
+      _isBackVisible = _currentIndex != 0;
+    });
   }
 
   void backwardAction() {
@@ -175,7 +190,7 @@ class DankStepperState extends State<DankStepper> {
 
   void forwardAction() {
     if (_currentIndex == widget.steps.length - 1) {
-      print('To Do: Finished creating Grow');
+      widget.onFinished();
     } else {
       setState(() {
         _currentIndex++;

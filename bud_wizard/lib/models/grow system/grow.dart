@@ -1,4 +1,5 @@
 import 'package:bud_wizard/models/grow%20system/growLight.dart';
+import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
@@ -8,11 +9,13 @@ class Grow {
   final Guid growId;
   final Guid userId;
   String name;
-  DateTime startDate;
+  DateTime startDate = DateTime.now();
   GrowSetting setting;
   bool isDeleted;
   List<GrowLight> growLights;
-  List<Plant> plants;
+  List<Plant> plants = List<Plant>();
+  GrowPrivacy privacySettings =
+      GrowPrivacy(privacySetting: GrowPrivacySetting.DoNotShare);
 
   Grow({
     @required Guid userId,
@@ -23,6 +26,7 @@ class Grow {
     List<GrowLight> growLights,
     bool isDeleted = false,
     List<Plant> plants,
+    GrowPrivacy privacySettings,
   })  : this.userId = userId,
         this.growId = growId,
         this.name = name,
@@ -30,7 +34,8 @@ class Grow {
         this.setting = setting,
         this.growLights = growLights,
         this.isDeleted = isDeleted,
-        this.plants = plants;
+        this.plants = plants,
+        this.privacySettings = privacySettings;
 
   factory Grow.fromJson(Map<String, dynamic> json) {
     return Grow(
@@ -47,6 +52,7 @@ class Grow {
       plants: (json['plants'] as List)
           .map((plant) => new Plant.fromJson(plant))
           .toList(),
+      privacySettings: GrowPrivacy.fromJson(json['privacySettings']),
     );
   }
 }

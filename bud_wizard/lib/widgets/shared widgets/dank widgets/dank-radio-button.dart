@@ -102,7 +102,12 @@ class _DankRadioButtonState extends State<DankRadioButton> {
         ),
         DankLabel(
           displayText: widget.displayText,
-          textStyle: appLabelFontStyle.copyWith(fontSize: 14.0),
+          textStyle: appLabelFontStyle.copyWith(
+            fontSize: 14.0,
+            color: (widget.currentIndex == widget.id)
+                ? appBaseWhiteTextColor
+                : appBaseWhiteTextColor.withOpacity(0.6),
+          ),
           padding: EdgeInsets.only(left: 8.0),
         ),
       ],

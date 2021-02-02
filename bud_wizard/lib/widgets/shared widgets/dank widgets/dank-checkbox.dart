@@ -40,7 +40,7 @@ class DankCheckbox extends StatelessWidget {
           child: Checkbox(
             value: value,
             checkColor: appBaseColor,
-            activeColor: Colors.transparent,
+            activeColor: appSecondColor,
             splashRadius: 0.0,
             onChanged: (isDisabled) ? null : onChanged,
           ),

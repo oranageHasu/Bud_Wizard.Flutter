@@ -40,7 +40,7 @@ class _GrowLightSelectorState extends State<GrowLightSelector> {
   Widget build(BuildContext context) {
     return Container(
       height: 160.0,
-      width: 525.0,
+      width: 520.0,
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: appBaseBackgroundColor,

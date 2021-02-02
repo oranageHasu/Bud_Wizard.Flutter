@@ -151,6 +151,8 @@ class _DankDatePickerState extends State<DankDatePicker> {
       setState(() {
         _selectedDate = picked;
       });
+
+      widget.onDateChanged(_selectedDate);
     }
   }
 

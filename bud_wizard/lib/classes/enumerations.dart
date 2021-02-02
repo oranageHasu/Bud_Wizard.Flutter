@@ -118,6 +118,13 @@ enum GrowState {
 //endregion
 //region Grow Enums
 
+enum GrowPrivacySetting {
+  @JsonValue(0)
+  DoNotShare,
+  @JsonValue(1)
+  Share
+}
+
 enum GrowSetting {
   @JsonValue(0)
   Outdoor,

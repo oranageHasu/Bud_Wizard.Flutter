@@ -1,10 +1,14 @@
 import 'package:bud_wizard/classes/app-theme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
+import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/grow%20system/growLight.dart';
+import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/grow/add/originStory.dart';
+import 'package:bud_wizard/widgets/grow/add/privacy.dart';
+import 'package:bud_wizard/widgets/grow/add/techIntegrations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-stepper.dart';
@@ -67,6 +71,7 @@ class AddGrowState extends State<AddGrow> {
               DankStepper(
                 selectedColor: appBaseColor,
                 unselectedColor: appBaseWhiteTextColor.withOpacity(0.7),
+                onFinished: persistGrow,
                 steps: [
                   DankStepItem(
                     title: 'Origin Story',
@@ -80,16 +85,16 @@ class AddGrowState extends State<AddGrow> {
                     title: 'Tech Integrations',
                     subtitle: 'For the fancy grower',
                     icon: CommunityMaterialIcons.cogs,
-                    content: DankLabel(
-                      displayText: 'To Do: Privacy',
+                    content: TechIntegrations(
+                      grow: _newGrow,
                     ),
                   ),
                   DankStepItem(
                     title: 'Privacy',
                     subtitle: 'Growing bud can be risky...',
                     icon: CommunityMaterialIcons.shield_lock,
-                    content: DankLabel(
-                      displayText: 'To Do: Privacy',
+                    content: Privacy(
+                      grow: _newGrow,
                     ),
                   ),
                   DankStepItem(
@@ -98,6 +103,7 @@ class AddGrowState extends State<AddGrow> {
                     icon: CommunityMaterialIcons.eye_check,
                     content: DankLabel(
                       displayText: 'To Do: Review',
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],
@@ -127,6 +133,29 @@ class AddGrowState extends State<AddGrow> {
     setState(() {
       _newGrow.growLights = lights;
     });
+  }
+
+  void updatePrivacy(GrowPrivacy privacySettings) {
+    _newGrow.privacySettings = privacySettings;
+  }
+
+  void persistGrow() {
+    print('Origin Story:');
+    print('Name: ' + _newGrow.name);
+    print('Location: ' + formatEnum(_newGrow.setting.toString()));
+    print('Start Date: ' + formatDateDisplay(_newGrow.startDate));
+
+    print('\n\nPrivacy:');
+    print('Blanket Setting: ' +
+        formatEnum(_newGrow.privacySettings.privacySetting.toString()));
+    print('Sharing Images: ' + _newGrow.privacySettings.sharePhotos.toString());
+    print(
+        'Sharing Journal: ' + _newGrow.privacySettings.shareJournal.toString());
+    print('Allowing Comments: ' +
+        _newGrow.privacySettings.allowComments.toString());
+    print('Allows ML: ' + _newGrow.privacySettings.allowML.toString());
+    print('Allows Notifications: ' +
+        _newGrow.privacySettings.allowNotifications.toString());
   }
 }
 

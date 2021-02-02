@@ -23,7 +23,6 @@ class OriginStory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DankLabel(
           displayText:
@@ -31,7 +30,7 @@ class OriginStory extends StatelessWidget {
           textStyle: appInstructionHeaderFontStyle,
         ),
         SlideIn(
-          2,
+          1.5,
           FadeIn(
             duration: 1000,
             delay: Duration(milliseconds: 700),
