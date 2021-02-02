@@ -3,6 +3,7 @@ import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/home/homePage.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 import 'package:bud_wizard/widgets/navigation%20system/unknownRoutePage.dart';
+import 'package:bud_wizard/widgets/settings/settingsPage.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -32,20 +33,35 @@ MaterialPageRoute determineRoute(RouteSettings settings) {
   switch (settings.name) {
     case uiRouteApp:
       return new BudWizardRoute(
-          builder: (_) => new AppBasePage(), settings: settings);
+        builder: (_) => AppBasePage(),
+        settings: settings,
+      );
     case uiRouteHomeScreen:
       return new BudWizardRoute(
-          builder: (_) => new HomePage(), settings: settings);
+        builder: (_) => HomePage(),
+        settings: settings,
+      );
     case uiRouteLogin:
       return new BudWizardRoute(
-          builder: (_) => new LoginPage(), settings: settings);
+        builder: (_) => LoginPage(),
+        settings: settings,
+      );
     case uiRouteGrows:
       return new BudWizardRoute(
-          builder: (_) => new GrowPage(), settings: settings);
+        builder: (_) => GrowPage(),
+        settings: settings,
+      );
+    case uiRouteSettings:
+      return new BudWizardRoute(
+        builder: (_) => SettingsPage(),
+        settings: settings,
+      );
   }
 
   // Default case
   assert(false);
   return new BudWizardRoute(
-      builder: (_) => new UnknownRoutePage(), settings: settings);
+    builder: (_) => UnknownRoutePage(),
+    settings: settings,
+  );
 }

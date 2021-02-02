@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/plant/plantSelector.dart';

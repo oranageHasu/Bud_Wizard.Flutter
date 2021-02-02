@@ -1,7 +1,7 @@
 import 'dart:async';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/models/login.dart';

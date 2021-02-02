@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageContainer.dart';

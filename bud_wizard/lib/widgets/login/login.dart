@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/login.dart';

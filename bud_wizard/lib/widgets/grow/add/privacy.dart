@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
 import 'package:bud_wizard/widgets/grow/add/addGrow.dart';

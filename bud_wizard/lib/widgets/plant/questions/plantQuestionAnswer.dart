@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/question%20system/answer.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';

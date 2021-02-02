@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-chip.dart';

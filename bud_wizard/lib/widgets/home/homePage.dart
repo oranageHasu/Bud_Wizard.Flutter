@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';

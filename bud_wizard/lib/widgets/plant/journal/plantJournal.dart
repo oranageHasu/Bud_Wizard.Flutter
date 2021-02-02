@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/services/api%20services/api-journal.dart';

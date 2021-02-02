@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/question%20system/question.dart';
 import 'package:bud_wizard/widgets/plant/questions/addAnswerDialog.dart';

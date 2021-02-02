@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankOperationPanel.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';

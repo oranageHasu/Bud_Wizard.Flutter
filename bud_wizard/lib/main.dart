@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/router-services.dart';
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Bud Wizard',
-        theme: ThemeData(
-          primarySwatch: appBaseColor,
-        ),
+        theme: dankLightTheme,
+        darkTheme: dankDarkTheme,
+        themeMode: currentTheme.currentTheme(),
         navigatorKey: Get.key,
         initialRoute: uiRouteApp,
         onGenerateRoute: (RouteSettings settings) {
@@ -45,12 +45,18 @@ class _AppBasePageState extends State<AppBasePage> {
 
   @override
   void initState() {
-    super.initState();
-
     // Load any session data, if the app was running and hard refreshed
     initSession();
 
+    // Listen for global changes of the app theme
+    currentTheme.addListener(() {
+      print('Theme Changed.');
+      setState(() {});
+    });
+
     _initialized = true;
+
+    super.initState();
   }
 
   @override

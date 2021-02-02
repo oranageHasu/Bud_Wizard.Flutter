@@ -1,4 +1,4 @@
-import 'package:bud_wizard/classes/app-theme.dart';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/journal%20system/journalDay.dart';
 import 'package:bud_wizard/models/journal%20system/journalEntry.dart';

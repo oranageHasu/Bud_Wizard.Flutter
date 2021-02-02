@@ -2,6 +2,34 @@ import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Global singleton that represents the current App Theme state
+DankTheme currentTheme = DankTheme();
+
+class DankTheme with ChangeNotifier {
+  static bool _isDark = true;
+
+  ThemeMode currentTheme() {
+    return _isDark ? ThemeMode.dark : ThemeMode.light;
+  }
+
+  void switchTheme() {
+    _isDark = !_isDark;
+    notifyListeners();
+  }
+}
+
+// Dark Theme
+ThemeData dankDarkTheme = ThemeData.dark().copyWith(
+  primaryColor: appBaseColor,
+  indicatorColor: appBaseColor,
+);
+
+// Light Theme
+ThemeData dankLightTheme = ThemeData.light().copyWith(
+  primaryColor: Colors.red,
+  indicatorColor: Colors.red,
+);
+
 //#region App Color Theme
 // The App's base color
 MaterialColor appBaseColor = MaterialColor(0xFF47c49d, appBaseColorOpacity);
