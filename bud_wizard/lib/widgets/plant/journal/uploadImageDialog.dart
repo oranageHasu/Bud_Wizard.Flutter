@@ -74,7 +74,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Dialog(
-            backgroundColor: appThirdColor,
+            backgroundColor: appTertiaryColor,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
@@ -88,7 +88,7 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                 Container(
                   height: 70.0,
                   width: 600.0,
-                  color: appBaseBackgroundColor,
+                  color: appBackgroundColor,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

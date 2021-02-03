@@ -48,7 +48,7 @@ class _DankChipState extends State<DankChip> {
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-        color: appBaseContentBackgroundColor,
+        color: appContentBackgroundColor,
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Row(

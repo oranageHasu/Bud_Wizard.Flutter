@@ -65,7 +65,7 @@ class PlantQuestionOpPanel extends StatelessWidget {
             ],
           ),
           Divider(
-            color: appThirdColor,
+            color: appTertiaryColor,
             height: 2.0,
             thickness: 2.0,
           ),

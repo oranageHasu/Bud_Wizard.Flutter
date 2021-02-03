@@ -26,24 +26,21 @@ class DankCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        unselectedWidgetColor: appSecondColor,
-      ),
-      child: DankTooltip(
-        tooltipText: tooltipText,
-        displayTooltip: false,
-        child: Container(
-          padding: padding,
-          margin: margin,
-          width: 20.0,
-          child: Checkbox(
-            value: value,
-            checkColor: appBaseColor,
-            activeColor: appSecondColor,
-            splashRadius: 0.0,
-            onChanged: (isDisabled) ? null : onChanged,
-          ),
+    return DankTooltip(
+      tooltipText: tooltipText,
+      displayTooltip: false,
+      child: Container(
+        padding: padding,
+        margin: margin,
+        width: 20.0,
+        child: Checkbox(
+          value: value,
+          checkColor: appBaseColor,
+          activeColor: (currentTheme.currentTheme() == ThemeMode.dark)
+              ? appUnselectedColor
+              : Colors.black.withOpacity(0.6),
+          splashRadius: 0.0,
+          onChanged: (isDisabled) ? null : onChanged,
         ),
       ),
     );

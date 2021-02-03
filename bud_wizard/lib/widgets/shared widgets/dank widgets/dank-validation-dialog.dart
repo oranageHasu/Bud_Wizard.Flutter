@@ -89,7 +89,7 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: appBaseBackgroundColor,
+      backgroundColor: appBackgroundColor,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
@@ -100,7 +100,7 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
         margin: EdgeInsets.all(0.0),
         width: 600.0,
         height: 400.0,
-        color: appBaseBackgroundColor,
+        color: appBackgroundColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -119,7 +119,7 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
                 bottom: 25.0,
               ),
               child: Divider(
-                color: appThirdColor,
+                color: appTertiaryColor,
                 thickness: 2.0,
               ),
             ),

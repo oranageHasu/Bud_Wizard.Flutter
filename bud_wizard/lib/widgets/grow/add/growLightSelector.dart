@@ -43,7 +43,6 @@ class _GrowLightSelectorState extends State<GrowLightSelector> {
       width: 520.0,
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: appBaseBackgroundColor,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(
@@ -56,7 +55,9 @@ class _GrowLightSelectorState extends State<GrowLightSelector> {
             children: [
               DankLabel(
                 displayText: 'Lighting:',
-                textStyle: appLabelFontStyle,
+                textStyle: appLabelFontStyle.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.start,
               ),
               DankTextField(

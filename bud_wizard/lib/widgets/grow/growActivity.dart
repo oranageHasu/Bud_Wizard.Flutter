@@ -25,7 +25,7 @@ class GrowActivity extends StatelessWidget {
           Card(
             clipBehavior: Clip.hardEdge,
             elevation: 0.0,
-            color: appSecondColor,
+            color: appSecondaryColor,
             margin: EdgeInsets.all(5.0),
             child: Container(
               height: 100.0,

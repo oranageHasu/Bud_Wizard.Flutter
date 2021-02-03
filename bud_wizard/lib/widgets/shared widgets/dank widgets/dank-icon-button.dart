@@ -148,7 +148,7 @@ class DankIconButtonState extends State<DankIconButton> {
                   ),
                   onPressed: (widget.isDisabled) ? null : widget.onPressed,
                   onLongPress: (widget.isDisabled) ? null : widget.onLongPress,
-                  child: new Icon(
+                  child: Icon(
                     widget.iconData,
                     color: (widget.isSelected || _isHovered)
                         ? widget.color
@@ -163,7 +163,9 @@ class DankIconButtonState extends State<DankIconButton> {
                   autofocus: true,
                   color: (widget.isSelected || _isHovered)
                       ? appBaseColor
-                      : appThirdColor,
+                      : (currentTheme.currentTheme() == ThemeMode.dark)
+                          ? appTertiaryColor
+                          : Colors.black.withOpacity(0.05),
                   textColor: Colors.white,
                   disabledTextColor: appBaseWhiteTextColor,
                   disabledColor: Colors.black.withOpacity(0.3),
@@ -176,11 +178,13 @@ class DankIconButtonState extends State<DankIconButton> {
                       : StadiumBorder(),
                   onPressed: (widget.isDisabled) ? null : widget.onPressed,
                   onLongPress: (widget.isDisabled) ? null : widget.onLongPress,
-                  child: new Icon(
+                  child: Icon(
                     widget.iconData,
                     color: (widget.isSelected || _isHovered)
-                        ? widget.color
-                        : widget.color.withOpacity(0.5),
+                        ? widget.color.withOpacity(0.9)
+                        : (currentTheme.currentTheme() == ThemeMode.dark)
+                            ? widget.color.withOpacity(0.6)
+                            : appBaseBlackTextColor.withOpacity(0.6),
                     size: widget.iconSize,
                   ),
                   mouseCursor: SystemMouseCursors.click,

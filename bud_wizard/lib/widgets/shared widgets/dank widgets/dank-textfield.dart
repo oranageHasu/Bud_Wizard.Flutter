@@ -99,7 +99,7 @@ class DankTextField extends StatelessWidget {
           onChanged: onChanged,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.black.withOpacity(0.3),
+            fillColor: Colors.grey.withOpacity(0.3),
             contentPadding: textPadding,
             hintText: hintText,
             labelText: labelText,

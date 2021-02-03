@@ -38,7 +38,7 @@ class _PlantMenuState extends State<PlantMenu> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: appSecondColor,
+        color: appSecondaryColor,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,7 @@ class _PlantMenuState extends State<PlantMenu> {
         bottom: 10.0,
       ),
       child: VerticalDivider(
-        color: appThirdColor,
+        color: appTertiaryColor,
         width: 1.0,
         thickness: 2.0,
       ),

@@ -38,7 +38,7 @@ class GrowSearchState extends State<GrowSearch> {
               onTap: displaySearchDialog,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Color.fromRGBO(219, 219, 219, 1.0),
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Row(
@@ -52,7 +52,9 @@ class GrowSearchState extends State<GrowSearch> {
                     ),
                     DankLabel(
                       displayText: 'Find other user\'s grows or plants',
-                      textStyle: appInputHintFontStyle,
+                      textStyle: appInputHintFontStyle.copyWith(
+                        color: appBaseBlackTextColor.withOpacity(0.7),
+                      ),
                       padding: EdgeInsets.all(7.5),
                     ),
                   ],

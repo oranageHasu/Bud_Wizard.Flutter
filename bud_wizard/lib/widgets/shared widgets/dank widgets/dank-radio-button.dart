@@ -76,7 +76,9 @@ class _DankRadioButtonState extends State<DankRadioButton> {
                 color: Colors.transparent,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: appBorderUnselectedColor,
+                  color: (currentTheme.currentTheme() == ThemeMode.dark)
+                      ? appUnselectedColor
+                      : appBaseBlackTextColor.withOpacity(0.5),
                   width: 2,
                 ),
                 boxShadow: [
@@ -105,8 +107,12 @@ class _DankRadioButtonState extends State<DankRadioButton> {
           textStyle: appLabelFontStyle.copyWith(
             fontSize: 14.0,
             color: (widget.currentIndex == widget.id)
-                ? appBaseWhiteTextColor
-                : appBaseWhiteTextColor.withOpacity(0.6),
+                ? (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appBaseWhiteTextColor
+                    : appBaseBlackTextColor
+                : (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appBaseWhiteTextColor.withOpacity(0.6)
+                    : appBaseBlackTextColor.withOpacity(0.6),
           ),
           padding: EdgeInsets.only(left: 8.0),
         ),

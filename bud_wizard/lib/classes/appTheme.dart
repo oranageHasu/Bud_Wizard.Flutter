@@ -12,6 +12,11 @@ class DankTheme with ChangeNotifier {
     return _isDark ? ThemeMode.dark : ThemeMode.light;
   }
 
+  void setLightTheme() {
+    _isDark = false;
+    notifyListeners();
+  }
+
   void switchTheme() {
     _isDark = !_isDark;
     notifyListeners();
@@ -19,15 +24,65 @@ class DankTheme with ChangeNotifier {
 }
 
 // Dark Theme
-ThemeData dankDarkTheme = ThemeData.dark().copyWith(
+ThemeData dankDarkTheme = ThemeData(
+  // Various colors visually seen on widgets
   primaryColor: appBaseColor,
-  indicatorColor: appBaseColor,
+  scaffoldBackgroundColor: appBackgroundColor,
+  canvasColor: Colors.transparent,
+  dividerColor: appTertiaryColor,
+  unselectedWidgetColor: appUnselectedColor,
+  focusColor: Colors.transparent,
+  highlightColor: Colors.transparent,
+
+  indicatorColor: Colors.purple,
+  backgroundColor: Colors.purple,
+  cardColor: Colors.purple,
+  accentColor: Colors.purple,
+  selectedRowColor: Colors.purple,
+  hoverColor: Colors.purple,
+
+  // Text theming
+  textTheme: Typography.blackCupertino.apply(
+    bodyColor: appBaseWhiteTextColor,
+    displayColor: Colors.pink,
+  ),
+
+  // Text selection themeing
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: appBaseColor.withOpacity(0.5),
+    selectionColor: appBaseColor.withOpacity(0.5),
+    selectionHandleColor: appBaseColor.withOpacity(0.5),
+  ),
 );
 
 // Light Theme
-ThemeData dankLightTheme = ThemeData.light().copyWith(
-  primaryColor: Colors.red,
+ThemeData dankLightTheme = ThemeData(
+  // Text theming
+  primaryColor: appBaseColor,
+  scaffoldBackgroundColor: appBaseWhiteTextColor,
+  canvasColor: Colors.transparent,
+  dividerColor: Colors.black.withOpacity(0.6),
+  unselectedWidgetColor: Colors.black.withOpacity(0.6),
+  focusColor: Colors.transparent,
+  highlightColor: Colors.transparent,
+
   indicatorColor: Colors.red,
+  backgroundColor: Colors.red,
+  cardColor: Colors.red,
+  accentColor: Colors.red,
+
+  // Text selection themeing
+  textTheme: Typography.blackCupertino.apply(
+    bodyColor: appBaseBlackTextColor,
+    displayColor: Colors.pink,
+  ),
+
+  // Text selection themeing
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: appBaseBlackTextColor.withOpacity(0.8),
+    selectionColor: appBaseColor.withOpacity(0.5),
+    selectionHandleColor: appBaseBlackTextColor.withOpacity(0.8),
+  ),
 );
 
 //#region App Color Theme
@@ -46,68 +101,6 @@ Map<int, Color> appBaseColorOpacity = {
   900: appPrimaryColor.withOpacity(1.0),
 };
 
-// The App's base background color
-MaterialColor appBaseBackgroundColor =
-    MaterialColor(0xFF202225, appBaseBackgroundColorOpacity);
-Map<int, Color> appBaseBackgroundColorOpacity = {
-  50: appBackgroundColor.withOpacity(0.1),
-  100: appBackgroundColor.withOpacity(0.2),
-  200: appBackgroundColor.withOpacity(0.3),
-  300: appBackgroundColor.withOpacity(0.4),
-  400: appBackgroundColor.withOpacity(0.5),
-  500: appBackgroundColor.withOpacity(0.6),
-  600: appBackgroundColor.withOpacity(0.7),
-  700: appBackgroundColor.withOpacity(0.8),
-  800: appBackgroundColor.withOpacity(0.9),
-  900: appBackgroundColor.withOpacity(1),
-};
-
-// The App's base background color
-MaterialColor appBaseContentBackgroundColor =
-    MaterialColor(0xFF0B0C10, appBaseContentBackgroundColorOpacity);
-Map<int, Color> appBaseContentBackgroundColorOpacity = {
-  50: appContentBackgroundColor.withOpacity(0.1),
-  100: appContentBackgroundColor.withOpacity(0.2),
-  200: appContentBackgroundColor.withOpacity(0.3),
-  300: appContentBackgroundColor.withOpacity(0.4),
-  400: appContentBackgroundColor.withOpacity(0.5),
-  500: appContentBackgroundColor.withOpacity(0.6),
-  600: appContentBackgroundColor.withOpacity(0.7),
-  700: appContentBackgroundColor.withOpacity(0.8),
-  800: appContentBackgroundColor.withOpacity(0.9),
-  900: appContentBackgroundColor.withOpacity(1),
-};
-
-// The App's 2nd color
-MaterialColor appSecondColor = MaterialColor(0xFF36393F, appSecondColorOpacity);
-Map<int, Color> appSecondColorOpacity = {
-  50: appSecondaryColor.withOpacity(0.1),
-  100: appSecondaryColor.withOpacity(0.2),
-  200: appSecondaryColor.withOpacity(0.3),
-  300: appSecondaryColor.withOpacity(0.4),
-  400: appSecondaryColor.withOpacity(0.5),
-  500: appSecondaryColor.withOpacity(0.6),
-  600: appSecondaryColor.withOpacity(0.7),
-  700: appSecondaryColor.withOpacity(0.8),
-  800: appSecondaryColor.withOpacity(0.9),
-  900: appSecondaryColor.withOpacity(1),
-};
-
-// The App's 3rd color
-MaterialColor appThirdColor = MaterialColor(0xFF2F3136, appThirdColorOpacity);
-Map<int, Color> appThirdColorOpacity = {
-  50: appTertiaryColor.withOpacity(0.1),
-  100: appTertiaryColor.withOpacity(0.2),
-  200: appTertiaryColor.withOpacity(0.3),
-  300: appTertiaryColor.withOpacity(0.4),
-  400: appTertiaryColor.withOpacity(0.5),
-  500: appTertiaryColor.withOpacity(0.6),
-  600: appTertiaryColor.withOpacity(0.7),
-  700: appTertiaryColor.withOpacity(0.8),
-  800: appTertiaryColor.withOpacity(0.9),
-  900: appTertiaryColor.withOpacity(1),
-};
-
 // General "Base App Theme Colors" (e.g. Backgrounds, focal colors, etc. used throughout the app)
 const Color appPrimaryColor = Color.fromRGBO(71, 196, 157, 1.0);
 const Color appSecondaryColor = Color.fromRGBO(54, 57, 63, 1.0);
@@ -117,12 +110,13 @@ const Color appContentBackgroundColor = Color.fromRGBO(11, 12, 16, 1.0);
 
 // Other App Theme Colors (e.g. Fonts, Events, sepcial Widgets, etc.)
 const Color appBaseWhiteTextColor = Color.fromRGBO(252, 252, 252, 1.0);
+const Color appBaseBlackTextColor = Color.fromRGBO(31, 31, 31, 1.0);
 const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 0.8);
 const Color appSuccessColor = Color.fromRGBO(196, 250, 187, 1.0);
 const Color appWarningColor = Color.fromRGBO(255, 140, 54, 0.6);
 const Color appErrorColor = Color.fromRGBO(250, 70, 70, 1.0);
 const Color appDropdownColor = Color.fromRGBO(81, 80, 82, 1);
-const Color appBorderUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
+const Color appUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
 
 // Grow related colors
 const Color growGerminationColor = Color.fromRGBO(71, 53, 0, 1.0);
@@ -144,14 +138,12 @@ const Color chartMonochromaticColor = Color(0xFF60ab93);
 
 final TextStyle appHeaderFontStyle = GoogleFonts.courgette(
   fontSize: 50.0,
-  color: appBaseWhiteTextColor,
   fontWeight: FontWeight.bold,
 );
 
 const TextStyle appInputFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 15.0,
-  color: appBaseWhiteTextColor,
 );
 
 const TextStyle appInputHintFontStyle = TextStyle(
@@ -163,14 +155,12 @@ const TextStyle appInputHintFontStyle = TextStyle(
 const TextStyle appInputLabelFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 20.0,
-  color: appBaseWhiteTextColor,
 );
 
 const TextStyle appInputCounterFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 15.0,
   fontWeight: FontWeight.bold,
-  color: appBaseWhiteTextColor,
 );
 
 final TextStyle appLabelHeaderFontStyle = GoogleFonts.nunito(
@@ -181,13 +171,12 @@ final TextStyle appLabelHeaderFontStyle = GoogleFonts.nunito(
 const TextStyle appLabelFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 20.0,
-  color: appBaseWhiteTextColor,
 );
 
 final TextStyle appValueLabelFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 15.0,
-  color: appSecondColor,
+  color: appSecondaryColor,
 );
 
 const TextStyle appButtonFontStyle = TextStyle(
@@ -199,7 +188,6 @@ const TextStyle appButtonFontStyle = TextStyle(
 const TextStyle appTooltipFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 13.0,
-  color: appBaseWhiteTextColor,
 );
 
 final TextStyle appErrorFontStyle = GoogleFonts.varelaRound(
@@ -211,13 +199,11 @@ final TextStyle appErrorFontStyle = GoogleFonts.varelaRound(
 final TextStyle appPlantWeekFontStyle = GoogleFonts.itim(
   fontSize: 20.0,
   fontWeight: FontWeight.bold,
-  color: appBaseWhiteTextColor,
 );
 
 final TextStyle appPlantDetailStyle = GoogleFonts.itim(
   fontSize: 16.0,
   fontWeight: FontWeight.bold,
-  color: appBaseWhiteTextColor,
 );
 
 final TextStyle appChartYAxisFontStyle = TextStyle(
@@ -236,12 +222,10 @@ final TextStyle appChartXAxisFontStyle = TextStyle(
 
 final TextStyle appInstructionHeaderFontStyle = GoogleFonts.architectsDaughter(
   fontSize: 25.0,
-  color: appBaseWhiteTextColor,
 );
 
 final TextStyle appInstructionLabelFontStyle = GoogleFonts.architectsDaughter(
   fontSize: 18.0,
-  color: appBaseWhiteTextColor,
 );
 
 //#endregion
@@ -252,7 +236,7 @@ Color getGrowthStateColor(GrowState growthState) {
 
   switch (growthState) {
     case GrowState.NotApplicable:
-      retval = appBorderUnselectedColor;
+      retval = appUnselectedColor;
       break;
     case GrowState.Germination:
       retval = growGerminationColor;

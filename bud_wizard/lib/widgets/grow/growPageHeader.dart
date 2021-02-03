@@ -102,6 +102,7 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
                   displayText: 'Want to increase your yields?  Get a',
                   textStyle: appLabelFontStyle.copyWith(
                     fontSize: 14.0,
+                    color: appBaseBlackTextColor,
                   ),
                 ),
                 DankLabel(
@@ -109,12 +110,14 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
                   textStyle: appLabelFontStyle.copyWith(
                     fontSize: 15.0,
                     fontWeight: FontWeight.bold,
+                    color: appBaseBlackTextColor,
                   ),
                 ),
                 DankLabel(
                   displayText: 'year of Bud Wizard Pro.',
                   textStyle: appLabelFontStyle.copyWith(
                     fontSize: 14.0,
+                    color: appBaseBlackTextColor,
                   ),
                   padding: EdgeInsets.only(
                     right: 20.0,
@@ -155,7 +158,6 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
 
     return Container(
       decoration: BoxDecoration(
-        color: appThirdColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(borderRadius),
         ),
@@ -169,7 +171,9 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
                 ? PlantMenu(currentOperation: widget.currentPlantOp)
                 : Expanded(
                     child: Container(
-                      color: appSecondColor,
+                      color: (currentTheme.currentTheme() == ThemeMode.dark)
+                          ? appSecondaryColor
+                          : appBaseWhiteTextColor,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.start,

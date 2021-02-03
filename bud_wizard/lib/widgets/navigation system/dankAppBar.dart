@@ -12,7 +12,9 @@ class DankAppBar extends StatelessWidget {
             displayText: 'Bud Wizard',
             textStyle: appHeaderFontStyle.copyWith(
               fontSize: 17.0,
-              color: appBaseWhiteTextColor.withOpacity(0.6),
+              color: (currentTheme.currentTheme() != ThemeMode.dark)
+                  ? appBaseColor
+                  : appBaseWhiteTextColor.withOpacity(0.6),
             ),
             width: 200.0,
             padding: EdgeInsets.only(

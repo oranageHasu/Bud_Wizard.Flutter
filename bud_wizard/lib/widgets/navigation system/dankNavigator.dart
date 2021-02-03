@@ -1,4 +1,3 @@
-import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankAppBar.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankOperationPanel.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
@@ -17,7 +16,6 @@ class DankNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appBaseBackgroundColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

@@ -48,11 +48,6 @@ class Privacy extends StatelessWidget {
                   Expanded(
                     child: SizedBox.shrink(),
                   ),
-                  DankProTip(
-                    proTipText:
-                        'The team at Bud Wizard takes data security very seriously.',
-                    onLearnMore: learnMoreAboutPrivacy,
-                  ),
                 ],
               ),
             ),
@@ -64,9 +59,5 @@ class Privacy extends StatelessWidget {
 
   void privacyChanged(GrowPrivacy privacySettings) {
     AddGrow.of(Get.context).updatePrivacy(privacySettings);
-  }
-
-  void learnMoreAboutPrivacy() {
-    print('To Do: Learn More About Privacy');
   }
 }

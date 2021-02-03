@@ -19,7 +19,7 @@ class _UnknownRoutePageState extends State<UnknownRoutePage> {
       //appBar: DankAppBar(title: 'Unhandled Screen'),
       body: UnknownRoute(),
       //drawer: Navigation(),
-      backgroundColor: appBaseBackgroundColor,
+      backgroundColor: appBackgroundColor,
     );
   }
 }

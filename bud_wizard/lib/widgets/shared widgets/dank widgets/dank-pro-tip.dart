@@ -31,7 +31,9 @@ class DankProTip extends StatelessWidget {
           displayText: proTipText,
           textStyle: appLabelFontStyle.copyWith(
             fontSize: 12.0,
-            color: appBorderUnselectedColor,
+            color: (currentTheme.currentTheme() == ThemeMode.dark)
+                ? appUnselectedColor
+                : Colors.black.withOpacity(0.6),
           ),
           padding: EdgeInsets.only(
             left: 5.0,
@@ -42,7 +44,7 @@ class DankProTip extends StatelessWidget {
           displayText: 'Learn more',
           onTapped: onLearnMore,
           textStyle: appLabelFontStyle.copyWith(
-            fontSize: 14.0,
+            fontSize: 12.0,
             color: Colors.lightBlue,
           ),
         ),

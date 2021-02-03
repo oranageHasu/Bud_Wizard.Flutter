@@ -74,7 +74,7 @@ class _PlantQuestionState extends State<PlantQuestion> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: appBaseBackgroundColor,
+                              color: appBackgroundColor,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5.0),
                                 topRight: Radius.circular(5.0),

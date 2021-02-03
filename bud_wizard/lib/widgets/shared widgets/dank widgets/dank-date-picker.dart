@@ -48,72 +48,74 @@ class _DankDatePickerState extends State<DankDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(10.0, 13.5, 10.0, 13.5),
-      decoration: BoxDecoration(
-        color: appBackgroundColor,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DankLabel(
-            displayText: widget.label,
-            textStyle: appLabelFontStyle,
-            padding: EdgeInsets.only(right: 10.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DankLabel(
+          displayText: widget.label,
+          textStyle: appLabelFontStyle.copyWith(
+            fontWeight: FontWeight.bold,
           ),
-          DankLabel(
-            displayText: "${_selectedDate.toLocal()}".split(' ')[0],
-            textStyle: appLabelFontStyle,
-          ),
-          GestureDetector(
-            onTap: _selectDate,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              onEnter: (pointerEvent) {
-                setState(() {
-                  _isHovered = true;
-                });
-              },
-              onExit: (pointerEvent) {
-                setState(() {
-                  _isHovered = false;
-                });
-              },
-              child: Container(
-                width: 45.0,
-                height: 45.0,
-                margin: EdgeInsets.only(
-                  left: 10.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  border: Border.all(
-                    color: appBaseColor,
-                    width: 2.0,
+          padding: EdgeInsets.only(right: 10.0),
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DankLabel(
+              displayText: "${_selectedDate.toLocal()}".split(' ')[0],
+              textStyle: appLabelFontStyle,
+              padding: EdgeInsets.only(left: 15.0),
+            ),
+            GestureDetector(
+              onTap: _selectDate,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                onEnter: (pointerEvent) {
+                  setState(() {
+                    _isHovered = true;
+                  });
+                },
+                onExit: (pointerEvent) {
+                  setState(() {
+                    _isHovered = false;
+                  });
+                },
+                child: Container(
+                  width: 45.0,
+                  height: 45.0,
+                  margin: EdgeInsets.only(
+                    left: 10.0,
                   ),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: (_isHovered)
-                          ? appBaseColor.withOpacity(0.3)
-                          : Colors.transparent,
-                      blurRadius: 25.0,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: appBaseColor,
+                      width: 2.0,
                     ),
-                  ],
-                ),
-                child: Icon(
-                  Icons.calendar_today,
-                  color: (_isHovered)
-                      ? appBaseWhiteTextColor
-                      : Colors.grey.shade400,
-                  size: 20.0,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: (_isHovered)
+                            ? appBaseColor.withOpacity(0.3)
+                            : Colors.transparent,
+                        blurRadius: 15.0,
+                        spreadRadius: 8.0,
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    Icons.calendar_today,
+                    color: (_isHovered)
+                        ? appBaseWhiteTextColor
+                        : Colors.grey.shade400,
+                    size: 20.0,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        )
+      ],
     );
   }
 
@@ -139,7 +141,7 @@ class _DankDatePickerState extends State<DankDatePicker> {
             dialogBackgroundColor: appBackgroundColor,
             colorScheme: ColorScheme.dark(
               primary: appBaseColor,
-              surface: appThirdColor,
+              surface: appTertiaryColor,
             ),
           ),
           child: child,

@@ -1,4 +1,3 @@
-import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/services/api%20services/api-login.dart';
@@ -69,7 +68,7 @@ class DankOperationPanelState extends State<DankOperationPanel> {
             Container(
               padding: EdgeInsets.only(left: 30.0, right: 27.0),
               child: Divider(
-                color: appThirdColor,
+                //color: appThirdColor,
                 thickness: 2.0,
               ),
             ),

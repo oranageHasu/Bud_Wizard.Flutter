@@ -29,9 +29,13 @@ class UserIconMenu extends StatelessWidget {
           performLogout,
         ),
       ],
-      iconColor: Colors.white,
+      iconColor: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appBaseWhiteTextColor
+          : appBaseBlackTextColor.withOpacity(0.8),
       menuHeaderChild: currentUserDisplay(),
-      borderColor: Colors.black.withOpacity(0.3),
+      borderColor: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? Colors.black.withOpacity(0.3)
+          : Colors.black.withOpacity(0.6),
     );
   }
 
@@ -49,7 +53,9 @@ class UserIconMenu extends StatelessWidget {
             padding: EdgeInsets.only(right: 10.0),
             child: Icon(
               Icons.account_circle,
-              color: appBaseWhiteTextColor,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appBaseWhiteTextColor
+                  : appBaseBlackTextColor,
               size: 30.0,
             ),
           ),

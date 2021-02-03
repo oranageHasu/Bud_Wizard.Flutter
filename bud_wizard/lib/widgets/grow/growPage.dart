@@ -51,11 +51,21 @@ class GrowPageState extends State<GrowPage> {
         child: Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: appThirdColor,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appTertiaryColor
+                  : appBaseWhiteTextColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
               ),
+              boxShadow: (currentTheme.currentTheme() == ThemeMode.light)
+                  ? [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 10.0,
+                        blurRadius: 25.0,
+                      ),
+                    ]
+                  : null,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -69,7 +79,7 @@ class GrowPageState extends State<GrowPage> {
                   isNotificationDisplayed: true,
                 ),
                 Divider(
-                  color: appBaseContentBackgroundColor,
+                  color: appContentBackgroundColor,
                   height: 1.0,
                   thickness: 1.0,
                 ),

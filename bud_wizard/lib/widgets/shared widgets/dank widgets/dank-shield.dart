@@ -51,7 +51,7 @@ class DankShield extends StatelessWidget {
                     height: 30.0,
                     padding: EdgeInsets.only(left: 10.0, right: 10.0),
                     decoration: BoxDecoration(
-                      color: appThirdColor,
+                      color: appTertiaryColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(5.0),
                         bottomLeft: Radius.circular(5.0),

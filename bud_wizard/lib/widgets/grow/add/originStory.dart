@@ -9,7 +9,6 @@ import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/slideIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-date-picker.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -44,49 +43,45 @@ class OriginStory extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              DankDatePicker(
-                                label: 'Start Date: ',
-                                defaultDate: DateTime.now(),
-                                onDateChanged: (DateTime date) {
-                                  AddGrow.of(context).updateGrowDate(date);
-                                },
-                              ),
-                              GrowSettingSelector(
-                                grow: grow,
-                                selectionChanged: (GrowSetting setting) {
-                                  AddGrow.of(context).setGrowSetting(setting);
-                                },
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          DankTextField(
-                            labelText: 'Enter Grow Name',
-                            hintText: 'Type the name of your grow',
-                            maxWidth: 542.0,
-                            margin: EdgeInsets.only(
-                              bottom: 8.0,
+                      Container(
+                        width: 400.0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DankDatePicker(
+                                  label: 'Start Date: ',
+                                  defaultDate: DateTime.now(),
+                                  onDateChanged: (DateTime date) {
+                                    AddGrow.of(context).updateGrowDate(date);
+                                  },
+                                ),
+                                GrowSettingSelector(
+                                  grow: grow,
+                                  selectionChanged: (GrowSetting setting) {
+                                    AddGrow.of(context).setGrowSetting(setting);
+                                  },
+                                ),
+                              ],
                             ),
-                            onChanged: (String value) {
-                              AddGrow.of(context).updateGrowName(value);
-                            },
-                          ),
-                          DankProTip(
-                            proTipText:
-                                'A well named grow can help expose your plants to other users.',
-                            onLearnMore: learnMoreAboutGrows,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            DankTextField(
+                              labelText: 'Enter Grow Name',
+                              hintText: 'Type the name of your grow',
+                              margin: EdgeInsets.zero,
+                              onChanged: (String value) {
+                                AddGrow.of(context).updateGrowName(value);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
-                        width: 10.0,
+                        width: 40.0,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,9 +107,5 @@ class OriginStory extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void learnMoreAboutGrows() {
-    print('To Do: Knowledge Base: Grows');
   }
 }

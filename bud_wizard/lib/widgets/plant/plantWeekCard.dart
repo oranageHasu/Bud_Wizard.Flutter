@@ -92,7 +92,7 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                   height: 70.0,
                   width: 65.0,
                   decoration: BoxDecoration(
-                    color: appThirdColor,
+                    color: appTertiaryColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Column(

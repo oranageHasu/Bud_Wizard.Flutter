@@ -23,7 +23,6 @@ class MyFirstGrow extends StatelessWidget {
                   displayText: 'New to ',
                   textStyle: GoogleFonts.architectsDaughter(
                     fontSize: 25.0,
-                    color: appBaseWhiteTextColor,
                   ),
                 ),
                 DankLabel(
@@ -38,7 +37,6 @@ class MyFirstGrow extends StatelessWidget {
                   displayText: '?',
                   textStyle: GoogleFonts.architectsDaughter(
                     fontSize: 25.0,
-                    color: appBaseWhiteTextColor,
                   ),
                 ),
               ],
@@ -52,7 +50,6 @@ class MyFirstGrow extends StatelessWidget {
               displayText: 'Let\'s start a grow together...',
               textStyle: GoogleFonts.architectsDaughter(
                 fontSize: 35.0,
-                color: appBaseWhiteTextColor,
               ),
               padding: EdgeInsets.only(top: 10.0),
             ),

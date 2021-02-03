@@ -20,7 +20,7 @@ class PlantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(minWidth: 500.0),
-      color: appSecondColor,
+      color: appSecondaryColor,
       child: getCurrentScreen(),
     );
   }

@@ -8,10 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  void initState() {
+    // Listen for global changes of the app theme
+    currentTheme.addListener(() {
+      print('Theme Changed to:' + currentTheme.currentTheme().toString());
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,7 +66,7 @@ class _AppBasePageState extends State<AppBasePage> {
 
     // Listen for global changes of the app theme
     currentTheme.addListener(() {
-      print('Theme Changed.');
+      print('Theme Changed to:' + currentTheme.currentTheme().toString());
       setState(() {});
     });
 

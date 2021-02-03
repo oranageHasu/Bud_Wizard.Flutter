@@ -1,6 +1,7 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-stepper-step.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,16 +11,19 @@ class DankStepItem {
   final String subtitle;
   final IconData icon;
   final Widget content;
+  final DankProTip proTip;
 
   DankStepItem({
     @required String title,
     @required String subtitle,
     @required IconData icon,
     @required Widget content,
+    DankProTip proTip,
   })  : this.title = title,
         this.subtitle = subtitle,
         this.icon = icon,
-        this.content = content;
+        this.content = content,
+        this.proTip = proTip;
 }
 
 class DankStepper extends StatefulWidget {
@@ -113,9 +117,12 @@ class DankStepperState extends State<DankStepper> {
               child: widget.steps[_currentIndex].content,
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                if (widget.steps[_currentIndex].proTip != null)
+                  widget.steps[_currentIndex].proTip,
+                Expanded(child: SizedBox.shrink()),
                 DankButton(
                   buttonType: DankButtonType.Flat,
                   buttonText: 'Cancel',
@@ -130,6 +137,7 @@ class DankStepperState extends State<DankStepper> {
                 ),
                 Visibility(
                   child: DankButton(
+                    buttonType: DankButtonType.Flat,
                     buttonText: 'Back',
                     borderRadius: 5.0,
                     margin: EdgeInsets.only(left: 10.0),

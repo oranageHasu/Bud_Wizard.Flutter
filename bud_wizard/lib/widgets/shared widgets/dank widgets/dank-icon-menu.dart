@@ -156,8 +156,8 @@ class _DankIconMenuState extends State<DankIconMenu>
                 Icon(
                   icon,
                   color: (_isMenuHovered)
-                      ? appBaseWhiteTextColor.withOpacity(0.4)
-                      : appBaseWhiteTextColor,
+                      ? widget.iconColor.withOpacity(0.4)
+                      : widget.iconColor,
                   size: 35.0,
                 ),
                 Container(
@@ -206,7 +206,10 @@ class _DankIconMenuState extends State<DankIconMenu>
                               width: _menuWidth,
                               clipBehavior: Clip.antiAlias,
                               decoration: BoxDecoration(
-                                color: appBaseBackgroundColor,
+                                color: (currentTheme.currentTheme() ==
+                                        ThemeMode.dark)
+                                    ? appBackgroundColor
+                                    : appBaseWhiteTextColor,
                                 borderRadius:
                                     BorderRadius.circular(borderRadius),
                                 border: Border.all(
@@ -237,7 +240,10 @@ class _DankIconMenuState extends State<DankIconMenu>
                               width: 17,
                               height: 17,
                               decoration: BoxDecoration(
-                                color: appBaseBackgroundColor,
+                                color: (currentTheme.currentTheme() ==
+                                        ThemeMode.dark)
+                                    ? appBackgroundColor
+                                    : appBaseWhiteTextColor,
                               ),
                             ),
                           ),

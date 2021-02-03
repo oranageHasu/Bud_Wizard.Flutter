@@ -43,47 +43,41 @@ class _GrowSettingSelectorState extends State<GrowSettingSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 15.0),
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: appBaseBackgroundColor,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          DankLabel(
-            displayText: 'Grow Location:',
-            textStyle: appLabelFontStyle,
-            textAlign: TextAlign.start,
-            padding: EdgeInsets.only(bottom: 5.0),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        DankLabel(
+          displayText: 'Grow Location:',
+          textStyle: appLabelFontStyle.copyWith(
+            fontWeight: FontWeight.bold,
           ),
-          Row(
-            children: [
-              Container(
-                width: 15.0,
-              ),
-              DankRadioButton(
-                id: GrowSetting.Indoor.index,
-                currentIndex: _currentLocation,
-                displayText: 'Indoors',
-                onTapped: _selectionChanged,
-              ),
-              Container(
-                width: 15.0,
-              ),
-              DankRadioButton(
-                id: GrowSetting.Outdoor.index,
-                currentIndex: _currentLocation,
-                displayText: 'Outdoors',
-                onTapped: _selectionChanged,
-              ),
-            ],
-          ),
-        ],
-      ),
+          textAlign: TextAlign.start,
+          padding: EdgeInsets.only(bottom: 5.0),
+        ),
+        Row(
+          children: [
+            Container(
+              width: 15.0,
+            ),
+            DankRadioButton(
+              id: GrowSetting.Indoor.index,
+              currentIndex: _currentLocation,
+              displayText: 'Indoors',
+              onTapped: _selectionChanged,
+            ),
+            Container(
+              width: 15.0,
+            ),
+            DankRadioButton(
+              id: GrowSetting.Outdoor.index,
+              currentIndex: _currentLocation,
+              displayText: 'Outdoors',
+              onTapped: _selectionChanged,
+            ),
+          ],
+        ),
+      ],
     );
   }
 

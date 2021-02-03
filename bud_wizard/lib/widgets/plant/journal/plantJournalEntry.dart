@@ -34,7 +34,7 @@ class PlantJournalEntry extends StatelessWidget {
               ],
             )
           : Card(
-              color: appThirdColor,
+              color: appTertiaryColor,
               elevation: 5.0,
               clipBehavior: Clip.hardEdge,
               child: Container(

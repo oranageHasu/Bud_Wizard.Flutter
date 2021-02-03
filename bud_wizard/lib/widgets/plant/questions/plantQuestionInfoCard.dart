@@ -34,7 +34,7 @@ class PlantQuestionInfoCard extends StatelessWidget {
               displayText: question.answers.length.toString(),
               textAlign: TextAlign.center,
               textStyle: appLabelFontStyle.copyWith(
-                color: appThirdColor,
+                color: appTertiaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,
               ),
@@ -54,7 +54,7 @@ class PlantQuestionInfoCard extends StatelessWidget {
                   (question.answers.length == 1) ? 'Answer' : 'Answers',
               textAlign: TextAlign.center,
               textStyle: appInputHintFontStyle.copyWith(
-                color: appThirdColor,
+                color: appTertiaryColor,
                 fontSize: 11.0,
                 fontWeight: FontWeight.bold,
               ),

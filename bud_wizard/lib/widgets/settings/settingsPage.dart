@@ -1,6 +1,7 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-radio-button.dart';
 import 'package:flutter/material.dart';
 
@@ -31,21 +32,38 @@ class SettingsPageState extends State<SettingsPage> {
         settingsData: this,
         child: Expanded(
           child: Container(
+            padding: EdgeInsets.all(20.0),
             decoration: BoxDecoration(
-              color: appThirdColor,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appTertiaryColor
+                  : appBaseWhiteTextColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10.0),
-                topRight: Radius.circular(10.0),
               ),
+              boxShadow: (currentTheme.currentTheme() == ThemeMode.light)
+                  ? [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 10.0,
+                        blurRadius: 25.0,
+                      ),
+                    ]
+                  : null,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    DankLabel(
+                      displayText: 'Color Mode:',
+                      padding: EdgeInsets.only(
+                        right: 30.0,
+                      ),
+                    ),
                     DankRadioButton(
                       id: 0,
                       currentIndex: (_isDarkMode) ? 1 : 0,
@@ -63,7 +81,6 @@ class SettingsPageState extends State<SettingsPage> {
                     ),
                   ],
                 ),
-                TextField(),
               ],
             ),
           ),

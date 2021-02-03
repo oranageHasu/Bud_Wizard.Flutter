@@ -65,7 +65,9 @@ class _DankOperationButtonState extends State<DankOperationButton> {
             width: 4.0,
             decoration: BoxDecoration(
               color: (widget.isSelected || _isHovered)
-                  ? appBaseWhiteTextColor
+                  ? (currentTheme.currentTheme() == ThemeMode.dark)
+                      ? appBaseWhiteTextColor.withOpacity(0.9)
+                      : appBaseBlackTextColor.withOpacity(0.6)
                   : Colors.transparent,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(15.0),

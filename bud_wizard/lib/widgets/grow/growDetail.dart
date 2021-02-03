@@ -17,7 +17,7 @@ class GrowDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: appSecondColor,
+      color: appSecondaryColor,
       child: FutureBuilder<List<Grow>>(
         future: _grows,
         builder: (context, snapshot) {

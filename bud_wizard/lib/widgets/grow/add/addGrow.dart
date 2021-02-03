@@ -11,6 +11,7 @@ import 'package:bud_wizard/widgets/grow/add/privacy.dart';
 import 'package:bud_wizard/widgets/grow/add/techIntegrations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-stepper.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +81,11 @@ class AddGrowState extends State<AddGrow> {
                     content: OriginStory(
                       grow: _newGrow,
                     ),
+                    proTip: DankProTip(
+                      proTipText:
+                          'A well named grow can help expose your plants to other users.',
+                      onLearnMore: learnMoreAboutGrows,
+                    ),
                   ),
                   DankStepItem(
                     title: 'Tech Integrations',
@@ -95,6 +101,11 @@ class AddGrowState extends State<AddGrow> {
                     icon: CommunityMaterialIcons.shield_lock,
                     content: Privacy(
                       grow: _newGrow,
+                    ),
+                    proTip: DankProTip(
+                      proTipText:
+                          'The team at Bud Wizard takes data security very seriously.',
+                      onLearnMore: learnMoreAboutPrivacy,
                     ),
                   ),
                   DankStepItem(
@@ -156,6 +167,14 @@ class AddGrowState extends State<AddGrow> {
     print('Allows ML: ' + _newGrow.privacySettings.allowML.toString());
     print('Allows Notifications: ' +
         _newGrow.privacySettings.allowNotifications.toString());
+  }
+
+  void learnMoreAboutGrows() {
+    print('To Do: Knowledge Base: Grows');
+  }
+
+  void learnMoreAboutPrivacy() {
+    print('To Do: Learn More About Privacy');
   }
 }
 

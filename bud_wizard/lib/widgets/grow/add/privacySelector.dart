@@ -205,8 +205,12 @@ class _PrivacySelectorState extends State<PrivacySelector> {
           textStyle: appLabelFontStyle.copyWith(
             fontSize: 12.0,
             color: (currentValue)
-                ? appBaseWhiteTextColor
-                : appBaseWhiteTextColor.withOpacity(0.7),
+                ? (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appBaseWhiteTextColor
+                    : appBaseBlackTextColor
+                : (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appBaseWhiteTextColor.withOpacity(0.7)
+                    : appBaseBlackTextColor.withOpacity(0.7),
           ),
           padding: EdgeInsets.only(
             right: 10.0,

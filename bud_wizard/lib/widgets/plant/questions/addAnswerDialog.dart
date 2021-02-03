@@ -74,7 +74,7 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Dialog(
-            backgroundColor: appBaseBackgroundColor,
+            backgroundColor: appBackgroundColor,
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
@@ -89,7 +89,7 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
                 child: Container(
                   width: 600.0,
                   height: 400.0,
-                  color: appBaseBackgroundColor,
+                  color: appBackgroundColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
@@ -109,7 +109,7 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
                           right: 10.0,
                         ),
                         child: Divider(
-                          color: appThirdColor,
+                          color: appTertiaryColor,
                           thickness: 2.0,
                         ),
                       ),
@@ -130,7 +130,7 @@ class _AddAnswerDialogState extends State<AddAnswerDialog> {
                             ],
                           ),
                         ),
-                        backgroundColor: appBaseBackgroundColor,
+                        backgroundColor: appBackgroundColor,
                         borderRadius: 5.0,
                         child: DankTextField(
                           keybordType: TextInputType.multiline,

@@ -20,7 +20,7 @@ class DankBasicTooltip extends StatelessWidget {
         fontSize: 10.0,
       ),
       decoration: BoxDecoration(
-        color: appBaseBackgroundColor,
+        color: appBackgroundColor,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
