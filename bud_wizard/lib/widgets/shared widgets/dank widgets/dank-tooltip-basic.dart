@@ -18,6 +18,7 @@ class DankBasicTooltip extends StatelessWidget {
       child: child,
       textStyle: appInputFontStyle.copyWith(
         fontSize: 10.0,
+        color: appBaseWhiteTextColor,
       ),
       decoration: BoxDecoration(
         color: appBackgroundColor,

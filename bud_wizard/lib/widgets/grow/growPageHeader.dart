@@ -158,6 +158,9 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
 
     return Container(
       decoration: BoxDecoration(
+        color: (currentTheme.currentTheme() == ThemeMode.dark)
+            ? appTertiaryColor
+            : Color.fromRGBO(240, 240, 240, 1.0),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(borderRadius),
         ),
@@ -173,7 +176,7 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
                     child: Container(
                       color: (currentTheme.currentTheme() == ThemeMode.dark)
                           ? appSecondaryColor
-                          : appBaseWhiteTextColor,
+                          : Color.fromRGBO(240, 240, 240, 1.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.start,

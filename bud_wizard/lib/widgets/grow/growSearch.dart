@@ -38,7 +38,7 @@ class GrowSearchState extends State<GrowSearch> {
               onTap: displaySearchDialog,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(219, 219, 219, 1.0),
+                  color: appBaseWhiteTextColor,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Row(
