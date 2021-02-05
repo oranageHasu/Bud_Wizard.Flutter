@@ -23,7 +23,10 @@ class DankTextField extends StatelessWidget {
   final bool displayMaxCharacterValidation;
   final bool digitsOnly;
   final double borderRadius = 10.0;
-  final Color borderColorUnselected;
+  final Color selectedBorderColor;
+  final Color textColor;
+  final Color hintTextColor;
+  final Color unselectedBorderColor;
   final TextInputType keybordType;
   final int maxLines;
 
@@ -47,9 +50,12 @@ class DankTextField extends StatelessWidget {
     int maxTextCharacters = 25,
     bool displayMaxCharacterValidation = false,
     bool digitsOnly = false,
-    Color borderColorUnselected = Colors.transparent,
     TextInputType keybordType = TextInputType.text,
     int maxLines = 1,
+    Color selectedBorderColor,
+    Color textColor,
+    Color hintTextColor,
+    Color unselectedBorderColor = appUnselectedColor,
   })  : this.labelText = labelText,
         this.hintText = hintText,
         this.minWidth = minWidth,
@@ -69,9 +75,12 @@ class DankTextField extends StatelessWidget {
         this.maxTextCharacters = maxTextCharacters,
         this.displayMaxCharacterValidation = displayMaxCharacterValidation,
         this.digitsOnly = digitsOnly,
-        this.borderColorUnselected = borderColorUnselected,
         this.keybordType = keybordType,
-        this.maxLines = maxLines;
+        this.maxLines = maxLines,
+        this.selectedBorderColor = selectedBorderColor,
+        this.textColor = textColor,
+        this.hintTextColor = hintTextColor,
+        this.unselectedBorderColor = unselectedBorderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -93,25 +102,41 @@ class DankTextField extends StatelessWidget {
           controller: textController,
           focusNode: focusNode,
           obscureText: isPassword,
-          style: appInputFontStyle,
+          style: appInputFontStyle.copyWith(
+            color: (textColor != null)
+                ? textColor
+                : (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appBaseWhiteTextColor
+                    : appBaseBlackTextColor,
+          ),
           autofocus: autofocus,
           onFieldSubmitted: onSubmit,
           onChanged: onChanged,
           decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey.withOpacity(0.3),
             contentPadding: textPadding,
             hintText: hintText,
             labelText: labelText,
-            labelStyle: appInputLabelFontStyle,
+            labelStyle: appInputLabelFontStyle.copyWith(
+              color: (textColor != null)
+                  ? textColor
+                  : (currentTheme.currentTheme() == ThemeMode.dark)
+                      ? appBaseWhiteTextColor.withOpacity(0.7)
+                      : appHintTextColor.withOpacity(0.7),
+            ),
             alignLabelWithHint:
                 (keybordType == TextInputType.multiline) ? true : false,
-            hintStyle: appInputHintFontStyle,
+            hintStyle: appInputHintFontStyle.copyWith(
+              color: (hintTextColor != null)
+                  ? hintTextColor
+                  : (currentTheme.currentTheme() == ThemeMode.dark)
+                      ? appBaseWhiteTextColor
+                      : appHintTextColor,
+            ),
             prefixIcon: prefixIcon,
             counterStyle: appInputCounterFontStyle,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius),
-              borderSide: BorderSide(color: borderColorUnselected, width: 2.0),
+              borderSide: BorderSide(color: appUnselectedColor, width: 2.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: appBaseColor, width: 2.0),

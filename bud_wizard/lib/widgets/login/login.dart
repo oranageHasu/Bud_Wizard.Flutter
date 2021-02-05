@@ -243,7 +243,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             DankTextField(
-              borderColorUnselected: Colors.white.withOpacity(0.1),
+              unselectedBorderColor: Colors.white.withOpacity(0.1),
               textController: _usernameController,
               autofocus: true,
               onSubmit: (value) {
@@ -263,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             DankTextField(
-              borderColorUnselected: Colors.white.withOpacity(0.1),
+              unselectedBorderColor: Colors.white.withOpacity(0.1),
               textController: _passwordController,
               onSubmit: (value) {
                 performLogin();
