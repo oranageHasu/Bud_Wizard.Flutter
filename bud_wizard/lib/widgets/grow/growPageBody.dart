@@ -88,7 +88,13 @@ class GrowPageBody extends StatelessWidget {
     } else if (_currentGrowOp == GrowOperation.AddGrow) {
       retval = AddGrow();
     } else {
-      retval = MyFirstGrow();
+      // Base states.  Either this User only has created a Grow
+      // or they don't even have that.  Force it upon them!
+      if (_currentGrow == null) {
+        retval = MyFirstGrow();
+      } else {
+        print('HEREEEE');
+      }
     }
 
     return retval;

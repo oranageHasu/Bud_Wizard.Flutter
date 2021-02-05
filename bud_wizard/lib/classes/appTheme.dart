@@ -25,21 +25,22 @@ class DankTheme with ChangeNotifier {
 
 // Dark Theme
 ThemeData dankDarkTheme = ThemeData(
-  // Various colors visually seen on widgets
   primaryColor: appBaseColor,
+  accentColor: appBaseColor,
   scaffoldBackgroundColor: appBackgroundColor,
+  backgroundColor: appBackgroundColor,
+  dialogBackgroundColor: appBackgroundColor,
   canvasColor: Colors.transparent,
   dividerColor: appTertiaryColor,
   unselectedWidgetColor: appUnselectedColor,
   focusColor: Colors.transparent,
   highlightColor: Colors.transparent,
+  hoverColor: Colors.black.withOpacity(0.3),
+  errorColor: appErrorColor,
 
   indicatorColor: Colors.purple,
-  backgroundColor: Colors.purple,
   cardColor: Colors.purple,
-  accentColor: Colors.purple,
   selectedRowColor: Colors.purple,
-  hoverColor: Colors.purple,
 
   // Text theming
   textTheme: Typography.blackCupertino.apply(
@@ -57,19 +58,18 @@ ThemeData dankDarkTheme = ThemeData(
 
 // Light Theme
 ThemeData dankLightTheme = ThemeData(
-  // Text theming
   primaryColor: appBaseColor,
+  accentColor: appBaseColor,
   scaffoldBackgroundColor: appBaseWhiteTextColor,
+  backgroundColor: appBaseWhiteTextColor,
+  dialogBackgroundColor: appBaseWhiteTextColor,
   canvasColor: Colors.transparent,
   dividerColor: Colors.black.withOpacity(0.6),
-  unselectedWidgetColor: Colors.black.withOpacity(0.6),
+  unselectedWidgetColor: appUnselectedColor,
   focusColor: Colors.transparent,
   highlightColor: Colors.transparent,
-
-  indicatorColor: Colors.red,
-  backgroundColor: Colors.red,
-  cardColor: Colors.red,
-  accentColor: Colors.red,
+  hoverColor: Colors.black.withOpacity(0.3),
+  errorColor: appErrorColor,
 
   // Text selection themeing
   textTheme: Typography.blackCupertino.apply(

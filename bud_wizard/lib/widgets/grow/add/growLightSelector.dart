@@ -41,7 +41,6 @@ class _GrowLightSelectorState extends State<GrowLightSelector> {
     return Container(
       height: 160.0,
       width: 520.0,
-      padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
       ),

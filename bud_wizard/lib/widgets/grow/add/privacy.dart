@@ -6,9 +6,7 @@ import 'package:bud_wizard/widgets/grow/add/privacySelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/slideIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Privacy extends StatelessWidget {
   final Grow grow;
@@ -42,7 +40,9 @@ class Privacy extends StatelessWidget {
                     ),
                     child: PrivacySelector(
                       grow: grow,
-                      selectionChanged: privacyChanged,
+                      selectionChanged: (GrowPrivacy privacySettings) {
+                        AddGrow.of(context).updatePrivacy(privacySettings);
+                      },
                     ),
                   ),
                   Expanded(
@@ -55,9 +55,5 @@ class Privacy extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void privacyChanged(GrowPrivacy privacySettings) {
-    AddGrow.of(Get.context).updatePrivacy(privacySettings);
   }
 }

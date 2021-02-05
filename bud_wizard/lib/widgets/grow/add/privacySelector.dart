@@ -147,7 +147,7 @@ class _PrivacySelectorState extends State<PrivacySelector> {
                 id: 0,
                 currentIndex: (_privacySettings.allowNotifications) ? 1 : 0,
                 displayText: 'No',
-                onTapped: _mlSelectionChanged,
+                onTapped: _allowNotificationsSelectionChanged,
               ),
               Container(
                 width: 15.0,
@@ -230,9 +230,7 @@ class _PrivacySelectorState extends State<PrivacySelector> {
       _privacySettings.sharePhotos = value;
     });
 
-    widget.selectionChanged(
-      _privacySettings,
-    );
+    invokeSelectionChanged();
   }
 
   void _shareJournalChanged(bool value) {
@@ -240,9 +238,7 @@ class _PrivacySelectorState extends State<PrivacySelector> {
       _privacySettings.shareJournal = value;
     });
 
-    widget.selectionChanged(
-      _privacySettings,
-    );
+    invokeSelectionChanged();
   }
 
   void _allowCommentsChanged(bool value) {
@@ -250,9 +246,7 @@ class _PrivacySelectorState extends State<PrivacySelector> {
       _privacySettings.allowComments = value;
     });
 
-    widget.selectionChanged(
-      _privacySettings,
-    );
+    invokeSelectionChanged();
   }
 
   void _mlSelectionChanged(int value) {
@@ -260,9 +254,7 @@ class _PrivacySelectorState extends State<PrivacySelector> {
       _privacySettings.allowML = (value == 1);
     });
 
-    widget.selectionChanged(
-      _privacySettings,
-    );
+    invokeSelectionChanged();
   }
 
   void _allowNotificationsSelectionChanged(int value) {
@@ -270,9 +262,7 @@ class _PrivacySelectorState extends State<PrivacySelector> {
       _privacySettings.allowNotifications = (value == 1);
     });
 
-    widget.selectionChanged(
-      _privacySettings,
-    );
+    invokeSelectionChanged();
   }
 
   void _privacySelectionChanged(int value) {
@@ -288,6 +278,10 @@ class _PrivacySelectorState extends State<PrivacySelector> {
           _privacySettings.privacySetting == GrowPrivacySetting.Share;
     });
 
+    invokeSelectionChanged();
+  }
+
+  void invokeSelectionChanged() {
     widget.selectionChanged(
       _privacySettings,
     );

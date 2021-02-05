@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:dio/dio.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
@@ -19,7 +22,11 @@ Future<List<Grow>> getGrows(Guid userId, {String searchText = ''}) async {
       url = url + '&IncludeRelationalData=True';
 
       // Make the HTTP request
-      Response response = await executeRequest(url, HttpMethod.GET, null);
+      Response response = await executeRequest(
+        url,
+        HttpMethod.GET,
+        null,
+      );
 
       // Process the result
       if (response != null && response.statusCode == 200) {
@@ -31,7 +38,34 @@ Future<List<Grow>> getGrows(Guid userId, {String searchText = ''}) async {
       }
     }
   } catch (Exception) {
-    throw Exception('Failed to get Grows.');
+    log('Failed To Get Grows.');
+    log(Exception);
+  }
+
+  return retval;
+}
+
+Future<bool> postGrow(Grow grow) async {
+  bool retval = false;
+
+  try {
+    // Generate the request URL
+    String url = generateAPIPath(apiRouteGrows);
+
+    // Make the HTTP request
+    Response response = await executeRequest(
+      url,
+      HttpMethod.POST,
+      json.encode(grow),
+    );
+
+    // Process the result
+    if (response != null && response.statusCode == 200) {
+      retval = true;
+    }
+  } catch (Exception) {
+    log('Failed Adding Grow.');
+    log(Exception);
   }
 
   return retval;

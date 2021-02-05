@@ -50,6 +50,7 @@ class OriginStory extends StatelessWidget {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 DankDatePicker(
                                   label: 'Start Date: ',
@@ -85,6 +86,7 @@ class OriginStory extends StatelessWidget {
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Visibility(
                             visible: grow != null &&
