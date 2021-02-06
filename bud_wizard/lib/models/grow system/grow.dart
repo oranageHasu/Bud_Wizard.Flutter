@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
 import 'package:flutter/foundation.dart';
@@ -36,29 +37,36 @@ class Grow {
       plants: (json['plants'] as List)
           .map((plant) => Plant.fromJson(plant))
           .toList(),
-      privacySettings: GrowPrivacy.fromJson(json['privacySettings']),
+      privacySettings: GrowPrivacy.fromJson(
+        jsonDecode(json['privacySettings']),
+      ),
     );
 
+    print('we got a grow');
     grow.name = json['name'];
     grow.startDate = DateTime.parse(json['startDate']);
     grow.setting =
         GrowSetting.values.firstWhere((e) => e.index == json['setting'] as int);
+    /*
     grow.growLights = (json['growLights'] as List)
         .map((growLight) => GrowLight.fromJson(growLight))
-        .toList();
+        .toList();*/
 
     return grow;
   }
 
   Map<String, dynamic> toJson() {
+    print(privacySettings.toJson());
     return {
       if (growId != null) 'growId': growId.toString() else 'growId': null,
       'userId': userId.toString(),
       'isDeleted': isDeleted,
       'name': name,
       'startDate': startDate.toIso8601String(),
-
-      //'plants': jsonEncode(plants.map((e) => e.toJson()).toList()),
+      'growLights': jsonEncode(
+          growLights.map((growLight) => growLight.toJson()).toList()),
+      'privacySettings': jsonEncode(privacySettings.toJson()),
+      //'plants': jsonEncode(plants.map((plant) => plant.toJson()).toList()),
     };
   }
 }

@@ -25,6 +25,7 @@ enum Screen {
 enum DankButtonType {
   Flat,
   Outline,
+  Icon,
 }
 
 enum DankFlatButtonType {

@@ -36,30 +36,31 @@ class GrowPageBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          FutureBuilder<List<Grow>>(
-            future: _grows,
-            builder: (context, snapshot) {
-              Grow currentGrow;
-              Widget retval = SizedBox.shrink();
+          if (_currentGrowOp != GrowOperation.AddGrow)
+            FutureBuilder<List<Grow>>(
+              future: _grows,
+              builder: (context, snapshot) {
+                Grow currentGrow;
+                Widget retval = SizedBox.shrink();
 
-              if (snapshot.hasData) {
-                if (snapshot.data.isNotEmpty) {
-                  if (_currentGrow == null) {
-                    currentGrow = snapshot.data[0];
-                  } else {
-                    currentGrow = _currentGrow;
+                if (snapshot.hasData) {
+                  if (snapshot.data.isNotEmpty) {
+                    if (_currentGrow == null) {
+                      currentGrow = snapshot.data[0];
+                    } else {
+                      currentGrow = _currentGrow;
+                    }
+
+                    retval = GrowSelector(
+                      grows: snapshot.data,
+                      currentGrow: currentGrow,
+                    );
                   }
-
-                  retval = GrowSelector(
-                    grows: snapshot.data,
-                    currentGrow: currentGrow,
-                  );
                 }
-              }
 
-              return retval;
-            },
-          ),
+                return retval;
+              },
+            ),
           Expanded(
             child: _getBody(),
           ),
@@ -75,7 +76,9 @@ class GrowPageBody extends StatelessWidget {
   Widget _getBody() {
     Widget retval = SizedBox.shrink();
 
-    if (_currentPlant != null) {
+    if (_currentGrowOp == GrowOperation.AddGrow) {
+      retval = AddGrow();
+    } else if (_currentPlant != null) {
       retval = PlantDetail(
         plant: _currentPlant,
         operation: _currentPlantOp,
@@ -85,15 +88,14 @@ class GrowPageBody extends StatelessWidget {
         grows: _grows,
         currentGrow: _currentGrow,
       );
-    } else if (_currentGrowOp == GrowOperation.AddGrow) {
-      retval = AddGrow();
     } else {
       // Base states.  Either this User only has created a Grow
       // or they don't even have that.  Force it upon them!
       if (_currentGrow == null) {
         retval = MyFirstGrow();
       } else {
-        print('HEREEEE');
+        print(
+            'GrowPageBody._getBody() - ERROR! GrowPage has no idea wtf to render for it\'s body.');
       }
     }
 

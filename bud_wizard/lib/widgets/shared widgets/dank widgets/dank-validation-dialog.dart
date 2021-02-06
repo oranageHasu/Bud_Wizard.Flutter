@@ -1,6 +1,8 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
 class DankValidationDialogData {
@@ -35,54 +37,26 @@ class DankValidationDialog extends StatefulWidget {
   });
 
   @override
-  _DankValidationDialogState createState() => _DankValidationDialogState(
-        this.titleText,
-        this.messageText,
-        this.validationType,
-        this.validationText,
-        this.beforeValue,
-        this.afterValue,
-        this.okButtonText,
-        this.cancelButtonText,
-      );
+  _DankValidationDialogState createState() => _DankValidationDialogState();
 }
 
 class _DankValidationDialogState extends State<DankValidationDialog> {
-  TextEditingController validationTextController;
-  bool isDisabled = false;
-  String titleText;
-  String messageText;
-  ValidationType validationType;
-  String validationText;
-  String beforeValue;
-  String afterValue;
-  String okButtonText;
-  String cancelButtonText;
-
-  _DankValidationDialogState(
-    this.titleText,
-    this.messageText,
-    this.validationType,
-    this.validationText,
-    this.beforeValue,
-    this.afterValue,
-    this.okButtonText,
-    this.cancelButtonText,
-  );
+  TextEditingController _validationTextController;
+  bool _isDisabled = false;
 
   @override
   void initState() {
     super.initState();
-    validationTextController = TextEditingController(text: '');
+    _validationTextController = TextEditingController(text: '');
 
-    if (validationType == ValidationType.TextBasedValidation) {
-      isDisabled = true;
+    if (widget.validationType == ValidationType.TextBasedValidation) {
+      _isDisabled = true;
     }
   }
 
   @override
   void dispose() {
-    validationTextController.dispose();
+    _validationTextController.dispose();
     super.dispose();
   }
 
@@ -99,134 +73,71 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
         padding: EdgeInsets.all(0.0),
         margin: EdgeInsets.all(0.0),
         width: 600.0,
-        height: 400.0,
         color: appBackgroundColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            SizedBox(height: 20),
-            Center(
-              child: Text(
-                titleText,
-                style: appHeaderFontStyle,
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              margin: EdgeInsets.only(
-                left: 10.0,
-                right: 10.0,
-                bottom: 25.0,
-              ),
-              child: Divider(
-                color: appTertiaryColor,
-                thickness: 2.0,
-              ),
-            ),
-            Container(
+            DankLabel(
+              displayText: widget.titleText,
+              textStyle: appHeaderFontStyle,
               padding: EdgeInsets.only(
-                left: 30.0,
-                right: 30.0,
-              ),
-              child: Text(
-                messageText,
-                style: appLabelFontStyle,
+                top: 20.0,
               ),
             ),
-            SizedBox(height: 20),
-            // Conditionally display either the validation textbox, or the before/after display
-            (validationType == ValidationType.TextBasedValidation)
-                ? Container(
-                    height: 50.0,
+            Divider(
+              color: appTertiaryColor,
+              thickness: 2.0,
+              indent: 10.0,
+              endIndent: 10.0,
+            ),
+            Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DankLabel(
+                    displayText: widget.messageText,
+                    textStyle: appLabelFontStyle.copyWith(
+                      fontSize: 16.0,
+                    ),
                     padding: EdgeInsets.only(
-                      left: 30.0,
-                      right: 30.0,
+                      top: 13.0,
                     ),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: validationTextController,
-                          style: appInputFontStyle,
-                          onChanged: validateInput,
-                          onSubmitted: validateAndSubmit,
-                          autofocus: true,
-                          decoration: InputDecoration(
-                            hintText: 'Please type in "' +
-                                this.validationText +
-                                '" to continue',
-                            hintStyle: appInputHintFontStyle,
-                            prefixIcon: Icon(Icons.security,
-                                color: appBaseWhiteTextColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                : Container(
-                    height: 50.0,
-                    padding: EdgeInsets.only(
-                      left: 30.0,
-                      right: 30.0,
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 100.0,
-                              padding: EdgeInsets.only(right: 10.0),
-                              child: Text(
-                                'Before:',
-                                style: appLabelFontStyle,
-                                textAlign: TextAlign.end,
-                              ),
-                            ),
-                            Text(beforeValue, style: appValueLabelFontStyle),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              width: 100.0,
-                              padding: EdgeInsets.only(right: 10.0),
-                              child: Text(
-                                'After:',
-                                style: appLabelFontStyle,
-                                textAlign: TextAlign.end,
-                              ),
-                            ),
-                            Text(afterValue, style: appValueLabelFontStyle),
-                          ],
-                        ),
-                      ],
-                    ),
+                    textAlign: TextAlign.center,
                   ),
-            Expanded(
-              child: Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 25.0, top: 15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DankButton(
-                        buttonText: okButtonText,
-                        onPressed: () {
-                          dismissDialog(context, true);
-                        },
-                        margin: EdgeInsets.only(right: 10.0),
-                        isDisabled: this.isDisabled,
-                        buttonType: DankButtonType.Flat,
-                      ),
-                      DankButton(
-                        buttonText: cancelButtonText,
-                        onPressed: () {
-                          dismissDialog(context, false);
-                        },
-                        margin: EdgeInsets.only(left: 10.0),
-                      ),
-                    ],
-                  ),
+                ],
+              ),
+            ),
+            _buildValidationBody(),
+            Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 25.0, top: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DankButton(
+                      buttonText: widget.okButtonText,
+                      onPressed: () {
+                        dismissDialog(context, true);
+                      },
+                      margin: EdgeInsets.only(right: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      isDisabled: _isDisabled,
+                      buttonType: DankButtonType.Flat,
+                      textColor: appBaseBlackTextColor,
+                      borderRadius: 5.0,
+                    ),
+                    DankButton(
+                      buttonText: widget.cancelButtonText,
+                      onPressed: () {
+                        dismissDialog(context, false);
+                      },
+                      margin: EdgeInsets.only(left: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      borderRadius: 5.0,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -236,10 +147,72 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
     );
   }
 
+  Widget _buildValidationBody() {
+    return Container(
+      padding: EdgeInsets.all(50.0),
+      child: (widget.validationType == ValidationType.TextBasedValidation)
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  constraints: BoxConstraints(maxWidth: 400.0),
+                  child: TextField(
+                    controller: _validationTextController,
+                    style: appInputFontStyle,
+                    onChanged: validateInput,
+                    onSubmitted: validateAndSubmit,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      hintText: 'Please type in "' +
+                          widget.validationText +
+                          '" to continue',
+                      hintStyle: appInputHintFontStyle,
+                      prefixIcon: Icon(
+                        Icons.security,
+                        color: appBaseWhiteTextColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildBeforeAfterWidget('Before:', widget.beforeValue),
+                _buildBeforeAfterWidget('After:', widget.afterValue),
+              ],
+            ),
+    );
+  }
+
+  Widget _buildBeforeAfterWidget(
+    String displayText,
+    String value,
+  ) {
+    return Row(
+      children: [
+        Container(
+          width: 100.0,
+          padding: EdgeInsets.only(right: 10.0),
+          child: DankLabel(
+            displayText: displayText,
+            textStyle: appLabelFontStyle,
+            textAlign: TextAlign.end,
+          ),
+        ),
+        Text(
+          value,
+          style: appValueLabelFontStyle,
+        ),
+      ],
+    );
+  }
+
   void validateAndSubmit(String value) {
-    if (value == this.validationText) {
+    if (value == widget.validationText) {
       setState(() {
-        this.isDisabled = false;
+        _isDisabled = false;
       });
 
       dismissDialog(context, true);
@@ -247,14 +220,13 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
   }
 
   void validateInput(String value) {
-    // Conditionally set the disabled state of the "save" button
-    if (value == this.validationText) {
+    if (value == widget.validationText) {
       setState(() {
-        this.isDisabled = false;
+        _isDisabled = false;
       });
-    } else if (!this.isDisabled) {
+    } else if (!_isDisabled) {
       setState(() {
-        this.isDisabled = true;
+        _isDisabled = true;
       });
     }
   }

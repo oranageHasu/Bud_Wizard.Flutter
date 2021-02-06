@@ -14,11 +14,15 @@ class GrowPrivacy {
   }) : this.privacySetting = privacySetting;
 
   factory GrowPrivacy.fromJson(Map<String, dynamic> json) {
+    for (GrowPrivacySetting index in GrowPrivacySetting.values) {
+      print(index.index);
+    }
+    print(json['privacySetting']);
     GrowPrivacy retval = GrowPrivacy(
-      privacySetting: GrowPrivacySetting.values
-          .firstWhere((e) => e.index == json['privacySetting'] as int),
+      privacySetting: GrowPrivacySetting.DoNotShare, //GrowPrivacySetting.values
+      //.firstWhere((e) => e.index == json['privacySetting'] as int),
     );
-
+    print('here2');
     retval.sharePhotos = json['sharePhotos'];
     retval.shareJournal = json['shareJournal'];
     retval.allowComments = json['allowComments'];

@@ -70,3 +70,28 @@ Future<bool> postGrow(Grow grow) async {
 
   return retval;
 }
+
+Future<bool> deleteGrow(Grow grow) async {
+  bool retval = false;
+
+  try {
+    // Generate the request URL
+    String url = generateAPIPath(apiRouteGrows);
+
+    // Append the filter parameter
+    url = url + '/' + grow.growId.toString();
+
+    // Make the HTTP request
+    Response response = await executeRequest(url, HttpMethod.DELETE, null);
+
+    // Process the result
+    if (response != null && response.statusCode == 200) {
+      retval = true;
+    }
+  } catch (Exception) {
+    log(Exception);
+    log('Failed to Delete a Grow.');
+  }
+
+  return retval;
+}

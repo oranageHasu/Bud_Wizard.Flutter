@@ -11,32 +11,34 @@ class PlantSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        PlantCard(
-          plant: grow.plants[0],
-          isFeatured: true,
-        ),
-        Row(
-          children: [
-            if (grow.plants.length > 1)
-              Expanded(
-                child: PlantCard(
-                  plant: grow.plants[1],
-                  isLeftSide: true,
-                ),
+    return (grow.plants.isNotEmpty)
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              PlantCard(
+                plant: grow.plants[0],
+                isFeatured: true,
               ),
-            (grow.plants.length > 2)
-                ? Expanded(
-                    child: PlantCard(
-                      plant: grow.plants[2],
+              Row(
+                children: [
+                  if (grow.plants.length > 1)
+                    Expanded(
+                      child: PlantCard(
+                        plant: grow.plants[1],
+                        isLeftSide: true,
+                      ),
                     ),
-                  )
-                : Expanded(child: SizedBox(height: 300.0)),
-          ],
-        ),
-      ],
-    );
+                  (grow.plants.length > 2)
+                      ? Expanded(
+                          child: PlantCard(
+                            plant: grow.plants[2],
+                          ),
+                        )
+                      : Expanded(child: SizedBox(height: 300.0)),
+                ],
+              ),
+            ],
+          )
+        : SizedBox.shrink();
   }
 }

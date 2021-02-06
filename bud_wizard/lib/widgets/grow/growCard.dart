@@ -76,7 +76,11 @@ class _GrowsCardState extends State<GrowCard> {
           child: Container(
             width: 320.0,
             padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.only(bottom: 5.0),
+            margin: EdgeInsets.only(
+              bottom: 5.0,
+              left: 5.0,
+              right: 5.0,
+            ),
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(5.0),
@@ -85,7 +89,7 @@ class _GrowsCardState extends State<GrowCard> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
+              children: [
                 Container(
                   height: 50.0,
                   width: 50.0,
@@ -97,7 +101,9 @@ class _GrowsCardState extends State<GrowCard> {
                     ),
                   ),
                   child: Image.asset(
-                    grow.plants[0].imagePath,
+                    (grow.plants.isNotEmpty)
+                        ? grow.plants[0].imagePath
+                        : 'grow/img1.jpg',
                     fit: BoxFit.fitWidth,
                   ),
                 ),

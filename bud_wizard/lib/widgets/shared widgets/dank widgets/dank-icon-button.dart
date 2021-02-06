@@ -120,7 +120,7 @@ class DankIconButtonState extends State<DankIconButton> {
         child: Container(
           margin: widget.margin,
           padding: widget.padding,
-          height: 55.0,
+          //height: 55.0,
           width: (widget.enableAnimation && (widget.isSelected || _isHovered))
               ? 65.0
               : 55.0,

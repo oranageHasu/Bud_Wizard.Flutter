@@ -7,6 +7,7 @@ import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growPageBody.dart';
 import 'package:bud_wizard/widgets/grow/growPageHeader.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-validation-dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 
@@ -136,8 +137,56 @@ class GrowPageState extends State<GrowPage> {
 
   void startNewGrow() {
     setState(() {
+      _grows = null;
+      _currentGrow = null;
       _currentGrowOp = GrowOperation.AddGrow;
     });
+  }
+
+  void deleteCurrentGrow() {
+    if (_currentGrow != null) {
+      _deleteGrow();
+    }
+  }
+
+  void _deleteGrow() async {
+    bool safeToDelete = false;
+
+    safeToDelete = await showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.5),
+      transitionBuilder: (context, a1, a2, widget) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: DankValidationDialog(
+              titleText: 'Delete Grow',
+              validationType: ValidationType.TextBasedValidation,
+              messageText:
+                  'Deleting a grow cannot be undone.  \n\nPlease be certain this is the action you want to take.',
+              validationText: 'delete',
+              cancelButtonText: 'Cancel',
+              okButtonText: 'Delete',
+            ),
+          ),
+        );
+      },
+      transitionDuration: Duration(milliseconds: 400),
+      barrierDismissible: false,
+      barrierLabel: '',
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        return SizedBox(height: 20.0);
+      },
+    );
+
+    // Save the change.  Hit the back-end API.
+    if (safeToDelete) {
+      deleteGrow(_currentGrow);
+
+      setCurrentGrow(null);
+    }
   }
 }
 
