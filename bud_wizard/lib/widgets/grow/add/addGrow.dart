@@ -5,38 +5,36 @@ import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/services/api%20services/api-grow.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/grow/add/originStory.dart';
 import 'package:bud_wizard/widgets/grow/add/privacy.dart';
 import 'package:bud_wizard/widgets/grow/add/techIntegrations.dart';
+import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-stepper.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankErrorAlert.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AddGrow extends StatefulWidget {
-  static AddGrowState of(BuildContext context) {
+  static _AddGrowState of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<AddGrowWidget>().growData;
   }
 
   @override
-  State<StatefulWidget> createState() => AddGrowState();
+  State<StatefulWidget> createState() => _AddGrowState();
 }
 
-class AddGrowState extends State<AddGrow> {
+class _AddGrowState extends State<AddGrow> {
   Grow _newGrow;
-  bool _isLoading = false;
-  Future<bool> _saveResult;
 
   @override
   void initState() {
+    super.initState();
+
     sessionInfo.then((data) {
       setState(() {
         _newGrow = Grow(
@@ -52,122 +50,74 @@ class AddGrowState extends State<AddGrow> {
     }, onError: (e) {
       log(e);
     });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(AddGrow oldWidget) {
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
     return AddGrowWidget(
       growData: this,
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          FadeIn(
-            duration: 1000,
-            isVisible: true,
-            child: Container(
-              margin: EdgeInsets.only(top: 30.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  DankStepper(
-                    selectedColor: appBaseColor,
-                    unselectedColor: appBaseWhiteTextColor.withOpacity(0.7),
-                    onFinished: persistGrow,
-                    steps: [
-                      DankStepItem(
-                        title: 'Origin Story',
-                        subtitle: 'Where it all begins...',
-                        icon: CommunityMaterialIcons.account_edit,
-                        content: OriginStory(
-                          grow: _newGrow,
-                        ),
-                        proTip: DankProTip(
-                          proTipText:
-                              'A well named grow can help expose your plants to other users.',
-                          onLearnMore: learnMoreAboutGrows,
-                        ),
-                      ),
-                      DankStepItem(
-                        title: 'Tech Integrations',
-                        subtitle: 'For the fancy grower',
-                        icon: CommunityMaterialIcons.cogs,
-                        content: TechIntegrations(
-                          grow: _newGrow,
-                        ),
-                      ),
-                      DankStepItem(
-                        title: 'Privacy',
-                        subtitle: 'Growing bud can be risky...',
-                        icon: CommunityMaterialIcons.shield_lock,
-                        content: Privacy(
-                          grow: _newGrow,
-                        ),
-                        proTip: DankProTip(
-                          proTipText:
-                              'The team at Bud Wizard takes data security very seriously.',
-                          onLearnMore: learnMoreAboutPrivacy,
-                        ),
-                      ),
-                      DankStepItem(
-                        title: 'Review',
-                        subtitle: 'Dot the i\'s and cross the t\'s',
-                        icon: CommunityMaterialIcons.eye_check,
-                        content: DankLabel(
-                          displayText: 'To Do: Review',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+      child: FadeIn(
+        duration: 1000,
+        isVisible: true,
+        child: Container(
+          margin: EdgeInsets.only(top: 30.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              DankStepper(
+                selectedColor: appBaseColor,
+                unselectedColor: appBaseWhiteTextColor.withOpacity(0.7),
+                onFinished: persistGrow,
+                onCancelled: cancelNewGrow,
+                steps: [
+                  DankStepItem(
+                    title: 'Origin Story',
+                    subtitle: 'Where it all begins...',
+                    icon: CommunityMaterialIcons.account_edit,
+                    content: OriginStory(
+                      grow: _newGrow,
+                    ),
+                    proTip: DankProTip(
+                      proTipText:
+                          'A well named grow can help expose your plants to other users.',
+                      onLearnMore: learnMoreAboutGrows,
+                    ),
+                  ),
+                  DankStepItem(
+                    title: 'Tech Integrations',
+                    subtitle: 'For the fancy grower',
+                    icon: CommunityMaterialIcons.cogs,
+                    content: TechIntegrations(
+                      grow: _newGrow,
+                    ),
+                  ),
+                  DankStepItem(
+                    title: 'Privacy',
+                    subtitle: 'Growing bud can be risky...',
+                    icon: CommunityMaterialIcons.shield_lock,
+                    content: Privacy(
+                      grow: _newGrow,
+                    ),
+                    proTip: DankProTip(
+                      proTipText:
+                          'The team at Bud Wizard takes data security very seriously.',
+                      onLearnMore: learnMoreAboutPrivacy,
+                    ),
+                  ),
+                  DankStepItem(
+                    title: 'Review',
+                    subtitle: 'Dot the i\'s and cross the t\'s',
+                    icon: CommunityMaterialIcons.eye_check,
+                    content: DankLabel(
+                      displayText: 'To Do: Review',
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-          if (_isLoading)
-            FutureBuilder<bool>(
-              future: _saveResult,
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    // Success.  Show the right screen now!
-                    print("Success!");
-                  });
-                } else if (snapshot.hasError) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    DankErrorAlert();
-                    setState(() {
-                      _isLoading = false;
-                    });
-                  });
-                }
-
-                return Center(
-                  child: SpinKitRipple(
-                    color: appBaseColor,
-                    size: 200.0,
-                    duration: Duration(milliseconds: 2500),
-                  ),
-                );
-              },
-            )
-        ],
+        ),
       ),
     );
   }
@@ -218,12 +168,17 @@ class AddGrowState extends State<AddGrow> {
     print('Allows Notifications: ' +
         _newGrow.privacySettings.allowNotifications.toString());
 
-    // Call the API and persist the new Grow
-    _saveResult = postGrow(_newGrow);
+    GrowPage.of(context).saveGrow(_newGrow).then(
+      (bool opResult) {
+        if (opResult) {
+          GrowPage.of(context).finishedNewGrow();
+        }
+      },
+    );
+  }
 
-    setState(() {
-      _isLoading = true;
-    });
+  void cancelNewGrow() {
+    GrowPage.of(context).finishedNewGrow();
   }
 
   void learnMoreAboutGrows() {
@@ -236,7 +191,7 @@ class AddGrowState extends State<AddGrow> {
 }
 
 class AddGrowWidget extends InheritedWidget {
-  final AddGrowState growData;
+  final _AddGrowState growData;
 
   AddGrowWidget({
     Key key,

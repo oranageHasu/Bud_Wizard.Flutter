@@ -31,16 +31,19 @@ class DankStepper extends StatefulWidget {
   final Color selectedColor;
   final Color unselectedColor;
   final VoidCallback onFinished;
+  final VoidCallback onCancelled;
 
   DankStepper({
     @required List<DankStepItem> steps,
     @required selectedColor,
     @required unselectedColor,
     @required VoidCallback onFinished,
+    @required VoidCallback onCancelled,
   })  : this.steps = steps,
         this.selectedColor = selectedColor,
         this.unselectedColor = unselectedColor,
-        this.onFinished = onFinished;
+        this.onFinished = onFinished,
+        this.onCancelled = onCancelled;
 
   static DankStepperState of(BuildContext context) {
     return context
@@ -169,7 +172,7 @@ class DankStepperState extends State<DankStepper> {
   }
 
   void cancelPressed() {
-    print('To Do: Cancel creating Grow');
+    widget.onCancelled();
   }
 
   void clickAction(int index) {

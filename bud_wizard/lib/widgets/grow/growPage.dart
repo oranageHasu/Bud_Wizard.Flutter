@@ -10,6 +10,7 @@ import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-validation-dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class GrowPage extends StatefulWidget {
   static GrowPageState of(BuildContext context) {
@@ -26,21 +27,13 @@ class GrowPageState extends State<GrowPage> {
   Plant _currentPlant;
   PlantOperation _currentPlantOp = PlantOperation.Journal;
   GrowOperation _currentGrowOp = GrowOperation.EditGrows;
+  bool _isLoading = false;
 
   @override
   void initState() {
-    _grows =
-        getGrows(new Guid('77c1e2cb-6792-4acd-ae31-3ab61a150822')).then((data) {
-      if (data != null && data.length >= 1) {
-        setCurrentGrow(data[0]);
-      }
-
-      return data;
-    }, onError: (e) {
-      log(e);
-    });
-
     super.initState();
+
+    refreshGrows();
   }
 
   @override
@@ -68,29 +61,45 @@ class GrowPageState extends State<GrowPage> {
                     ]
                   : null,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
+            child: Stack(
+              fit: StackFit.expand,
               children: [
-                GrowPageHeader(
-                  isPlantSelected: _currentPlant != null,
-                  currentGrow: _currentGrow,
-                  currentPlantOp: _currentPlantOp,
-                  isNotificationDisplayed: true,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    GrowPageHeader(
+                      isPlantSelected: _currentPlant != null,
+                      currentGrow: _currentGrow,
+                      currentPlantOp: _currentPlantOp,
+                      isNotificationDisplayed: true,
+                    ),
+                    Divider(
+                      color: appContentBackgroundColor,
+                      height: 1.0,
+                      thickness: 1.0,
+                    ),
+                    GrowPageBody(
+                      grows: _grows,
+                      currentGrow: _currentGrow,
+                      currentPlant: _currentPlant,
+                      currentPlantOp: _currentPlantOp,
+                      currentGrowOp: _currentGrowOp,
+                    ),
+                  ],
                 ),
-                Divider(
-                  color: appContentBackgroundColor,
-                  height: 1.0,
-                  thickness: 1.0,
-                ),
-                GrowPageBody(
-                  grows: _grows,
-                  currentGrow: _currentGrow,
-                  currentPlant: _currentPlant,
-                  currentPlantOp: _currentPlantOp,
-                  currentGrowOp: _currentGrowOp,
-                ),
+                if (_isLoading)
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 320.0),
+                      child: SpinKitRipple(
+                        color: appBaseColor,
+                        size: 150.0,
+                        duration: Duration(milliseconds: 2500),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -143,10 +152,59 @@ class GrowPageState extends State<GrowPage> {
     });
   }
 
+  void finishedNewGrow() {
+    refreshGrows();
+
+    setState(() {
+      _currentGrowOp = GrowOperation.EditGrows;
+    });
+  }
+
   void deleteCurrentGrow() {
     if (_currentGrow != null) {
       _deleteGrow();
     }
+  }
+
+  Future<bool> saveGrow(Grow grow) {
+    Future<bool> retval;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    if (grow != null) {
+      // Grow is new, Try to save it.
+      retval = postGrow(grow).then((bool opResult) {
+        setState(() {
+          _isLoading = false;
+        });
+
+        return opResult;
+      });
+    } else {
+      // PUT and existing Grow
+
+    }
+
+    print('in saveGrow');
+
+    return retval;
+  }
+
+  void refreshGrows() {
+    _grows =
+        getGrows(new Guid('77c1e2cb-6792-4acd-ae31-3ab61a150822')).then((data) {
+      if (data != null && data.length >= 1) {
+        setCurrentGrow(data[0]);
+      } else {
+        setCurrentGrow(null);
+      }
+
+      return data;
+    }, onError: (e) {
+      log(e);
+    });
   }
 
   void _deleteGrow() async {
@@ -183,9 +241,21 @@ class GrowPageState extends State<GrowPage> {
 
     // Save the change.  Hit the back-end API.
     if (safeToDelete) {
-      deleteGrow(_currentGrow);
+      setState(() {
+        _isLoading = true;
+      });
 
-      setCurrentGrow(null);
+      deleteGrow(_currentGrow).then(
+        (bool opResult) {
+          if (opResult) {
+            refreshGrows();
+          }
+
+          setState(() {
+            _isLoading = false;
+          });
+        },
+      );
     }
   }
 }
