@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
-import 'package:bud_wizard/models/login.dart';
+import 'package:bud_wizard/models/user%20system/login.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';

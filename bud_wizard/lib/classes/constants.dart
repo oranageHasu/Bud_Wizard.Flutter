@@ -23,6 +23,7 @@ const String apiRouteSession = 'Session';
 // Login API Routes
 const String apiRouteAuthLogin = 'authentication/authenticate';
 const String apiRouteLogout = 'authentication/logout';
+const String apiRouteLoginPreferences = 'LoginPreferences';
 
 // Journal API Routes
 const String apiRouteJournal = 'journal';

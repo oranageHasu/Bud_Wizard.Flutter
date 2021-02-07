@@ -1,4 +1,4 @@
-import 'package:bud_wizard/models/login.dart';
+import 'package:bud_wizard/models/user%20system/login.dart';
 
 class SessionInfo {
   Login user;
