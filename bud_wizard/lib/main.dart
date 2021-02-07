@@ -19,13 +19,12 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   void initState() {
+    super.initState();
+
     // Listen for global changes of the app theme
     currentTheme.addListener(() {
-      print('Theme Changed to:' + currentTheme.currentTheme().toString());
       setState(() {});
     });
-
-    super.initState();
   }
 
   @override
@@ -61,18 +60,12 @@ class _AppBasePageState extends State<AppBasePage> {
 
   @override
   void initState() {
+    super.initState();
+
     // Load any session data, if the app was running and hard refreshed
     initSession();
 
-    // Listen for global changes of the app theme
-    currentTheme.addListener(() {
-      print('Theme Changed to:' + currentTheme.currentTheme().toString());
-      setState(() {});
-    });
-
     _initialized = true;
-
-    super.initState();
   }
 
   @override

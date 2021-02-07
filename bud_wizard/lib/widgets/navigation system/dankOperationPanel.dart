@@ -32,25 +32,6 @@ class DankOperationPanelState extends State<DankOperationPanel> {
   );
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // If the parent propogated a change, reflect it in this component
-    //<ParentBodyState> data = <ParentBodyState>.of(context);
-    print(
-        'To Do: Implement "didChangeDependencies" for DankOperationPanel widget.');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DankOperationPanelWidget(
       child: Container(

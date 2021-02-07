@@ -36,28 +36,27 @@ class SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return DankNavigator(
       currentScreen: Screen.Settings,
-      content: Expanded(
-        child: Container(
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: (currentTheme.currentTheme() == ThemeMode.dark)
-                ? appDarkTertiaryColor
-                : appLightTertiaryColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.0),
+      content: SettingsWidget(
+        settingsData: this,
+        child: Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appDarkTertiaryColor
+                  : appLightTertiaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+              ),
+              boxShadow: (currentTheme.currentTheme() == ThemeMode.light)
+                  ? [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 10.0,
+                        blurRadius: 25.0,
+                      ),
+                    ]
+                  : null,
             ),
-            boxShadow: (currentTheme.currentTheme() == ThemeMode.light)
-                ? [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 10.0,
-                      blurRadius: 25.0,
-                    ),
-                  ]
-                : null,
-          ),
-          child: SettingsWidget(
-            settingsData: this,
             child: FutureBuilder<LoginPreferences>(
               future: _loginPrefs,
               builder: (context, snapshot) {
@@ -90,54 +89,52 @@ class SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _buildBody(LoginPreferences locPrefs) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: (currentTheme.currentTheme() == ThemeMode.dark)
-              ? appDarkTertiaryColor
-              : appLightTertiaryColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10.0),
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      decoration: BoxDecoration(
+        color: (currentTheme.currentTheme() == ThemeMode.dark)
+            ? appDarkTertiaryColor
+            : appLightTertiaryColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+        ),
+        boxShadow: (currentTheme.currentTheme() == ThemeMode.light)
+            ? [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 10.0,
+                  blurRadius: 25.0,
+                ),
+              ]
+            : null,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DankLabel(
+                displayText: 'Dark Mode:',
+              ),
+              Switch(
+                value: locPrefs.prefersDarkMode,
+                onChanged: (value) {
+                  setState(() {
+                    locPrefs.prefersDarkMode = value;
+                  });
+
+                  putLocationPreferences(locPrefs);
+
+                  currentTheme.switchTheme();
+                },
+                activeTrackColor: Colors.black.withOpacity(0.3),
+              ),
+            ],
           ),
-          boxShadow: (currentTheme.currentTheme() == ThemeMode.light)
-              ? [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 10.0,
-                    blurRadius: 25.0,
-                  ),
-                ]
-              : null,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DankLabel(
-                  displayText: 'Dark Mode:',
-                ),
-                Switch(
-                  value: locPrefs.prefersDarkMode,
-                  onChanged: (value) {
-                    setState(() {
-                      locPrefs.prefersDarkMode = value;
-                    });
-
-                    putLocationPreferences(locPrefs);
-
-                    currentTheme.switchTheme();
-                  },
-                  activeTrackColor: Colors.black.withOpacity(0.3),
-                ),
-              ],
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
