@@ -6,6 +6,7 @@ import 'package:bud_wizard/widgets/grow/growActivity.dart';
 import 'package:bud_wizard/widgets/grow/growDetail.dart';
 import 'package:bud_wizard/widgets/grow/growSelector.dart';
 import 'package:bud_wizard/widgets/grow/myFirstGrow.dart';
+import 'package:bud_wizard/widgets/plant/add/addPlant.dart';
 import 'package:bud_wizard/widgets/plant/plantDetail.dart';
 import 'package:flutter/material.dart';
 
@@ -78,6 +79,8 @@ class GrowPageBody extends StatelessWidget {
 
     if (_currentGrowOp == GrowOperation.AddGrow) {
       retval = AddGrow();
+    } else if (_currentPlantOp == PlantOperation.AddPlant) {
+      retval = AddPlant();
     } else if (_currentPlant != null) {
       retval = PlantDetail(
         plant: _currentPlant,

@@ -186,8 +186,6 @@ class GrowPageState extends State<GrowPage> {
 
     }
 
-    print('in saveGrow');
-
     return retval;
   }
 
@@ -203,6 +201,12 @@ class GrowPageState extends State<GrowPage> {
       return data;
     }, onError: (e) {
       log(e);
+    });
+  }
+
+  void startNewPlant() {
+    setState(() {
+      _currentPlantOp = PlantOperation.AddPlant;
     });
   }
 
