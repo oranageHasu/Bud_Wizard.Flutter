@@ -134,6 +134,7 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
                   ),
                   invertHoverColor: true,
                   hoverColor: Colors.white.withOpacity(0.8),
+                  textColor: Colors.white.withOpacity(0.8),
                 ),
               ],
             ),
