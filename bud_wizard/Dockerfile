@@ -39,6 +39,10 @@ RUN flutter config --enable-web
 # Get all Flutter dependencies for this project
 RUN flutter pub get
 
+# This builds the pubspec.dart file which is located within our app source code and located here: /lib/src/pubspec.dart
+# This file allows us to infer information about a Flutter Web App (web apps are a special case compared to mobile apps)
+RUN flutter pub run build_runner build
+
 # Build the Flutter app as a Web App
 RUN flutter build web --dart-define=BASE_URL=$BASE_URL
 
