@@ -55,7 +55,7 @@ class DankTextField extends StatelessWidget {
     Color selectedBorderColor,
     Color textColor,
     Color hintTextColor,
-    Color unselectedBorderColor = appUnselectedColor,
+    Color unselectedBorderColor,
   })  : this.labelText = labelText,
         this.hintText = hintText,
         this.minWidth = minWidth,
@@ -121,7 +121,7 @@ class DankTextField extends StatelessWidget {
                   ? textColor
                   : (currentTheme.currentTheme() == ThemeMode.dark)
                       ? appBaseWhiteTextColor.withOpacity(0.7)
-                      : appHintTextColor.withOpacity(0.7),
+                      : appBaseBlackTextColor.withOpacity(0.7),
             ),
             alignLabelWithHint:
                 (keybordType == TextInputType.multiline) ? true : false,
@@ -136,7 +136,12 @@ class DankTextField extends StatelessWidget {
             counterStyle: appInputCounterFontStyle,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(borderRadius),
-              borderSide: BorderSide(color: appUnselectedColor, width: 2.0),
+              borderSide: BorderSide(
+                color: (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appDarkUnselectedColor
+                    : appLightUnselectedColor,
+                width: 2.0,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: appBaseColor, width: 2.0),

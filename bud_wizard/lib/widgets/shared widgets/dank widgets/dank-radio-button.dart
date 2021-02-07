@@ -77,8 +77,8 @@ class _DankRadioButtonState extends State<DankRadioButton> {
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: (currentTheme.currentTheme() == ThemeMode.dark)
-                      ? appUnselectedColor
-                      : appBaseBlackTextColor.withOpacity(0.5),
+                      ? appDarkUnselectedColor
+                      : appLightUnselectedColor,
                   width: 2,
                 ),
                 boxShadow: [

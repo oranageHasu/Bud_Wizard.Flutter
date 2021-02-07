@@ -60,7 +60,9 @@ class _GrowSearchDialogState extends State<GrowSearchDialog> {
               Container(
                 width: 600.0,
                 decoration: BoxDecoration(
-                  color: appBackgroundColor,
+                  color: (currentTheme.currentTheme() == ThemeMode.dark)
+                      ? appDarkBackgroundColor
+                      : appLightTertiaryColor,
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 padding: EdgeInsets.all(20.0),

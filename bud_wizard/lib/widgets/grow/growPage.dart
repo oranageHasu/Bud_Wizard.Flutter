@@ -7,7 +7,7 @@ import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growPageBody.dart';
 import 'package:bud_wizard/widgets/grow/growPageHeader.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankNavigator.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-validation-dialog.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankValidationDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -46,8 +46,8 @@ class GrowPageState extends State<GrowPage> {
           child: Container(
             decoration: BoxDecoration(
               color: (currentTheme.currentTheme() == ThemeMode.dark)
-                  ? appTertiaryColor
-                  : appBaseWhiteTextColor,
+                  ? appDarkTertiaryColor
+                  : appLightTertiaryColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10.0),
               ),
@@ -76,7 +76,6 @@ class GrowPageState extends State<GrowPage> {
                       isNotificationDisplayed: true,
                     ),
                     Divider(
-                      color: appContentBackgroundColor,
                       height: 1.0,
                       thickness: 1.0,
                     ),

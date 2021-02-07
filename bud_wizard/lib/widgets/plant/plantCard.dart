@@ -26,7 +26,6 @@ class PlantCard extends StatelessWidget {
     double cardPadding = 10.0;
 
     return Card(
-      color: appBackgroundColor,
       elevation: 15.0,
       clipBehavior: Clip.hardEdge,
       margin: (isFeatured)

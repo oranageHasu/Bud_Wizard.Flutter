@@ -24,14 +24,20 @@ class PlantQuestionAnswer extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: appTertiaryColor,
+                  color: (currentTheme.currentTheme() == ThemeMode.dark)
+                      ? appDarkTertiaryColor
+                      : appLightTertiaryColor,
                   borderRadius: BorderRadius.circular(5),
                   border: (answer.acceptedAnswer)
                       ? Border.all(
                           color: appSuccessColor,
                           width: 1.5,
                         )
-                      : Border.all(color: appTertiaryColor),
+                      : Border.all(
+                          color: (currentTheme.currentTheme() == ThemeMode.dark)
+                              ? appDarkTertiaryColor
+                              : appLightTertiaryColor,
+                        ),
                 ),
                 padding: EdgeInsets.only(
                   left: 10.0,

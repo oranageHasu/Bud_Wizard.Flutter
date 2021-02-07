@@ -4,7 +4,7 @@ import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/plant/journal/uploadImageDialog.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicTooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:get/get.dart';

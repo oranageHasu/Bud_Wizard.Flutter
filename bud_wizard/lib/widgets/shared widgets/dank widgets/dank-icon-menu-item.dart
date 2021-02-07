@@ -67,10 +67,10 @@ class _DankIconMenuItemState extends State<DankIconMenuItem> {
           color: (_isHovered)
               ? (currentTheme.currentTheme() == ThemeMode.dark)
                   ? Colors.black.withOpacity(0.3)
-                  : Colors.white.withOpacity(0.9)
+                  : Colors.black.withOpacity(0.05)
               : (currentTheme.currentTheme() == ThemeMode.dark)
-                  ? appBackgroundColor
-                  : appBaseWhiteTextColor,
+                  ? appDarkBackgroundColor
+                  : appLightBackgroundColor,
           padding: EdgeInsets.all(10.0),
           child: Row(
             children: [

@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-menu-item.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicTooltip.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/utils/menuBoxClipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -208,8 +208,8 @@ class _DankIconMenuState extends State<DankIconMenu>
                               decoration: BoxDecoration(
                                 color: (currentTheme.currentTheme() ==
                                         ThemeMode.dark)
-                                    ? appBackgroundColor
-                                    : appBaseWhiteTextColor,
+                                    ? appDarkBackgroundColor
+                                    : appLightBackgroundColor,
                                 borderRadius:
                                     BorderRadius.circular(borderRadius),
                                 border: Border.all(
@@ -242,8 +242,8 @@ class _DankIconMenuState extends State<DankIconMenu>
                               decoration: BoxDecoration(
                                 color: (currentTheme.currentTheme() ==
                                         ThemeMode.dark)
-                                    ? appBackgroundColor
-                                    : appBaseWhiteTextColor,
+                                    ? appDarkBackgroundColor
+                                    : appLightBackgroundColor,
                               ),
                             ),
                           ),

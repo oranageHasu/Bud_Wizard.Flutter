@@ -65,7 +65,7 @@ class DankLineChart extends StatefulWidget {
     @required List<DankLineChartDataLabel> yAxisLabels,
     String xAxisTitle = '',
     String yAxisTitle = '',
-    Color chartBackgroundColor = appBackgroundColor,
+    Color chartBackgroundColor = appDarkBackgroundColor,
     double barWidth = 4.0,
     bool showXAxisTitles = true,
     bool showYAxisTitles = true,

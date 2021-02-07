@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicTooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -69,7 +69,7 @@ class _DankBasicIconButtonState extends State<DankBasicIconButton> {
   @override
   Widget build(BuildContext context) {
     return DankBasicTooltip(
-      tooltipText: widget.tooltipText,
+      tooltipText: (widget.isDisabled) ? null : widget.tooltipText,
       child: Container(
         margin: widget.margin,
         padding: widget.padding,
@@ -92,41 +92,30 @@ class _DankBasicIconButtonState extends State<DankBasicIconButton> {
   }
 
   Widget _outlineButton() {
-    return OutlineButton(
-      highlightedBorderColor: widget.outlineColor,
-      padding: EdgeInsets.all(15.0),
-      textColor: appBaseWhiteTextColor,
-      disabledBorderColor: Colors.black.withOpacity(0.3),
-      hoverColor: (widget.showClickInteraction)
-          ? widget.hoverColor.withOpacity(0.5)
-          : Colors.transparent,
-      borderSide: BorderSide(
-        color: widget.outlineColor,
-        width: widget.outlineThickness,
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: (!widget.isDisabled)
+              ? (_isHovered)
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).primaryColor.withOpacity(0.8)
+              : (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appDarkUnselectedColor
+                  : appLightUnselectedColor,
+          width: 3.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: (widget.isSelected || _isHovered && !widget.isDisabled)
+                ? Theme.of(context).primaryColor.withOpacity(0.5)
+                : Colors.transparent,
+            blurRadius: 35.0,
+          ),
+        ],
       ),
-      splashColor: (widget.showClickInteraction)
-          ? widget.hoverColor.withOpacity(0.5)
-          : Colors.transparent,
-      highlightColor: (widget.showClickInteraction)
-          ? widget.hoverColor.withOpacity(0.5)
-          : Colors.transparent,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      onPressed: (widget.isDisabled) ? null : widget.onPressed,
-      onLongPress: (widget.isDisabled) ? null : widget.onLongPress,
-      child: Icon(
-        widget.iconData,
-        color: (widget.isSelected || _isHovered)
-            ? (widget.color != null)
-                ? widget.color
-                : Theme.of(context).primaryColor
-            : (widget.color != null)
-                ? widget.color.withOpacity(0.8)
-                : Theme.of(context).primaryColor.withOpacity(0.8),
-        size: widget.iconSize,
-      ),
-      mouseCursor: SystemMouseCursors.click,
+      child: _iconButton(),
     );
   }
 
@@ -138,7 +127,7 @@ class _DankBasicIconButtonState extends State<DankBasicIconButton> {
       color: (widget.isSelected || _isHovered)
           ? appBaseColor
           : (currentTheme.currentTheme() == ThemeMode.dark)
-              ? appTertiaryColor
+              ? appDarkTertiaryColor
               : Colors.black.withOpacity(0.05),
       textColor: Colors.white,
       disabledTextColor: appBaseWhiteTextColor,
@@ -171,7 +160,9 @@ class _DankBasicIconButtonState extends State<DankBasicIconButton> {
         color: _getIconColor(),
         size: widget.iconSize,
       ),
-      disabledColor: appUnselectedColor,
+      disabledColor: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkUnselectedColor
+          : appLightUnselectedColor,
       padding: EdgeInsets.all(0.0),
       splashRadius: 1,
       hoverColor: (widget.showClickInteraction)
@@ -207,7 +198,9 @@ class _DankBasicIconButtonState extends State<DankBasicIconButton> {
   }
 
   Color _getIconColor() {
-    Color retval = appUnselectedColor;
+    Color retval = (currentTheme.currentTheme() == ThemeMode.dark)
+        ? appDarkUnselectedColor
+        : appLightUnselectedColor;
 
     if (!widget.isDisabled) {
       retval = (widget.isSelected || _isHovered)
@@ -215,8 +208,8 @@ class _DankBasicIconButtonState extends State<DankBasicIconButton> {
               ? widget.color
               : Theme.of(context).primaryColor
           : (widget.color != null)
-              ? widget.color.withOpacity(0.8)
-              : Theme.of(context).primaryColor.withOpacity(0.8);
+              ? widget.color.withOpacity(0.5)
+              : Theme.of(context).primaryColor.withOpacity(0.5);
     }
 
     return retval;

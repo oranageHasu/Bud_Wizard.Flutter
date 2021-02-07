@@ -37,7 +37,7 @@ class DankCheckbox extends StatelessWidget {
           value: value,
           checkColor: appBaseColor,
           activeColor: (currentTheme.currentTheme() == ThemeMode.dark)
-              ? appUnselectedColor
+              ? appDarkUnselectedColor
               : Colors.black.withOpacity(0.6),
           splashRadius: 0.0,
           onChanged: (isDisabled) ? null : onChanged,

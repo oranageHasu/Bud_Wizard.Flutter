@@ -164,7 +164,7 @@ class DankIconButtonState extends State<DankIconButton> {
                   color: (widget.isSelected || _isHovered)
                       ? appBaseColor
                       : (currentTheme.currentTheme() == ThemeMode.dark)
-                          ? appTertiaryColor
+                          ? appDarkTertiaryColor
                           : Colors.black.withOpacity(0.05),
                   textColor: Colors.white,
                   disabledTextColor: appBaseWhiteTextColor,

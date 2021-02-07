@@ -35,8 +35,8 @@ class SettingsPageState extends State<SettingsPage> {
             padding: EdgeInsets.all(20.0),
             decoration: BoxDecoration(
               color: (currentTheme.currentTheme() == ThemeMode.dark)
-                  ? appTertiaryColor
-                  : appBaseWhiteTextColor,
+                  ? appDarkTertiaryColor
+                  : appLightTertiaryColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10.0),
               ),

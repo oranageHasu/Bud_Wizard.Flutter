@@ -53,7 +53,7 @@ class DankBarChart extends StatefulWidget {
     @required DankBarChartData chartData,
     @required List<DankBarChartDataLabel> xAxisLabels,
     @required List<DankBarChartDataLabel> yAxisLabels,
-    Color chartBackgroundColor = appBackgroundColor,
+    Color chartBackgroundColor = appDarkBackgroundColor,
     bool showGridLines = false,
     bool showYAxisTitles = true,
     bool showXAxisTitles = true,

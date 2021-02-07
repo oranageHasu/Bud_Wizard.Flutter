@@ -14,14 +14,14 @@ class DankBasicTooltip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: tooltipText,
+      message: (tooltipText != null) ? tooltipText : 'Disabled',
       child: child,
       textStyle: appInputFontStyle.copyWith(
-        fontSize: 10.0,
+        fontSize: 12.0,
         color: appBaseWhiteTextColor,
       ),
       decoration: BoxDecoration(
-        color: appBackgroundColor,
+        color: appDarkBackgroundColor,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(

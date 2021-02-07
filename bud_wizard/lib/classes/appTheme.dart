@@ -27,19 +27,19 @@ class DankTheme with ChangeNotifier {
 ThemeData dankDarkTheme = ThemeData(
   primaryColor: appBaseColor,
   accentColor: appBaseColor,
-  scaffoldBackgroundColor: appBackgroundColor,
-  backgroundColor: appBackgroundColor,
-  dialogBackgroundColor: appBackgroundColor,
+  scaffoldBackgroundColor: appDarkBackgroundColor,
+  backgroundColor: appDarkBackgroundColor,
+  dialogBackgroundColor: appDarkBackgroundColor,
   canvasColor: Colors.transparent,
-  dividerColor: appTertiaryColor,
-  unselectedWidgetColor: appUnselectedColor,
+  cardColor: appDarkBackgroundColor,
+  dividerColor: appDarkBackgroundColor,
+  unselectedWidgetColor: appDarkUnselectedColor,
   focusColor: Colors.transparent,
   highlightColor: Colors.transparent,
   hoverColor: Colors.black.withOpacity(0.3),
   errorColor: appErrorColor,
 
   indicatorColor: Colors.purple,
-  cardColor: Colors.purple,
   selectedRowColor: Colors.purple,
 
   // Text theming
@@ -60,12 +60,13 @@ ThemeData dankDarkTheme = ThemeData(
 ThemeData dankLightTheme = ThemeData(
   primaryColor: appBaseColor,
   accentColor: appBaseColor,
-  scaffoldBackgroundColor: appBaseWhiteTextColor,
-  backgroundColor: appBaseWhiteTextColor,
-  dialogBackgroundColor: appBaseWhiteTextColor,
+  scaffoldBackgroundColor: appLightBackgroundColor,
+  backgroundColor: appLightBackgroundColor,
+  dialogBackgroundColor: appLightBackgroundColor,
   canvasColor: Colors.transparent,
-  dividerColor: Colors.black.withOpacity(0.6),
-  unselectedWidgetColor: appUnselectedColor,
+  cardColor: appLightBackgroundColor,
+  dividerColor: appLightBackgroundColor,
+  unselectedWidgetColor: appLightUnselectedColor,
   focusColor: Colors.transparent,
   highlightColor: Colors.transparent,
   hoverColor: Colors.black.withOpacity(0.3),
@@ -87,7 +88,8 @@ ThemeData dankLightTheme = ThemeData(
 
 //#region App Color Theme
 // The App's base color
-MaterialColor appBaseColor = MaterialColor(0xFF47c49d, appBaseColorOpacity);
+MaterialColor appBaseColor =
+    MaterialColor(appPrimaryColor.value, appBaseColorOpacity);
 Map<int, Color> appBaseColorOpacity = {
   50: appPrimaryColor.withOpacity(0.1),
   100: appPrimaryColor.withOpacity(0.2),
@@ -103,12 +105,22 @@ Map<int, Color> appBaseColorOpacity = {
 
 // General "Base App Theme Colors" (e.g. Backgrounds, focal colors, etc. used throughout the app)
 const Color appPrimaryColor = Color.fromRGBO(71, 196, 157, 1.0);
-const Color appSecondaryColor = Color.fromRGBO(54, 57, 63, 1.0);
-const Color appTertiaryColor = Color.fromRGBO(47, 49, 54, 1.0);
-const Color appBackgroundColor = Color.fromRGBO(32, 34, 37, 1.0);
-const Color appContentBackgroundColor = Color.fromRGBO(11, 12, 16, 1.0);
 
-// Other App Theme Colors (e.g. Fonts, Events, sepcial Widgets, etc.)
+// Dark Theme colors
+const Color appDarkSecondaryColor = Color.fromRGBO(54, 57, 63, 1.0);
+const Color appDarkTertiaryColor = Color.fromRGBO(47, 49, 54, 1.0);
+const Color appDarkBackgroundColor = Color.fromRGBO(32, 34, 37, 1.0);
+const Color appDarkContentBackgroundColor = Color.fromRGBO(11, 12, 16, 1.0);
+const Color appDarkUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
+
+// Light Theme colors
+const Color appLightSecondaryColor = appBaseWhiteTextColor;
+const Color appLightTertiaryColor = Color.fromRGBO(240, 240, 240, 1.0);
+const Color appLightBackgroundColor = appBaseWhiteTextColor;
+const Color appLightContentBackgroundColor = Color.fromRGBO(11, 12, 16, 1.0);
+const Color appLightUnselectedColor = Color.fromRGBO(102, 102, 102, 0.6);
+
+// Other App Theme Colors (e.g. Fonts, Events, special Widgets, etc.)
 const Color appBaseWhiteTextColor = Color.fromRGBO(252, 252, 252, 1.0);
 const Color appBaseBlackTextColor = Color.fromRGBO(31, 31, 31, 1.0);
 const Color appHintTextColor = Color.fromRGBO(140, 140, 140, 0.8);
@@ -116,7 +128,6 @@ const Color appSuccessColor = Color.fromRGBO(196, 250, 187, 1.0);
 const Color appWarningColor = Color.fromRGBO(255, 140, 54, 0.6);
 const Color appErrorColor = Color.fromRGBO(250, 70, 70, 1.0);
 const Color appDropdownColor = Color.fromRGBO(81, 80, 82, 1);
-const Color appUnselectedColor = Color.fromRGBO(252, 252, 252, 0.3);
 
 // Grow related colors
 const Color growGerminationColor = Color.fromRGBO(71, 53, 0, 1.0);
@@ -176,7 +187,9 @@ const TextStyle appLabelFontStyle = TextStyle(
 final TextStyle appValueLabelFontStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontSize: 15.0,
-  color: appSecondaryColor,
+  color: (currentTheme.currentTheme() == ThemeMode.dark)
+      ? appDarkSecondaryColor
+      : appLightSecondaryColor,
 );
 
 const TextStyle appButtonFontStyle = TextStyle(
@@ -236,7 +249,9 @@ Color getGrowthStateColor(GrowState growthState) {
 
   switch (growthState) {
     case GrowState.NotApplicable:
-      retval = appUnselectedColor;
+      retval = (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkUnselectedColor
+          : appLightUnselectedColor;
       break;
     case GrowState.Germination:
       retval = growGerminationColor;

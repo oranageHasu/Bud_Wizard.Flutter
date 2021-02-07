@@ -108,7 +108,9 @@ class PlantJournalState extends State<PlantJournal> {
           Container(
             margin: EdgeInsets.only(top: 5.0),
             child: Divider(
-              color: appTertiaryColor,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appDarkTertiaryColor
+                  : appLightTertiaryColor,
               height: 2.0,
               thickness: 2.0,
             ),

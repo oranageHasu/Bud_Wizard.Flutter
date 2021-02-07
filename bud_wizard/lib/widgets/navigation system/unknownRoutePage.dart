@@ -16,10 +16,10 @@ class _UnknownRoutePageState extends State<UnknownRoutePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: DankAppBar(title: 'Unhandled Screen'),
       body: UnknownRoute(),
-      //drawer: Navigation(),
-      backgroundColor: appBackgroundColor,
+      backgroundColor: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkBackgroundColor
+          : appLightBackgroundColor,
     );
   }
 }

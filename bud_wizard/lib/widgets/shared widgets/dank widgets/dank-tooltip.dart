@@ -31,7 +31,9 @@ class DankTooltip extends StatelessWidget {
           textStyle: appTooltipFontStyle.copyWith(color: appBaseWhiteTextColor),
         ),
       ),
-      backgroundColor: appContentBackgroundColor,
+      backgroundColor: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkContentBackgroundColor
+          : appLightContentBackgroundColor,
       borderRadius: 5.0,
       child: child,
       ballonPadding: EdgeInsets.all(0.0),

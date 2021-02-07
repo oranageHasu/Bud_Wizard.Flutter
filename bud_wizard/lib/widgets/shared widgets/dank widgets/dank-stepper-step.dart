@@ -152,7 +152,9 @@ class MyPainter extends CustomPainter {
     Offset p1 = Offset(0, 25);
     Offset p2 = Offset(50, 25);
     Paint paint = Paint()
-      ..color = appUnselectedColor
+      ..color = (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkUnselectedColor
+          : appLightUnselectedColor
       ..strokeWidth = 2;
     canvas.drawLine(p1, p2, paint);
 
@@ -160,7 +162,9 @@ class MyPainter extends CustomPainter {
     p1 = Offset(35, 35);
     p2 = Offset(50, 25);
     paint = Paint()
-      ..color = appUnselectedColor
+      ..color = (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkUnselectedColor
+          : appLightUnselectedColor
       ..strokeWidth = 2;
     canvas.drawLine(p1, p2, paint);
 
@@ -168,7 +172,9 @@ class MyPainter extends CustomPainter {
     p1 = Offset(35, 15);
     p2 = Offset(50, 25);
     paint = Paint()
-      ..color = appUnselectedColor
+      ..color = (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkUnselectedColor
+          : appLightUnselectedColor
       ..strokeWidth = 2;
     canvas.drawLine(p1, p2, paint);
   }

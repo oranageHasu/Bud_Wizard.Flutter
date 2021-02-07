@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-validation-dialog.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankValidationDialog.dart';
 import 'package:flutter/material.dart';
 
 // What this is: Represents an editable text field, that when does not have focus displays its value as a label

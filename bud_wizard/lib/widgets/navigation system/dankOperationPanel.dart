@@ -1,3 +1,4 @@
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/services/api%20services/api-login.dart';
@@ -66,10 +67,18 @@ class DankOperationPanelState extends State<DankOperationPanel> {
               screen: Screen.Home,
             ),
             Container(
-              padding: EdgeInsets.only(left: 30.0, right: 27.0),
-              child: Divider(
-                //color: appThirdColor,
-                thickness: 2.0,
+              height: 2.5,
+              margin: EdgeInsets.only(
+                left: 30.0,
+                right: 27.0,
+              ),
+              decoration: BoxDecoration(
+                color: (currentTheme.currentTheme() == ThemeMode.dark)
+                    ? appBaseWhiteTextColor.withOpacity(0.6)
+                    : appBaseBlackTextColor.withOpacity(0.3),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
               ),
             ),
             DankOperationButton(

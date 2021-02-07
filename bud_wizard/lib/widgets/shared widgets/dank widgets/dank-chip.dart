@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicTooltip.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -48,7 +48,7 @@ class _DankChipState extends State<DankChip> {
       padding: EdgeInsets.all(10.0),
       margin: EdgeInsets.only(right: 5.0),
       decoration: BoxDecoration(
-        color: appContentBackgroundColor,
+        color: appDarkContentBackgroundColor,
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Row(

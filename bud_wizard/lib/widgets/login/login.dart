@@ -261,6 +261,7 @@ class _LoginPageState extends State<LoginPage> {
                 top: 5.0,
                 bottom: 5.0,
               ),
+              textColor: appBaseWhiteTextColor,
             ),
             DankTextField(
               unselectedBorderColor: Colors.white.withOpacity(0.1),
@@ -282,6 +283,7 @@ class _LoginPageState extends State<LoginPage> {
                 top: 5.0,
                 bottom: 5.0,
               ),
+              textColor: appBaseWhiteTextColor,
             ),
             SizedBox(
               height: 25.0,
@@ -298,6 +300,7 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.only(top: 10.0),
               padding: EdgeInsets.all(15.0),
               borderRadius: 10.0,
+              textColor: appBaseWhiteTextColor,
             ),
           ],
         ),

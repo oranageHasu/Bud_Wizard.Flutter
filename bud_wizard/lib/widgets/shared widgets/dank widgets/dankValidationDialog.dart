@@ -62,7 +62,9 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: appBackgroundColor,
+      backgroundColor: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkBackgroundColor
+          : appLightBackgroundColor,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
@@ -72,7 +74,9 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
         padding: EdgeInsets.all(0.0),
         margin: EdgeInsets.all(0.0),
         width: 600.0,
-        color: appBackgroundColor,
+        color: (currentTheme.currentTheme() == ThemeMode.dark)
+            ? appDarkBackgroundColor
+            : appLightBackgroundColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -84,7 +88,6 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
               ),
             ),
             Divider(
-              color: appTertiaryColor,
               thickness: 2.0,
               indent: 10.0,
               endIndent: 10.0,
@@ -124,7 +127,9 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
                       padding: EdgeInsets.all(15.0),
                       isDisabled: _isDisabled,
                       buttonType: DankButtonType.Flat,
-                      textColor: appBaseBlackTextColor,
+                      textColor: (currentTheme.currentTheme() == ThemeMode.dark)
+                          ? appBaseBlackTextColor
+                          : appBaseWhiteTextColor,
                       borderRadius: 5.0,
                     ),
                     DankButton(
@@ -135,6 +140,9 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
                       margin: EdgeInsets.only(left: 10.0),
                       padding: EdgeInsets.all(15.0),
                       borderRadius: 5.0,
+                      textColor: (currentTheme.currentTheme() == ThemeMode.dark)
+                          ? appBaseWhiteTextColor
+                          : appBaseBlackTextColor,
                     ),
                   ],
                 ),
@@ -168,7 +176,9 @@ class _DankValidationDialogState extends State<DankValidationDialog> {
                       hintStyle: appInputHintFontStyle,
                       prefixIcon: Icon(
                         Icons.security,
-                        color: appBaseWhiteTextColor,
+                        color: (currentTheme.currentTheme() == ThemeMode.dark)
+                            ? appBaseWhiteTextColor.withOpacity(0.7)
+                            : appBaseBlackTextColor.withOpacity(0.7),
                       ),
                     ),
                   ),

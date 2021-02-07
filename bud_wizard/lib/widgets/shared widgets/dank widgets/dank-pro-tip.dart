@@ -32,8 +32,8 @@ class DankProTip extends StatelessWidget {
           textStyle: appLabelFontStyle.copyWith(
             fontSize: 12.0,
             color: (currentTheme.currentTheme() == ThemeMode.dark)
-                ? appUnselectedColor
-                : Colors.black.withOpacity(0.6),
+                ? appDarkUnselectedColor
+                : appLightUnselectedColor,
           ),
           padding: EdgeInsets.only(
             left: 5.0,

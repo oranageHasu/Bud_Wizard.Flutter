@@ -134,19 +134,20 @@ class _DankDatePickerState extends State<DankDatePicker> {
       helpText: 'Select start date',
       cancelText: 'Cancel',
       confirmText: 'Save',
+      /*
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
             primaryColor: appBaseColor,
-            dialogBackgroundColor: appBackgroundColor,
+            dialogBackgroundColor: appDarkBackgroundColor,
             colorScheme: ColorScheme.dark(
               primary: appBaseColor,
-              surface: appTertiaryColor,
+              surface: appDarkTertiaryColor,
             ),
           ),
           child: child,
         );
-      },
+      },*/
     );
 
     if (picked != null && picked != _selectedDate) {

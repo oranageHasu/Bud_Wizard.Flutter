@@ -20,7 +20,9 @@ class PlantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(minWidth: 500.0),
-      color: appSecondaryColor,
+      color: (currentTheme.currentTheme() == ThemeMode.dark)
+          ? appDarkSecondaryColor
+          : appLightSecondaryColor,
       child: getCurrentScreen(),
     );
   }

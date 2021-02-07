@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip-basic.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicTooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -44,7 +44,7 @@ class DankPieChart extends StatefulWidget {
 
   DankPieChart({
     @required DankPieChartData chartData,
-    Color chartBackgroundColor = appBackgroundColor,
+    Color chartBackgroundColor = appDarkBackgroundColor,
   })  : this.chartData = chartData,
         this.chartBackgroundColor = chartBackgroundColor;
 

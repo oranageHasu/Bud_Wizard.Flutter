@@ -124,8 +124,12 @@ class _GrowsCardState extends State<GrowCard> {
                           ),
                           textStyle: appLabelFontStyle.copyWith(
                             color: (isHovered || isSelected)
-                                ? appBaseWhiteTextColor
-                                : appBaseWhiteTextColor.withOpacity(0.5),
+                                ? Theme.of(context).textTheme.bodyText1.color
+                                : Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .color
+                                    .withOpacity(0.5),
                           ),
                         ),
                         DankLabel(
@@ -137,7 +141,11 @@ class _GrowsCardState extends State<GrowCard> {
                             right: 15.0,
                           ),
                           textStyle: appInputHintFontStyle.copyWith(
-                            color: appBaseWhiteTextColor.withOpacity(0.5),
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .color
+                                .withOpacity(0.5),
                           ),
                         ),
                       ],

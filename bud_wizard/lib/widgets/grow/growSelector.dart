@@ -42,12 +42,16 @@ class GrowSelector extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             DankBasicIconButton(
-              buttonType: DankButtonType.Icon,
-              iconData: CommunityMaterialIcons.plus_circle,
-              iconSize: 35.0,
+              buttonType: DankButtonType.Outline,
+              iconData: CommunityMaterialIcons.plus,
+              iconSize: 25.0,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appBaseWhiteTextColor
+                  : appBaseBlackTextColor,
               showClickInteraction: true,
               tooltipText: 'Click to start a new grow',
-              margin: EdgeInsets.only(left: 5.0, bottom: 5.0),
+              margin: EdgeInsets.only(left: 5.0),
+              padding: EdgeInsets.all(10.0),
               onPressed: () {
                 GrowPage.of(context).startNewGrow();
               },
@@ -56,29 +60,31 @@ class GrowSelector extends StatelessWidget {
               child: SizedBox.shrink(),
             ),
             DankBasicIconButton(
-              buttonType: DankButtonType.Icon,
-              iconData: CommunityMaterialIcons.pencil_circle,
-              iconSize: 35.0,
-              color: appBaseWhiteTextColor,
+              buttonType: DankButtonType.Outline,
+              iconData: CommunityMaterialIcons.pencil,
+              iconSize: 25.0,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appBaseWhiteTextColor
+                  : appBaseBlackTextColor,
               showClickInteraction: true,
               tooltipText: 'Click to edit the current grow',
-              margin: EdgeInsets.only(bottom: 5.0),
+              padding: EdgeInsets.all(10.0),
               isDisabled: currentGrow == null,
               onPressed: () {
                 print('To Do: Edit Grow');
               },
             ),
             DankBasicIconButton(
-              buttonType: DankButtonType.Icon,
-              iconData: CommunityMaterialIcons.delete_circle,
-              iconSize: 35.0,
-              color: Colors.red.shade200,
+              buttonType: DankButtonType.Outline,
+              iconData: CommunityMaterialIcons.delete,
+              iconSize: 25.0,
+              color: (currentTheme.currentTheme() == ThemeMode.dark)
+                  ? appBaseWhiteTextColor
+                  : appBaseBlackTextColor,
               showClickInteraction: false,
               tooltipText: 'Click to delete the current grow',
-              margin: EdgeInsets.only(
-                bottom: 5.0,
-                right: 5.0,
-              ),
+              margin: EdgeInsets.only(right: 5.0),
+              padding: EdgeInsets.all(10.0),
               isDisabled: currentGrow == null,
               onPressed: () {
                 GrowPage.of(context).deleteCurrentGrow();
@@ -89,7 +95,6 @@ class GrowSelector extends StatelessWidget {
         Divider(
           thickness: 1.0,
           height: 1.0,
-          color: appBackgroundColor,
         ),
         Container(
           height: 5.0,
