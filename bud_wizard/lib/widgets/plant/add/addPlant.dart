@@ -24,6 +24,7 @@ class AddPlant extends StatefulWidget {
 class _AddPlantState extends State<AddPlant> {
   Plant _newPlant;
   bool _plantNameHasFocus = false;
+  bool _displayDefaultPlantName = true;
 
   @override
   void initState() {
@@ -58,7 +59,7 @@ class _AddPlantState extends State<AddPlant> {
               displayText:
                   'Start by providing some basic information about your plant...',
               textStyle: appInstructionHeaderFontStyle,
-              padding: EdgeInsets.only(bottom: 15.0),
+              padding: EdgeInsets.only(bottom: 35.0),
             ),
           ),
           FadeIn(
@@ -79,9 +80,8 @@ class _AddPlantState extends State<AddPlant> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DankTextField(
-            labelText: (!_plantNameHasFocus)
-                ? 'Optionally, enter a plant name'
-                : 'Plant Name',
+            labelText:
+                (!_plantNameHasFocus) ? 'Enter a plant name' : 'Plant Name',
             hintText: 'Type the name of your plant',
             margin: EdgeInsets.zero,
             onChanged: plantNameChanged,
@@ -97,22 +97,27 @@ class _AddPlantState extends State<AddPlant> {
             },
           ),
           SizedBox(height: 3.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              DankLabel(
-                displayText: '...or we\'ll just call it',
-                textStyle: appInputHintFontStyle,
-              ),
-              DankLabel(
-                displayText: 'Plant 1',
-                textStyle: appInputHintFontStyle.copyWith(
-                  color: appBaseColor,
-                  fontWeight: FontWeight.bold,
+          FadeIn(
+            duration: 1000,
+            delay: Duration(milliseconds: 2500),
+            isVisible: _displayDefaultPlantName,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                DankLabel(
+                  displayText: '...or we can just call it',
+                  textStyle: appInputHintFontStyle,
                 ),
-                padding: EdgeInsets.only(left: 5.0),
-              ),
-            ],
+                DankLabel(
+                  displayText: 'Plant 1',
+                  textStyle: appInputHintFontStyle.copyWith(
+                    color: appBaseColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  padding: EdgeInsets.only(left: 5.0),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 10.0),
           Row(
@@ -132,6 +137,18 @@ class _AddPlantState extends State<AddPlant> {
   }
 
   void plantNameChanged(String value) {
+    bool displayDefaultPlantName = true;
+
+    if (value.length > 0) {
+      displayDefaultPlantName = false;
+    }
+
+    if (_displayDefaultPlantName != displayDefaultPlantName) {
+      setState(() {
+        _displayDefaultPlantName = displayDefaultPlantName;
+      });
+    }
+
     print('Plant Name Changed To: ' + value);
   }
 

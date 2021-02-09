@@ -28,16 +28,16 @@ class _FadeInState extends State<FadeIn> {
 
   @override
   void initState() {
-    _delayTimer = Timer(widget.delay, displayContent);
-
     super.initState();
+
+    _delayTimer = Timer(widget.delay, displayContent);
   }
 
   @override
   void dispose() {
-    _delayTimer.cancel();
-
     super.dispose();
+
+    _delayTimer.cancel();
   }
 
   @override
