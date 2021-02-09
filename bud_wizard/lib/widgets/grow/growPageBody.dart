@@ -80,7 +80,7 @@ class GrowPageBody extends StatelessWidget {
     if (_currentGrowOp == GrowOperation.AddGrow) {
       retval = AddGrow();
     } else if (_currentPlantOp == PlantOperation.AddPlant) {
-      retval = AddPlant();
+      retval = AddPlant(grow: _currentGrow);
     } else if (_currentPlant != null) {
       retval = PlantDetail(
         plant: _currentPlant,
