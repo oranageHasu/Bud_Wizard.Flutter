@@ -94,11 +94,9 @@ enum Gender {
 }
 
 enum GeneticType {
-  SativaDominant,
-  IndicaDominant,
-  SativaDominantHybrid,
-  IndicaDominatHybrid,
-  UnknownHybrid,
+  Sativa,
+  Indica,
+  Hybrid,
 }
 
 enum GrowState {

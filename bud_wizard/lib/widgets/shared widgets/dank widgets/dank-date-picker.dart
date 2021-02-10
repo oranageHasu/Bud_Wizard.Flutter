@@ -48,73 +48,72 @@ class _DankDatePickerState extends State<DankDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        DankLabel(
-          displayText: widget.label,
-          textStyle: appLabelFontStyle.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-          padding: EdgeInsets.only(right: 10.0),
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            DankLabel(
+              displayText: widget.label,
+              textStyle: appLabelFontStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+              padding: EdgeInsets.only(right: 10.0),
+            ),
             DankLabel(
               displayText: "${_selectedDate.toLocal()}".split(' ')[0],
               textStyle: appLabelFontStyle,
               padding: EdgeInsets.only(left: 15.0),
             ),
-            GestureDetector(
-              onTap: _selectDate,
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                onEnter: (pointerEvent) {
-                  setState(() {
-                    _isHovered = true;
-                  });
-                },
-                onExit: (pointerEvent) {
-                  setState(() {
-                    _isHovered = false;
-                  });
-                },
-                child: Container(
-                  width: 45.0,
-                  height: 45.0,
-                  margin: EdgeInsets.only(
-                    left: 10.0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: appBaseColor,
-                      width: 2.0,
-                    ),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: (_isHovered)
-                            ? appBaseColor.withOpacity(0.3)
-                            : Colors.transparent,
-                        blurRadius: 15.0,
-                        spreadRadius: 8.0,
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.calendar_today,
-                    color: (_isHovered)
-                        ? appBaseWhiteTextColor
-                        : Colors.grey.shade400,
-                    size: 20.0,
-                  ),
+          ],
+        ),
+        GestureDetector(
+          onTap: _selectDate,
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (pointerEvent) {
+              setState(() {
+                _isHovered = true;
+              });
+            },
+            onExit: (pointerEvent) {
+              setState(() {
+                _isHovered = false;
+              });
+            },
+            child: Container(
+              width: 45.0,
+              height: 45.0,
+              margin: EdgeInsets.only(
+                left: 10.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border.all(
+                  color: appBaseColor,
+                  width: 2.0,
                 ),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: (_isHovered)
+                        ? appBaseColor.withOpacity(0.3)
+                        : Colors.transparent,
+                    blurRadius: 15.0,
+                    spreadRadius: 8.0,
+                  ),
+                ],
+              ),
+              child: Icon(
+                Icons.calendar_today,
+                color:
+                    (_isHovered) ? appBaseWhiteTextColor : Colors.grey.shade400,
+                size: 20.0,
               ),
             ),
-          ],
-        )
+          ),
+        ),
       ],
     );
   }
@@ -134,20 +133,28 @@ class _DankDatePickerState extends State<DankDatePicker> {
       helpText: 'Select start date',
       cancelText: 'Cancel',
       confirmText: 'Save',
-      /*
       builder: (context, child) {
         return Theme(
-          data: ThemeData.dark().copyWith(
-            primaryColor: appBaseColor,
-            dialogBackgroundColor: appDarkBackgroundColor,
-            colorScheme: ColorScheme.dark(
-              primary: appBaseColor,
-              surface: appDarkTertiaryColor,
-            ),
-          ),
+          data: (currentTheme.currentTheme() == ThemeMode.dark)
+              ? dankDarkTheme.copyWith(
+                  primaryColor: appBaseColor,
+                  dialogBackgroundColor: appDarkBackgroundColor,
+                  colorScheme: ColorScheme.dark(
+                    primary: appBaseColor,
+                    surface: appDarkTertiaryColor,
+                  ),
+                )
+              : dankLightTheme.copyWith(
+                  primaryColor: appBaseColor,
+                  dialogBackgroundColor: appLightBackgroundColor,
+                  colorScheme: ColorScheme.light(
+                    primary: appBaseColor,
+                    surface: appLightTertiaryColor,
+                  ),
+                ),
           child: child,
         );
-      },*/
+      },
     );
 
     if (picked != null && picked != _selectedDate) {

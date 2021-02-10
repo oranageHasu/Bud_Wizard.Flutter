@@ -210,6 +210,14 @@ class GrowPageState extends State<GrowPage> {
     });
   }
 
+  void finishedNewPlant() {
+    refreshGrows();
+
+    setState(() {
+      _currentPlantOp = PlantOperation.Journal;
+    });
+  }
+
   void _deleteGrow() async {
     bool safeToDelete = false;
 
