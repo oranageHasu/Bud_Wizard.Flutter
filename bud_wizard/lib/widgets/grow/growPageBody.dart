@@ -42,6 +42,7 @@ class GrowPageBody extends StatelessWidget {
               future: _grows,
               builder: (context, snapshot) {
                 Grow currentGrow;
+                Plant currentPlant;
                 Widget retval = SizedBox.shrink();
 
                 if (snapshot.hasData) {
@@ -55,6 +56,7 @@ class GrowPageBody extends StatelessWidget {
                     retval = GrowSelector(
                       grows: snapshot.data,
                       currentGrow: currentGrow,
+                      currentPlant: _currentPlant,
                     );
                   }
                 }

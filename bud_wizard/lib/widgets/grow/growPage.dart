@@ -121,9 +121,7 @@ class GrowPageState extends State<GrowPage> {
       _currentGrow = grow;
       _currentPlantOp = PlantOperation.Journal;
 
-      if (_currentGrow != null &&
-          _currentGrow.plants != null &&
-          _currentGrow.plants.length == 1) {
+      if (_currentGrow != null && _currentGrow.plants.isNotEmpty) {
         _currentPlant = _currentGrow.plants[0];
       } else {
         _currentPlant = null;

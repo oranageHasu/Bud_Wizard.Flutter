@@ -37,13 +37,13 @@ class PlantCard extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            height: (isFeatured) ? 400.0 : 300.0,
+            height: (isFeatured) ? 400.0 : 50.0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  height: (isFeatured) ? 400.0 : 300.0,
+                  height: (isFeatured) ? 400.0 : 25.0,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
@@ -63,7 +63,7 @@ class PlantCard extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    height: (isFeatured) ? 300.0 : 250.0,
+                    height: (isFeatured) ? 300.0 : 50.0,
                   ),
                 ),
                 Row(

@@ -37,7 +37,6 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
         Column(
           children: [
             Container(
-              height: 76,
               width: 65.0,
               margin: const EdgeInsets.all(2.5),
               decoration: BoxDecoration(
@@ -50,7 +49,6 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
               child: Padding(
                 padding: const EdgeInsets.all(1.5),
                 child: Container(
-                  height: 70.0,
                   width: 65.0,
                   decoration: BoxDecoration(
                     color: (currentTheme.currentTheme() == ThemeMode.dark)
@@ -60,7 +58,6 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
                         height: 25.0,
@@ -81,7 +78,7 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                           child: Container(
-                            height: 40.0,
+                            padding: EdgeInsets.all(4.5),
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.1),
                               borderRadius: BorderRadius.only(
@@ -90,20 +87,19 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                               ),
                             ),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                DankLabel(
-                                  displayText: widget.weekNumber.toString(),
-                                  textStyle: appPlantWeekFontStyle.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
                                 DankLabel(
                                   displayText: 'Week',
                                   textStyle: appPlantWeekFontStyle.copyWith(
                                     fontSize: 13.5,
                                   ),
-                                  textAlign: TextAlign.center,
+                                ),
+                                DankLabel(
+                                  displayText: widget.weekNumber.toString(),
+                                  textStyle: appPlantWeekFontStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),

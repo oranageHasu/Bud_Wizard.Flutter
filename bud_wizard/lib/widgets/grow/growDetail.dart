@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
-import 'package:bud_wizard/widgets/plant/plantSelector.dart';
+import 'package:bud_wizard/widgets/plant/add/addFirstPlant.dart';
 import 'package:flutter/material.dart';
 
 class GrowDetail extends StatelessWidget {
@@ -34,9 +34,9 @@ class GrowDetail extends StatelessWidget {
                 currentGrow = _currentGrow;
               }
 
-              retval = PlantSelector(
-                grow: currentGrow,
-              );
+              if (currentGrow.plants.isEmpty) {
+                retval = AddFirstPlant();
+              }
             }
           } else if (snapshot.hasError) {
             return NoDataError();

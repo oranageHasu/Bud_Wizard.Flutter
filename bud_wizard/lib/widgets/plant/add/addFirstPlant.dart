@@ -1,55 +1,15 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
-import 'package:bud_wizard/widgets/plant/plantCard.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PlantSelector extends StatelessWidget {
-  final Grow grow;
-
-  PlantSelector({
-    Grow grow,
-  }) : this.grow = grow;
-
+class AddFirstPlant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return (grow.plants.isNotEmpty)
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              PlantCard(
-                plant: grow.plants[0],
-                isFeatured: true,
-              ),
-              Row(
-                children: [
-                  if (grow.plants.length > 1)
-                    Expanded(
-                      child: PlantCard(
-                        plant: grow.plants[1],
-                        isLeftSide: true,
-                      ),
-                    ),
-                  (grow.plants.length > 2)
-                      ? Expanded(
-                          child: PlantCard(
-                            plant: grow.plants[2],
-                          ),
-                        )
-                      : Expanded(child: SizedBox(height: 300.0)),
-                ],
-              ),
-            ],
-          )
-        : _addFirstPlant(context);
-  }
-
-  Widget _addFirstPlant(BuildContext context) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

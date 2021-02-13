@@ -1,53 +1,33 @@
+import 'dart:ui';
 import 'package:bud_wizard/classes/appTheme.dart';
-import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
-import 'package:bud_wizard/widgets/plant/plantSummaryCard.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/animations/dankSlideTransition.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class GrowCard extends StatefulWidget {
-  final Grow grow;
-  final Plant currentPlant;
-  final String tooltipText;
+class PlantSummaryCard extends StatefulWidget {
+  final Plant plant;
   final bool isSelected;
 
-  GrowCard({
-    Key key,
-    @required Grow grow,
-    @required Plant currentPlant,
-    @required String tooltipText,
+  PlantSummaryCard({
+    @required Plant plant,
     bool isSelected = false,
-  })  : this.grow = grow,
-        this.currentPlant = currentPlant,
-        this.tooltipText = tooltipText,
-        this.isSelected = isSelected,
-        super(key: key);
+  })  : this.plant = plant,
+        this.isSelected = isSelected;
 
   @override
-  _GrowsCardState createState() => _GrowsCardState();
+  _PlantSummaryCardState createState() => _PlantSummaryCardState();
 }
 
-class _GrowsCardState extends State<GrowCard> {
+class _PlantSummaryCardState extends State<PlantSummaryCard> {
   bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _growInfo(),
-        if (widget.isSelected) _plants(),
-      ],
-    );
-  }
-
-  Widget _growInfo() {
     return DankTooltip(
-      tooltipText: widget.tooltipText,
+      tooltipText: 'Click to view this plant',
       displayTooltip: _isHovered,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
@@ -62,9 +42,13 @@ class _GrowsCardState extends State<GrowCard> {
           });
         },
         child: InkWell(
-          onTap: _selectGrow,
+          onTap: () {
+            if (!widget.isSelected) {
+              _selectPlant(widget.plant);
+            }
+          },
           child: Container(
-            width: 320.0,
+            width: 250.0,
             padding: EdgeInsets.all(5.0),
             margin: EdgeInsets.only(
               top: 5.0,
@@ -74,26 +58,28 @@ class _GrowsCardState extends State<GrowCard> {
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(5.0),
-              color: _determineColor(),
+              color: Colors.transparent,
+              border: Border.all(
+                color: _determineColor(widget.plant),
+                width: 2.0,
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  height: 50.0,
-                  width: 50.0,
+                  height: 40.0,
+                  width: 40.0,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(25.0),
+                      Radius.circular(20.0),
                     ),
                   ),
                   child: Image.asset(
-                    (widget.grow.plants.isNotEmpty &&
-                            widget.grow.plants[0].imagePath != null)
-                        ? widget.grow.plants[0].imagePath
+                    (widget.plant.imagePath != null)
+                        ? widget.plant.imagePath
                         : 'grow/img1.jpg',
                     fit: BoxFit.cover,
                   ),
@@ -107,7 +93,7 @@ class _GrowsCardState extends State<GrowCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         DankLabel(
-                          displayText: widget.grow.name,
+                          displayText: widget.plant.name,
                           textAlign: TextAlign.start,
                           padding: EdgeInsets.only(
                             left: 15.0,
@@ -124,8 +110,7 @@ class _GrowsCardState extends State<GrowCard> {
                           ),
                         ),
                         DankLabel(
-                          displayText:
-                              widget.grow.plants.length.toString() + ' Plants',
+                          displayText: widget.plant.strain,
                           textAlign: TextAlign.start,
                           padding: EdgeInsets.only(
                             left: 15.0,
@@ -151,28 +136,13 @@ class _GrowsCardState extends State<GrowCard> {
     );
   }
 
-  Widget _plants() {
-    return DankSlideTransition(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          for (Plant plant in widget.grow.plants)
-            PlantSummaryCard(
-              plant: plant,
-              isSelected: widget.currentPlant == plant,
-            ),
-        ],
-      ),
-    );
-  }
-
-  Color _determineColor() {
+  Color _determineColor(Plant plant) {
     Color retval;
 
     if (_isHovered && !widget.isSelected) {
-      retval = Colors.grey.withOpacity(0.05);
+      retval = Theme.of(context).primaryColor.withOpacity(0.15);
     } else if (widget.isSelected) {
-      retval = Colors.grey.withOpacity(0.15);
+      retval = Theme.of(context).primaryColor.withOpacity(0.8);
     } else {
       retval = Colors.transparent;
     }
@@ -180,7 +150,7 @@ class _GrowsCardState extends State<GrowCard> {
     return retval;
   }
 
-  void _selectGrow() {
-    GrowPage.of(context).setCurrentGrow(widget.grow);
+  void _selectPlant(Plant plant) {
+    GrowPage.of(context).setCurrentPlant(plant);
   }
 }
