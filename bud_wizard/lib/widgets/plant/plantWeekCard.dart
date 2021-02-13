@@ -24,50 +24,11 @@ class PlantWeekCard extends StatefulWidget {
         this.isSelected = isSelected;
 
   @override
-  _PlantWeekCardState createState() => _PlantWeekCardState(
-        this.displayText,
-        this.cardColor,
-        this.weekNumber,
-        this.colorTransition,
-        this.isSelected,
-      );
+  _PlantWeekCardState createState() => _PlantWeekCardState();
 }
 
 class _PlantWeekCardState extends State<PlantWeekCard> {
-  String displayText;
-  Color cardColor;
-  int weekNumber;
-  bool colorTransition;
-  bool isSelected;
-  bool isHovered = false;
-
-  _PlantWeekCardState(
-    this.displayText,
-    this.cardColor,
-    this.weekNumber,
-    this.colorTransition,
-    this.isSelected,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(PlantWeekCard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    this.cardColor = widget.cardColor;
-    this.colorTransition = widget.colorTransition;
-    this.isSelected = widget.isSelected;
-    this.weekNumber = widget.weekNumber;
-  }
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +42,8 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
               margin: const EdgeInsets.all(2.5),
               decoration: BoxDecoration(
                 gradient: getLinearGradient(
-                  colorTransition,
-                  cardColor,
+                  widget.colorTransition,
+                  widget.cardColor,
                 ),
                 borderRadius: BorderRadius.circular(5.0),
               ),
@@ -104,14 +65,14 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                       Container(
                         height: 25.0,
                         decoration: BoxDecoration(
-                          color: cardColor,
+                          color: widget.cardColor,
                           gradient: getLinearGradient(
-                            colorTransition,
-                            cardColor,
+                            widget.colorTransition,
+                            widget.cardColor,
                           ),
                         ),
                         child: DankLabel(
-                          displayText: displayText,
+                          displayText: widget.displayText,
                           textStyle: appPlantWeekFontStyle,
                           textAlign: TextAlign.center,
                         ),
@@ -131,7 +92,7 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                             child: Column(
                               children: [
                                 DankLabel(
-                                  displayText: weekNumber.toString(),
+                                  displayText: widget.weekNumber.toString(),
                                   textStyle: appPlantWeekFontStyle.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -156,12 +117,12 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
             ),
             Container(
               height: 4.0,
-              width: (isHovered && !isSelected) ? 25.0 : 55.0,
+              width: (_isHovered && !widget.isSelected) ? 25.0 : 55.0,
               decoration: BoxDecoration(
-                gradient: (isHovered || isSelected)
+                gradient: (_isHovered || widget.isSelected)
                     ? getLinearGradient(
-                        colorTransition,
-                        cardColor,
+                        widget.colorTransition,
+                        widget.cardColor,
                       )
                     : null,
                 borderRadius: BorderRadius.only(
@@ -190,12 +151,12 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                 child: MouseRegion(
                   onEnter: (value) {
                     setState(() {
-                      isHovered = true;
+                      _isHovered = true;
                     });
                   },
                   onExit: (value) {
                     setState(() {
-                      isHovered = false;
+                      _isHovered = false;
                     });
                   },
                 ),
@@ -209,7 +170,7 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
 
   void selectPlantWeek() {
     // Tell the parent its data has changed and force a re-render
-    PlantJournal.of(context).setCurrentWeek(weekNumber);
+    PlantJournal.of(context).setCurrentWeek(widget.weekNumber);
   }
 
   LinearGradient getLinearGradient(

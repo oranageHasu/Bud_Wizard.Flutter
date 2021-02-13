@@ -1,11 +1,11 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
+import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
-import 'package:bud_wizard/services/logger-service.dart';
-import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-date-picker.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-radio-button.dart';
@@ -29,6 +29,7 @@ class _AddPlantState extends State<AddPlant> {
   bool _plantNameHasFocus = false;
   bool _plantStrainHasFocus = false;
   bool _displayDefaultPlantName = true;
+  String _defaultPlantName = 'Plant 1';
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _AddPlantState extends State<AddPlant> {
     _newPlant = Plant(
       plantId: null,
       growId: widget.grow.growId,
+      startDate: DateTime.now(),
     );
   }
 
@@ -78,6 +80,7 @@ class _AddPlantState extends State<AddPlant> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DankTextField(
+            autofocus: true,
             labelText:
                 (!_plantNameHasFocus) ? 'Enter a plant name' : 'Plant Name',
             hintText: 'Type the name of your plant',
@@ -107,7 +110,7 @@ class _AddPlantState extends State<AddPlant> {
                   textStyle: appInputHintFontStyle,
                 ),
                 DankLabel(
-                  displayText: 'Plant 1',
+                  displayText: _defaultPlantName,
                   textStyle: appInputHintFontStyle.copyWith(
                     color: appBaseColor,
                     fontWeight: FontWeight.bold,
@@ -149,10 +152,12 @@ class _AddPlantState extends State<AddPlant> {
               ),
             ],
           ),
-          SizedBox(height: 40.0),
+          SizedBox(height: 15.0),
           DankLabel(
             displayText: 'Is your strain...',
-            textStyle: appLabelFontStyle,
+            textStyle: appLabelFontStyle.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Container(
             height: 35.0,
@@ -189,13 +194,44 @@ class _AddPlantState extends State<AddPlant> {
               ],
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                DankButton(
+                  buttonType: DankButtonType.Outline,
+                  buttonText: 'Cancel',
+                  textColor: (currentTheme.isDarkTheme())
+                      ? appBaseWhiteTextColor
+                      : appBaseBlackTextColor,
+                  textStyle: appLabelFontStyle,
+                  borderRadius: 5.0,
+                  onPressed: _cancelNewPlant,
+                  padding: EdgeInsets.all(15.0),
+                  margin: EdgeInsets.only(right: 15.0),
+                ),
+                DankButton(
+                  buttonType: DankButtonType.Flat,
+                  buttonText: 'Finished',
+                  textStyle: appLabelFontStyle,
+                  borderRadius: 5.0,
+                  onPressed: _persistPlant,
+                  padding: EdgeInsets.all(15.0),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
   void _plantGeneticsChanged(int value) {
-    print('To Do: Genetics changed.');
+    setState(() {
+      _newPlant.genetics =
+          GeneticType.values.firstWhere((e) => e.index == value);
+    });
   }
 
   void _plantNameChanged(String value) {
@@ -215,46 +251,47 @@ class _AddPlantState extends State<AddPlant> {
   }
 
   void _plantStrainChanged(String value) {
-    print('Plant Strain Changed To: ' + value);
+    setState(() {
+      _newPlant.strain = value;
+    });
   }
 
-  void persistPlant() {
-    /*
+  void _persistPlant() {
     if (_newPlant.startDate == null) {
-      _newPlant.startDate = DateTime.now();
+      print('start date is null');
     }
 
-    print('Name: ' + _newPlant.name);
-    print('Location: ' + formatEnum(_newGrow.setting.toString()));
-    print('Start Date: ' + formatDate(_newGrow.startDate));
+    if (_newPlant.name == null) {
+      _newPlant.name = _defaultPlantName;
+    }
 
-    print('\n\nPrivacy:');
-    print('Blanket Setting: ' +
-        formatEnum(_newGrow.privacySettings.privacySetting.toString()));
-    print('Sharing Images: ' + _newGrow.privacySettings.sharePhotos.toString());
+    print('Name: ' + ((_newPlant.name != null) ? _newPlant.name : 'NULL'));
     print(
-        'Sharing Journal: ' + _newGrow.privacySettings.shareJournal.toString());
-    print('Allowing Comments: ' +
-        _newGrow.privacySettings.allowComments.toString());
-    print('Allows ML: ' + _newGrow.privacySettings.allowML.toString());
-    print('Allows Notifications: ' +
-        _newGrow.privacySettings.allowNotifications.toString());
+        'strain: ' + ((_newPlant.strain != null) ? _newPlant.strain : 'NULL'));
+    print('Start Date: ' + formatDate(_newPlant.startDate));
+    print(
+      'genetics: ' +
+          formatEnum(
+            _newPlant.genetics.toString(),
+          ),
+    );
+    print(
+      'sex: ' + _newPlant.sex.toString(),
+    );
+    print(
+      'growthState: ' + _newPlant.growthState.toString(),
+    );
 
-    GrowPage.of(context).saveGrow(_newGrow).then(
+    GrowPage.of(context).savePlant(_newPlant).then(
       (bool opResult) {
         if (opResult) {
-          GrowPage.of(context).finishedNewGrow();
+          GrowPage.of(context).finishedNewPlant();
         }
       },
     );
-    */
   }
 
-  void cancelNewPlant() {
+  void _cancelNewPlant() {
     GrowPage.of(context).finishedNewPlant();
-  }
-
-  void learnMoreAboutPlants() {
-    print('To Do: Knowledge Base: Plants');
   }
 }

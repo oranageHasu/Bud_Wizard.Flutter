@@ -101,7 +101,7 @@ class _GrowsCardState extends State<GrowCard> {
                     ),
                   ),
                   child: Image.asset(
-                    (grow.plants.isNotEmpty)
+                    (grow.plants.isNotEmpty && grow.plants[0].imagePath != null)
                         ? grow.plants[0].imagePath
                         : 'grow/img1.jpg',
                     fit: BoxFit.fitWidth,

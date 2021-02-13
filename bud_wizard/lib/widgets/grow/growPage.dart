@@ -3,6 +3,7 @@ import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/services/api%20services/api-grow.dart';
+import 'package:bud_wizard/services/api%20services/api-plant.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/grow/growPageBody.dart';
 import 'package:bud_wizard/widgets/grow/growPageHeader.dart';
@@ -183,7 +184,7 @@ class GrowPageState extends State<GrowPage> {
       });
     } else {
       // PUT and existing Grow
-
+      log('To Do: GrowPage.saveGrow() -- PUT Grow');
     }
 
     return retval;
@@ -216,6 +217,30 @@ class GrowPageState extends State<GrowPage> {
     setState(() {
       _currentPlantOp = PlantOperation.Journal;
     });
+  }
+
+  Future<bool> savePlant(Plant plant) {
+    Future<bool> retval;
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    if (plant != null) {
+      // Plant is new, Try to save it.
+      retval = postPlant(plant).then((bool opResult) {
+        setState(() {
+          _isLoading = false;
+        });
+
+        return opResult;
+      });
+    } else {
+      // PUT and existing Plant
+      log('To Do: GrowPage.savePlant() -- PUT Plant');
+    }
+
+    return retval;
   }
 
   void _deleteGrow() async {

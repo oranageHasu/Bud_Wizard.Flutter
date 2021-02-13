@@ -11,7 +11,7 @@ class GrowLight {
     @required String brand,
     @required String model,
     @required LightStyle style,
-    GrowState usage = GrowState.NotApplicable,
+    GrowState usage = GrowState.Vegetative,
   })  : this.brand = brand,
         this.model = model,
         this.style = style,

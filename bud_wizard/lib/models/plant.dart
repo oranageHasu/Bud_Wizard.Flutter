@@ -1,11 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 
 class Plant {
   final Guid plantId;
-  Guid growId;
+  final Guid growId;
+  final DateTime startDate;
   String name;
-  DateTime startDate;
   String strain;
   GeneticType genetics;
   Gender sex;
@@ -13,15 +14,22 @@ class Plant {
   String imagePath;
 
   Plant({
-    this.plantId,
-    this.growId,
-    this.name,
-    this.startDate,
-    this.strain,
-    this.genetics,
-    this.sex,
-    this.growthState,
-  });
+    @required Guid plantId,
+    @required Guid growId,
+    @required DateTime startDate,
+    GeneticType genetics = GeneticType.Hybrid,
+    Gender sex = Gender.Unknown,
+    GrowState growthState = GrowState.Germination,
+    String name,
+    String strain,
+  })  : this.plantId = plantId,
+        this.growId = growId,
+        this.genetics = genetics,
+        this.sex = sex,
+        this.growthState = growthState,
+        this.name = name,
+        this.startDate = startDate,
+        this.strain = strain;
 
   factory Plant.fromJson(Map<String, dynamic> json) {
     Plant plant = Plant(
@@ -63,6 +71,19 @@ class Plant {
     }
 
     return plant;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      if (plantId != null) 'plantId': plantId.toString() else 'plantId': null,
+      'growId': growId.toString(),
+      'name': name,
+      'strain': strain,
+      'startDate': startDate.toIso8601String(),
+      'genetics': genetics.index,
+      'sex': sex.index,
+      'growthState': growthState.index,
+    };
   }
 
   String getGenderIcon() {

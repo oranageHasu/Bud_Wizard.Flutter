@@ -12,6 +12,10 @@ class DankTheme with ChangeNotifier {
     return _isDark ? ThemeMode.dark : ThemeMode.light;
   }
 
+  bool isDarkTheme() {
+    return _isDark;
+  }
+
   void setLightTheme() {
     _isDark = false;
     notifyListeners();
@@ -248,11 +252,6 @@ Color getGrowthStateColor(GrowState growthState) {
   Color retval = appBaseWhiteTextColor;
 
   switch (growthState) {
-    case GrowState.NotApplicable:
-      retval = (currentTheme.currentTheme() == ThemeMode.dark)
-          ? appDarkUnselectedColor
-          : appLightUnselectedColor;
-      break;
     case GrowState.Germination:
       retval = growGerminationColor;
       break;

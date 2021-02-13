@@ -91,7 +91,7 @@ class PlantSelector extends StatelessWidget {
                   ),
                   child: DankButton(
                     buttonType: DankButtonType.Flat,
-                    buttonText: 'Add Plant',
+                    buttonText: 'Start New Plant',
                     textStyle: appLabelFontStyle.copyWith(fontSize: 25.0),
                     borderRadius: 5.0,
                     padding: EdgeInsets.only(

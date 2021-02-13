@@ -31,6 +31,7 @@ const String apiRouteJournalUpload = 'journal/upload';
 
 // API Entity Routes
 const String apiRouteGrows = 'grow';
+const String apiRoutePlants = 'plant';
 const String apiRouteQuestion = 'question';
 const String apiRouteAnswer = 'answer';
 

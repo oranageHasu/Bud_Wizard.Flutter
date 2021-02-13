@@ -12,24 +12,24 @@ class JournalWeek {
   List<JournalDay> plantDays;
 
   JournalWeek({
+    GrowState growState,
     this.journalWeekId,
     this.journalId,
     this.weekNumber,
-    this.growthState,
     this.startDate,
     this.plantDays,
-  });
+  }) : this.growthState = growState;
 
   factory JournalWeek.fromJson(Map<String, dynamic> json) {
     return JournalWeek(
-      journalWeekId: new Guid(json['journalWeekId']),
-      journalId: new Guid(json['journalId']),
+      journalWeekId: Guid(json['journalWeekId']),
+      journalId: Guid(json['journalId']),
       weekNumber: json['weekNumber'],
-      growthState: GrowState.values
+      growState: GrowState.values
           .firstWhere((e) => e.index == json['growthState'] as int),
       startDate: DateTime.parse(json['startDate']),
       plantDays: (json['plantDays'] as List)
-          .map((plantWeeks) => new JournalDay.fromJson(plantWeeks))
+          .map((plantWeeks) => JournalDay.fromJson(plantWeeks))
           .toList(),
     );
   }
@@ -58,6 +58,12 @@ class JournalWeek {
         retval = 'Cure';
         break;
     }
+
+    print(GrowState.values
+        .firstWhere((e) => e.index == GrowState.Germination.index)
+        .index);
+    print('grow state: ' + growthState.toString());
+    print('abbr grow state: ' + retval);
 
     return retval;
   }

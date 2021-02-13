@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/services/logger-service.dart';
 import 'package:dio/dio.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
@@ -36,6 +39,33 @@ Future<List<Plant>> searchPlants({
     }
   } catch (Exception) {
     throw Exception('Failed to search for Plants.');
+  }
+
+  return retval;
+}
+
+Future<bool> postPlant(Plant plant) async {
+  bool retval = false;
+
+  try {
+    // Generate the request URL
+    String url = generateAPIPath(apiRoutePlants);
+
+    print(json.encode(plant));
+    // Make the HTTP request
+    Response response = await executeRequest(
+      url,
+      HttpMethod.POST,
+      json.encode(plant),
+    );
+
+    // Process the result
+    if (response != null && response.statusCode == 200) {
+      retval = true;
+    }
+  } catch (Exception) {
+    log('Failed Adding Plant.');
+    log(Exception);
   }
 
   return retval;
