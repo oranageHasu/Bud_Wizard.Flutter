@@ -63,6 +63,15 @@ class _PlantSummaryCardState extends State<PlantSummaryCard> {
                 color: _determineColor(widget.plant),
                 width: 2.0,
               ),
+              boxShadow: (widget.isSelected)
+                  ? [
+                      BoxShadow(
+                        color: Theme.of(context).primaryColor.withOpacity(0.1),
+                        blurRadius: 25.0,
+                        spreadRadius: 20.0,
+                      ),
+                    ]
+                  : [],
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
