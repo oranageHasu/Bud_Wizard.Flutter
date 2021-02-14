@@ -48,7 +48,7 @@ class _PlantSummaryCardState extends State<PlantSummaryCard> {
             }
           },
           child: Container(
-            width: 250.0,
+            width: 230.0,
             padding: EdgeInsets.all(5.0),
             margin: EdgeInsets.only(
               top: 5.0,

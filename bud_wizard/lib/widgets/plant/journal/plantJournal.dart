@@ -7,7 +7,6 @@ import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournalHeader.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournalList.dart';
 import 'package:bud_wizard/widgets/plant/plantCard.dart';
-import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -89,20 +88,15 @@ class PlantJournalState extends State<PlantJournal> {
     return PlantJournalWidget(
       journalData: this,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
           PlantCard(
             plant: currentPlant,
-            isFeatured: true,
-            isSelectable: false,
-          ),
-          PlantWeekSelector(
-            journal: journal,
-            currentIndex: _currentWeek,
           ),
           PlantJournalHeader(
-            week: journal.plantWeeks[_currentWeek - 1],
+            journal: journal,
+            currentWeekIndex: _currentWeek - 1,
             plantId: currentPlant.plantId,
           ),
           Container(

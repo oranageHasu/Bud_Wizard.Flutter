@@ -26,7 +26,7 @@ class GrowSearchState extends State<GrowSearch> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300.0,
+      width: 255.0,
       margin: EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +51,7 @@ class GrowSearchState extends State<GrowSearch> {
                       color: appHintTextColor,
                     ),
                     DankLabel(
-                      displayText: 'Find other user\'s grows or plants',
+                      displayText: 'Find other user\'s plants',
                       textStyle: appInputHintFontStyle.copyWith(
                         color: appBaseBlackTextColor.withOpacity(0.7),
                       ),

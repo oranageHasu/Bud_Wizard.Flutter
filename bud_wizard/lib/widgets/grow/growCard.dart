@@ -3,7 +3,7 @@ import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/plant/plantSummaryCard.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/animations/dankBounceTransition.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,6 @@ class _GrowsCardState extends State<GrowCard> {
         child: InkWell(
           onTap: _selectGrow,
           child: Container(
-            width: 320.0,
             padding: EdgeInsets.all(5.0),
             margin: EdgeInsets.only(
               top: 5.0,
@@ -80,24 +79,6 @@ class _GrowsCardState extends State<GrowCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  height: 50.0,
-                  width: 50.0,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(25.0),
-                    ),
-                  ),
-                  child: Image.asset(
-                    (widget.grow.plants.isNotEmpty &&
-                            widget.grow.plants[0].imagePath != null)
-                        ? widget.grow.plants[0].imagePath
-                        : 'grow/img1.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
@@ -152,8 +133,8 @@ class _GrowsCardState extends State<GrowCard> {
   }
 
   Widget _plants() {
-    return DankBounceTransition(
-      slideType: SlideTransitionType.SlideDown,
+    return FadeIn(
+      duration: 500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -164,6 +145,7 @@ class _GrowsCardState extends State<GrowCard> {
             ),
         ],
       ),
+      isVisible: true,
     );
   }
 

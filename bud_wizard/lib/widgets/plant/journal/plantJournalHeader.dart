@@ -1,8 +1,10 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
+import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/plant/journal/uploadImageDialog.dart';
+import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicTooltip.dart';
 import 'package:flutter/material.dart';
@@ -10,22 +12,30 @@ import 'package:flutter_guid/flutter_guid.dart';
 import 'package:get/get.dart';
 
 class PlantJournalHeader extends StatelessWidget {
-  final JournalWeek week;
+  final Journal journal;
+  final int currentWeekIndex;
   final Guid plantId;
 
   PlantJournalHeader({
-    @required JournalWeek week,
+    @required Journal journal,
+    @required int currentWeekIndex,
     @required Guid plantId,
-  })  : this.week = week,
+  })  : this.journal = journal,
+        this.currentWeekIndex = currentWeekIndex,
         this.plantId = plantId;
 
   @override
   Widget build(BuildContext context) {
+    JournalWeek currentWeek = journal.plantWeeks[currentWeekIndex];
+
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [
         Container(
-          margin: EdgeInsets.only(left: 10.0),
+          margin: EdgeInsets.only(
+            left: 10.0,
+            right: 20.0,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -35,9 +45,10 @@ class PlantJournalHeader extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10.0),
               ),
               DankLabel(
-                displayText: formatDateDisplay(week.startDate) +
+                displayText: formatDateDisplay(currentWeek.startDate) +
                     ' - ' +
-                    formatDateDisplay(week.startDate.add(Duration(days: 6))),
+                    formatDateDisplay(
+                        currentWeek.startDate.add(Duration(days: 6))),
                 textStyle: appInputHintFontStyle,
                 padding: EdgeInsets.only(top: 5.0),
               ),
@@ -45,7 +56,10 @@ class PlantJournalHeader extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: SizedBox.shrink(),
+          child: PlantWeekSelector(
+            journal: journal,
+            currentIndex: currentWeekIndex,
+          ),
         ),
         Container(
           width: 50.0,
@@ -96,7 +110,7 @@ class PlantJournalHeader extends StatelessWidget {
             opacity: a1.value,
             child: UploadImageDialog(
               plantId: plantId,
-              journalWeek: week,
+              journalWeek: journal.plantWeeks[currentWeekIndex],
             ),
           ),
         );

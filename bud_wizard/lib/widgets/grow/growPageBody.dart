@@ -42,13 +42,12 @@ class _GrowPageBodyState extends State<GrowPageBody> {
   // Dynamic display of Grow Selector
   bool _growSelectorVisibility = false;
   bool _isGrowSelectorVisible = true;
-
-  // Timer used to do collapse button effects
-  Timer _timer;
+  Timer _growSelectorTimer;
 
   // Dynamic display of Grow Activity
   bool _growActivityVisibility = false;
   bool _isGrowActivityVisible = true;
+  Timer _growActivityTimer;
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +78,8 @@ class _GrowPageBodyState extends State<GrowPageBody> {
                         grows: snapshot.data,
                         currentGrow: currentGrow,
                         currentPlant: widget._currentPlant,
-                        hoverBegins: _enableCollapseButtons,
-                        hoverEnds: _disableCollapseButtons,
+                        hoverBegins: _enableGrowSelectorCollapseButtons,
+                        hoverEnds: _disableGrowSelectorCollapseButtons,
                       ),
                     );
                   }
@@ -106,7 +105,13 @@ class _GrowPageBodyState extends State<GrowPageBody> {
           ),
           (widget._currentPlant != null &&
                   widget._currentPlantOp != PlantOperation.Statistics)
-              ? GrowActivity()
+              ? DankSizeTransition(
+                  isVisible: _isGrowActivityVisible,
+                  child: GrowActivity(
+                    hoverBegins: _enableGrowActivityCollapseButtons,
+                    hoverEnds: _disableGrowActivityCollapseButtons,
+                  ),
+                )
               : SizedBox.shrink(),
         ],
       ),
@@ -128,14 +133,14 @@ class _GrowPageBodyState extends State<GrowPageBody> {
         hoverColor: Colors.black,
         outlineColor: Colors.transparent,
         outlineThickness: 3.5,
-        onPressed: _toggleSelectorVisibility,
+        onPressed: _toggleGrowSelectorVisibility,
         displayTooltip: true,
         margin: EdgeInsets.only(
           left: 5.0,
           bottom: 5.0,
         ),
-        onHover: _enableCollapseButtons,
-        onLostHover: _disableCollapseButtons,
+        onHover: _enableGrowSelectorCollapseButtons,
+        onLostHover: _disableGrowSelectorCollapseButtons,
       ),
       isVisible: _growSelectorVisibility,
     );
@@ -156,14 +161,14 @@ class _GrowPageBodyState extends State<GrowPageBody> {
         hoverColor: Colors.black,
         outlineColor: Colors.transparent,
         outlineThickness: 3.5,
-        onPressed: _toggleSelectorVisibility,
+        onPressed: _toggleGrowActivityVisibility,
         displayTooltip: true,
         margin: EdgeInsets.only(
           right: 5.0,
           bottom: 5.0,
         ),
-        onHover: _enableCollapseButtons,
-        onLostHover: _disableCollapseButtons,
+        onHover: _enableGrowActivityCollapseButtons,
+        onLostHover: _disableGrowActivityCollapseButtons,
       ),
       isVisible: _growActivityVisibility,
     );
@@ -200,35 +205,73 @@ class _GrowPageBodyState extends State<GrowPageBody> {
     return retval;
   }
 
-  void _toggleSelectorVisibility() {
+//#region Grow Activity collapse/display handlers
+
+  void _toggleGrowActivityVisibility() {
+    setState(() {
+      _isGrowActivityVisible = !_isGrowActivityVisible;
+    });
+  }
+
+  void _hideGrowActivityCollapseButtons() {
+    setState(() {
+      _growActivityVisibility = false;
+      _growActivityTimer.cancel();
+    });
+  }
+
+  void _enableGrowActivityCollapseButtons() {
+    setState(() {
+      _growActivityVisibility = true;
+
+      if (_growActivityTimer != null && _growActivityTimer.isActive) {
+        _growActivityTimer.cancel();
+      }
+    });
+  }
+
+  void _disableGrowActivityCollapseButtons() {
+    setState(() {
+      _growActivityTimer = Timer(
+        Duration(milliseconds: 1000),
+        _hideGrowActivityCollapseButtons,
+      );
+    });
+  }
+
+  //#endregion
+  //#region Grow Selector collapse/display handlers
+  void _toggleGrowSelectorVisibility() {
     setState(() {
       _isGrowSelectorVisible = !_isGrowSelectorVisible;
     });
   }
 
-  void _hideCollapseButtons() {
+  void _hideGrowSelectorCollapseButtons() {
     setState(() {
       _growSelectorVisibility = false;
-      _timer.cancel();
+      _growSelectorTimer.cancel();
     });
   }
 
-  void _enableCollapseButtons() {
+  void _enableGrowSelectorCollapseButtons() {
     setState(() {
       _growSelectorVisibility = true;
 
-      if (_timer != null && _timer.isActive) {
-        _timer.cancel();
+      if (_growSelectorTimer != null && _growSelectorTimer.isActive) {
+        _growSelectorTimer.cancel();
       }
     });
   }
 
-  void _disableCollapseButtons() {
+  void _disableGrowSelectorCollapseButtons() {
     setState(() {
-      _timer = Timer(
+      _growSelectorTimer = Timer(
         Duration(milliseconds: 1000),
-        _hideCollapseButtons,
+        _hideGrowSelectorCollapseButtons,
       );
     });
   }
+
+  //#endregion
 }
