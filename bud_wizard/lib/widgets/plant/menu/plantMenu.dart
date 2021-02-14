@@ -38,7 +38,7 @@ class _PlantMenuState extends State<PlantMenu> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: (currentTheme.currentTheme() == ThemeMode.dark)
+        color: (currentTheme.isDarkTheme())
             ? appDarkSecondaryColor
             : appLightSecondaryColor,
         child: Row(
