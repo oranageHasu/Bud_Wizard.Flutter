@@ -55,6 +55,9 @@ dependencies:
   # Nice tool for progressively loading images
   progressive_image: ^1.0.1
 
+  # Used for Animations; Handles the action.
+  provider: ^4.3.3
+
 dev_dependencies:
   # Used to create a dart file containing environment info (version, app name, etc.) at build time
   build_runner: ^1.0.0

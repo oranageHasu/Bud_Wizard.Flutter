@@ -21,40 +21,16 @@ class PlantImageSelector extends StatefulWidget {
   }) : this.plant = plant;
 
   @override
-  _PlantImageSelectorState createState() => _PlantImageSelectorState(
-        this.plant,
-      );
+  _PlantImageSelectorState createState() => _PlantImageSelectorState();
 }
 
 class _PlantImageSelectorState extends State<PlantImageSelector> {
-  Plant plant;
   bool _isHovered = false;
   bool _scrollButtonsVisible = false;
   ScrollController _plantImageController = new ScrollController();
 
   // Timer used to do scroll button effects
   Timer _timer;
-
-  _PlantImageSelectorState(
-    this.plant,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(PlantImageSelector oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    this.plant = widget.plant;
-  }
 
   @override
   Widget build(BuildContext context) {

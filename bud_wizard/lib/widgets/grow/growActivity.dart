@@ -7,6 +7,7 @@ class GrowActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 400.0,
+      color: appDarkTertiaryColor,
       child: Column(
         children: [
           DankLabel(

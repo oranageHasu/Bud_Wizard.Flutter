@@ -3,7 +3,7 @@ import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/plant/plantSummaryCard.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/animations/dankSlideTransition.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/animations/dankBounceTransition.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +152,8 @@ class _GrowsCardState extends State<GrowCard> {
   }
 
   Widget _plants() {
-    return DankSlideTransition(
+    return DankBounceTransition(
+      slideType: SlideTransitionType.SlideDown,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

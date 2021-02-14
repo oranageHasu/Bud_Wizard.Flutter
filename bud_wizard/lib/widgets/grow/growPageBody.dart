@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/plant.dart';
@@ -8,9 +10,12 @@ import 'package:bud_wizard/widgets/grow/growSelector.dart';
 import 'package:bud_wizard/widgets/grow/myFirstGrow.dart';
 import 'package:bud_wizard/widgets/plant/add/addPlant.dart';
 import 'package:bud_wizard/widgets/plant/plantDetail.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/animations/dankSizeTransition.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
 import 'package:flutter/material.dart';
 
-class GrowPageBody extends StatelessWidget {
+class GrowPageBody extends StatefulWidget {
   final Future<List<Grow>> _grows;
   final Grow _currentGrow;
   final Plant _currentPlant;
@@ -30,6 +35,22 @@ class GrowPageBody extends StatelessWidget {
         this._currentGrowOp = currentGrowOp;
 
   @override
+  _GrowPageBodyState createState() => _GrowPageBodyState();
+}
+
+class _GrowPageBodyState extends State<GrowPageBody> {
+  // Dynamic display of Grow Selector
+  bool _growSelectorVisibility = false;
+  bool _isGrowSelectorVisible = true;
+
+  // Timer used to do collapse button effects
+  Timer _timer;
+
+  // Dynamic display of Grow Activity
+  bool _growActivityVisibility = false;
+  bool _isGrowActivityVisible = true;
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Flex(
@@ -37,26 +58,30 @@ class GrowPageBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_currentGrowOp != GrowOperation.AddGrow)
+          if (widget._currentGrowOp != GrowOperation.AddGrow)
             FutureBuilder<List<Grow>>(
-              future: _grows,
+              future: widget._grows,
               builder: (context, snapshot) {
                 Grow currentGrow;
-                Plant currentPlant;
                 Widget retval = SizedBox.shrink();
 
                 if (snapshot.hasData) {
                   if (snapshot.data.isNotEmpty) {
-                    if (_currentGrow == null) {
+                    if (widget._currentGrow == null) {
                       currentGrow = snapshot.data[0];
                     } else {
-                      currentGrow = _currentGrow;
+                      currentGrow = widget._currentGrow;
                     }
 
-                    retval = GrowSelector(
-                      grows: snapshot.data,
-                      currentGrow: currentGrow,
-                      currentPlant: _currentPlant,
+                    retval = DankSizeTransition(
+                      isVisible: _isGrowSelectorVisible,
+                      child: GrowSelector(
+                        grows: snapshot.data,
+                        currentGrow: currentGrow,
+                        currentPlant: widget._currentPlant,
+                        hoverBegins: _enableCollapseButtons,
+                        hoverEnds: _disableCollapseButtons,
+                      ),
                     );
                   }
                 }
@@ -65,10 +90,22 @@ class GrowPageBody extends StatelessWidget {
               },
             ),
           Expanded(
-            child: _getBody(),
+            child: Stack(
+              children: [
+                _getBody(),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: _buildExpandGrowMenuToggle(),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: _buildExpandGrowActivityToggle(),
+                ),
+              ],
+            ),
           ),
-          (_currentPlant != null &&
-                  _currentPlantOp != PlantOperation.Statistics)
+          (widget._currentPlant != null &&
+                  widget._currentPlantOp != PlantOperation.Statistics)
               ? GrowActivity()
               : SizedBox.shrink(),
         ],
@@ -76,27 +113,83 @@ class GrowPageBody extends StatelessWidget {
     );
   }
 
+  Widget _buildExpandGrowMenuToggle() {
+    return FadeIn(
+      duration: 500,
+      child: DankIconButton(
+        iconData:
+            (_isGrowSelectorVisible) ? Icons.chevron_left : Icons.chevron_right,
+        iconSize: 45,
+        tooltipText: (_isGrowSelectorVisible)
+            ? 'Collapse grow menu'
+            : 'Expand grow menu',
+        buttonType: DankButtonType.Outline,
+        color: appBaseWhiteTextColor,
+        hoverColor: Colors.black,
+        outlineColor: Colors.transparent,
+        outlineThickness: 3.5,
+        onPressed: _toggleSelectorVisibility,
+        displayTooltip: true,
+        margin: EdgeInsets.only(
+          left: 5.0,
+          bottom: 5.0,
+        ),
+        onHover: _enableCollapseButtons,
+        onLostHover: _disableCollapseButtons,
+      ),
+      isVisible: _growSelectorVisibility,
+    );
+  }
+
+  Widget _buildExpandGrowActivityToggle() {
+    return FadeIn(
+      duration: 500,
+      child: DankIconButton(
+        iconData:
+            (_isGrowSelectorVisible) ? Icons.chevron_right : Icons.chevron_left,
+        iconSize: 45,
+        tooltipText: (_isGrowActivityVisible)
+            ? 'Collapse grow activity'
+            : 'Expand grow activity',
+        buttonType: DankButtonType.Outline,
+        color: appBaseWhiteTextColor,
+        hoverColor: Colors.black,
+        outlineColor: Colors.transparent,
+        outlineThickness: 3.5,
+        onPressed: _toggleSelectorVisibility,
+        displayTooltip: true,
+        margin: EdgeInsets.only(
+          right: 5.0,
+          bottom: 5.0,
+        ),
+        onHover: _enableCollapseButtons,
+        onLostHover: _disableCollapseButtons,
+      ),
+      isVisible: _growActivityVisibility,
+    );
+  }
+
   Widget _getBody() {
     Widget retval = SizedBox.shrink();
 
-    if (_currentGrowOp == GrowOperation.AddGrow) {
+    if (widget._currentGrowOp == GrowOperation.AddGrow) {
       retval = AddGrow();
-    } else if (_currentPlantOp == PlantOperation.AddPlant) {
-      retval = AddPlant(grow: _currentGrow);
-    } else if (_currentPlant != null) {
+    } else if (widget._currentPlantOp == PlantOperation.AddPlant) {
+      retval = AddPlant(grow: widget._currentGrow);
+    } else if (widget._currentPlant != null) {
       retval = PlantDetail(
-        plant: _currentPlant,
-        operation: _currentPlantOp,
+        plant: widget._currentPlant,
+        operation: widget._currentPlantOp,
       );
-    } else if (_currentGrow != null) {
+    } else if (widget._currentGrow != null) {
       retval = GrowDetail(
-        grows: _grows,
-        currentGrow: _currentGrow,
+        grows: widget._grows,
+        currentGrow: widget._currentGrow,
       );
     } else {
       // Base states.  Either this User only has created a Grow
       // or they don't even have that.  Force it upon them!
-      if (_currentGrow == null) {
+      if (widget._currentGrow == null) {
         retval = MyFirstGrow();
       } else {
         print(
@@ -105,5 +198,37 @@ class GrowPageBody extends StatelessWidget {
     }
 
     return retval;
+  }
+
+  void _toggleSelectorVisibility() {
+    setState(() {
+      _isGrowSelectorVisible = !_isGrowSelectorVisible;
+    });
+  }
+
+  void _hideCollapseButtons() {
+    setState(() {
+      _growSelectorVisibility = false;
+      _timer.cancel();
+    });
+  }
+
+  void _enableCollapseButtons() {
+    setState(() {
+      _growSelectorVisibility = true;
+
+      if (_timer != null && _timer.isActive) {
+        _timer.cancel();
+      }
+    });
+  }
+
+  void _disableCollapseButtons() {
+    setState(() {
+      _timer = Timer(
+        Duration(milliseconds: 1000),
+        _hideCollapseButtons,
+      );
+    });
   }
 }

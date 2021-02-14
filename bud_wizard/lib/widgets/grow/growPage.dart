@@ -47,7 +47,7 @@ class GrowPageState extends State<GrowPage> {
           child: Container(
             decoration: BoxDecoration(
               color: (currentTheme.currentTheme() == ThemeMode.dark)
-                  ? appDarkTertiaryColor
+                  ? appDarkSecondaryColor
                   : appLightTertiaryColor,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10.0),

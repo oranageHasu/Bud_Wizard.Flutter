@@ -6,39 +6,78 @@ import 'package:bud_wizard/widgets/grow/growCard.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dankBasicIconButton.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class GrowSelector extends StatelessWidget {
+class GrowSelector extends StatefulWidget {
   final List<Grow> grows;
   final Grow currentGrow;
   final Plant currentPlant;
+  final VoidCallback hoverBegins;
+  final VoidCallback hoverEnds;
 
   GrowSelector({
     @required List<Grow> grows,
     @required Grow currentGrow,
     @required Plant currentPlant,
+    VoidCallback hoverBegins,
+    VoidCallback hoverEnds,
   })  : this.grows = grows,
         this.currentGrow = currentGrow,
-        this.currentPlant = currentPlant;
+        this.currentPlant = currentPlant,
+        this.hoverBegins = hoverBegins,
+        this.hoverEnds = hoverEnds;
+
+  @override
+  _GrowSelectorState createState() => _GrowSelectorState();
+}
+
+class _GrowSelectorState extends State<GrowSelector> {
+  bool _isHovered = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 320.0,
-      child: Column(
-        children: [
-          for (Grow grow in grows)
-            GrowCard(
-              grow: grow,
-              tooltipText: 'Click to see this Grow',
-              isSelected: currentGrow == grow,
-              currentPlant: currentPlant,
+    return MouseRegion(
+      onEnter: (PointerEnterEvent event) {
+        if (!_isHovered) {
+          _isHovered = true;
+
+          if (widget.hoverBegins != null) {
+            widget.hoverBegins();
+          }
+        }
+      },
+      onExit: (PointerExitEvent event) {
+        if (_isHovered) {
+          _isHovered = false;
+
+          if (widget.hoverEnds != null) {
+            widget.hoverEnds();
+          }
+        }
+      },
+      child: Container(
+        width: 320.0,
+        color: appDarkTertiaryColor,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                for (Grow grow in widget.grows)
+                  GrowCard(
+                    grow: grow,
+                    tooltipText: 'Click to see this Grow',
+                    isSelected: widget.currentGrow == grow,
+                    currentPlant: widget.currentPlant,
+                  ),
+                Expanded(
+                  child: SizedBox.shrink(),
+                ),
+                growOpPanel(context),
+              ],
             ),
-          Expanded(
-            child: SizedBox.shrink(),
-          ),
-          growOpPanel(context),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -82,7 +121,7 @@ class GrowSelector extends StatelessWidget {
               showClickInteraction: true,
               tooltipText: 'Click to add a new plant to the current grow',
               padding: EdgeInsets.all(10.0),
-              isDisabled: currentGrow == null,
+              isDisabled: widget.currentGrow == null,
               onPressed: () {
                 GrowPage.of(context).startNewPlant();
               },
@@ -101,7 +140,7 @@ class GrowSelector extends StatelessWidget {
               tooltipText: 'Click to delete the current grow',
               margin: EdgeInsets.only(right: 5.0),
               padding: EdgeInsets.all(10.0),
-              isDisabled: currentGrow == null,
+              isDisabled: widget.currentGrow == null,
               onPressed: () {
                 GrowPage.of(context).deleteCurrentGrow();
               },
