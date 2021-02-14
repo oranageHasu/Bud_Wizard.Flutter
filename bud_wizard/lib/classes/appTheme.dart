@@ -245,6 +245,11 @@ final TextStyle appInstructionLabelFontStyle = GoogleFonts.architectsDaughter(
   fontSize: 18.0,
 );
 
+final TextStyle appJournalEntryFontStyle = GoogleFonts.caveat(
+  fontSize: 22.0,
+  fontWeight: FontWeight.bold,
+);
+
 //#endregion
 //#region Theme Functions
 

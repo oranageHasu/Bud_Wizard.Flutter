@@ -5,18 +5,29 @@ import 'package:bud_wizard/models/journal%20system/journalEntry.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 
-class PlantJournalEntry extends StatelessWidget {
+class PlantJournalEntry extends StatefulWidget {
   final JournalDay day;
+  final bool isFirst;
+  final bool isLast;
 
   PlantJournalEntry({
-    JournalDay day,
-  }) : this.day = day;
+    @required JournalDay day,
+    bool isFirst = false,
+    bool isLast = false,
+  })  : this.day = day,
+        this.isFirst = isFirst,
+        this.isLast = isLast;
 
+  @override
+  _PlantJournalEntryState createState() => _PlantJournalEntryState();
+}
+
+class _PlantJournalEntryState extends State<PlantJournalEntry> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 5.0),
-      child: (day == null)
+      child: (widget.day == null)
           ? Row(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -33,32 +44,93 @@ class PlantJournalEntry extends StatelessWidget {
                 ),
               ],
             )
-          : Card(
-              color: (currentTheme.currentTheme() == ThemeMode.dark)
-                  ? appDarkTertiaryColor
-                  : appLightTertiaryColor,
-              elevation: 5.0,
-              clipBehavior: Clip.hardEdge,
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DankLabel(
-                      displayText: formatDateDisplay(day.entryDate),
-                      textStyle: appLabelFontStyle,
-                      padding: EdgeInsets.only(bottom: 5.0),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 0; i < widget.day.journalEntries.length; i++)
+                  _journalEntry(
+                    widget.day.journalEntries[i],
+                    i == 0,
+                    i == widget.day.journalEntries.length - 1,
+                  ),
+              ],
+            ),
+    );
+  }
+
+  Widget _journalEntry(
+    JournalEntry entry,
+    bool isFirst,
+    bool isLast,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.shade500,
+        borderRadius: BorderRadius.only(
+          topLeft:
+              (widget.isFirst && isFirst) ? Radius.circular(5) : Radius.zero,
+          bottomLeft:
+              (widget.isLast && isLast) ? Radius.circular(5) : Radius.zero,
+        ),
+      ),
+      child: Container(
+        height: 30.0,
+        margin: EdgeInsets.only(left: 5.0),
+        decoration: BoxDecoration(
+          color: appBaseWhiteTextColor,
+          borderRadius: BorderRadius.only(
+            topLeft:
+                (widget.isFirst && isFirst) ? Radius.circular(5) : Radius.zero,
+            bottomLeft:
+                (widget.isLast && isLast) ? Radius.circular(5) : Radius.zero,
+          ),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: (!isLast) ? 29.0 : 30.0,
+              child: Row(
+                children: [
+                  (isFirst)
+                      ? Center(
+                          child: DankLabel(
+                            width: 150.0,
+                            displayText:
+                                formatDateDisplay(widget.day.entryDate),
+                            textStyle: appLabelFontStyle.copyWith(
+                              color: appBaseBlackTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      : Container(
+                          width: 150.0,
+                        ),
+                  Container(
+                    color: appErrorColor,
+                    width: 1.5,
+                  ),
+                  DankLabel(
+                    displayText: '-' + entry.entry,
+                    textStyle: appJournalEntryFontStyle.copyWith(
+                      color: appBaseBlackTextColor,
                     ),
-                    for (JournalEntry entry in day.journalEntries)
-                      DankLabel(
-                        displayText: '-' + entry.entry,
-                        textStyle: appLabelFontStyle.copyWith(fontSize: 15.0),
-                        padding: EdgeInsets.only(left: 30.0),
-                      ),
-                  ],
-                ),
+                    padding: EdgeInsets.only(left: 30.0),
+                  ),
+                ],
               ),
             ),
+            if (!isLast)
+              Divider(
+                color: Colors.blue,
+                height: 1.0,
+                thickness: 1.0,
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -13,6 +13,7 @@ import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.d
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-checkbox.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-drop-zone.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-pro-tip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:get/get.dart';
@@ -88,68 +89,78 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
                   onAddFiles: addFiles,
                 ),
                 Container(
-                  height: 70.0,
-                  width: 600.0,
+                  width: 800.0,
+                  padding: EdgeInsets.all(10.0),
                   color: (currentTheme.currentTheme() == ThemeMode.dark)
                       ? appDarkBackgroundColor
                       : appLightBackgroundColor,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Column(
                     children: [
-                      DankCheckbox(
-                        onChanged: onAnalyzeDataChanged,
-                        value: _performML,
-                        margin: EdgeInsets.only(
-                          left: 25.0,
-                          right: 5.0,
-                        ),
-                        tooltipText:
-                            'Analyze this plant image, using advanced Machine Learning and Data Science algorithms',
-                      ),
-                      DankLabel(
-                        displayText: (_base64Images.length <= 1)
-                            ? 'Analyze Image'
-                            : 'Analyze Images',
-                        textStyle: appInputHintFontStyle.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              DankButton(
-                                buttonText: 'Cancel',
-                                onPressed: onCancelPressed,
-                                buttonType: DankButtonType.Outline,
-                                borderRadius: 5.0,
-                                borderColor: Colors.transparent,
-                                padding: EdgeInsets.only(
-                                  left: 40.0,
-                                  right: 40.0,
-                                  top: 20.0,
-                                  bottom: 20.0,
-                                ),
-                                margin: EdgeInsets.only(right: 10.0),
-                              ),
-                              DankButton(
-                                buttonText: 'Upload',
-                                onPressed: onUploadPressed,
-                                buttonType: DankButtonType.Flat,
-                                borderRadius: 5.0,
-                                isDisabled: _base64Images.length == 0,
-                                padding: EdgeInsets.only(
-                                  left: 40.0,
-                                  right: 40.0,
-                                  top: 20.0,
-                                  bottom: 20.0,
-                                ),
-                              ),
-                            ],
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          DankCheckbox(
+                            onChanged: onAnalyzeDataChanged,
+                            value: _performML,
+                            margin: EdgeInsets.only(
+                              right: 5.0,
+                            ),
+                            tooltipText:
+                                'Analyze this plant image, using advanced Machine Learning and Data Science algorithms',
                           ),
-                        ),
+                          DankLabel(
+                            displayText: (_base64Images.length <= 1)
+                                ? 'Analyze Image'
+                                : 'Analyze Images',
+                            textStyle: appInputHintFontStyle.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 20.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  DankButton(
+                                    buttonText: 'Cancel',
+                                    textColor: appBaseWhiteTextColor,
+                                    onPressed: onCancelPressed,
+                                    buttonType: DankButtonType.Outline,
+                                    borderRadius: 5.0,
+                                    borderColor: Colors.transparent,
+                                    padding: EdgeInsets.only(
+                                      left: 40.0,
+                                      right: 40.0,
+                                      top: 20.0,
+                                      bottom: 20.0,
+                                    ),
+                                    margin: EdgeInsets.only(right: 10.0),
+                                  ),
+                                  DankButton(
+                                    buttonText: 'Upload',
+                                    textColor: appBaseWhiteTextColor,
+                                    onPressed: onUploadPressed,
+                                    buttonType: DankButtonType.Flat,
+                                    borderRadius: 5.0,
+                                    isDisabled: _base64Images.length == 0,
+                                    padding: EdgeInsets.only(
+                                      left: 40.0,
+                                      right: 40.0,
+                                      top: 20.0,
+                                      bottom: 20.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      DankProTip(
+                        proTipText:
+                            'Allow data analysis to improve your yields',
+                        onLearnMore: _learnMoreAboutDataAnalysis,
                       ),
                     ],
                   ),
@@ -244,5 +255,9 @@ class _UploadImageDialogState extends State<UploadImageDialog> {
         log("ERROR - Unable to read plant image file.");
       });
     }
+  }
+
+  void _learnMoreAboutDataAnalysis() {
+    print('To Do: Learn More About Data Analysis.');
   }
 }

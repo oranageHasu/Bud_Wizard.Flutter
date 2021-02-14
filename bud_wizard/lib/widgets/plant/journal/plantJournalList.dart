@@ -14,51 +14,27 @@ class PlantJournalList extends StatefulWidget {
         this.plantDays = plantDays;
 
   @override
-  _PlantJournalListState createState() => _PlantJournalListState(
-        this.plant,
-        this.plantDays,
-      );
+  _PlantJournalListState createState() => _PlantJournalListState();
 }
 
 class _PlantJournalListState extends State<PlantJournalList> {
-  Plant plant;
-  List<JournalDay> plantDays;
-
-  _PlantJournalListState(
-    this.plant,
-    this.plantDays,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(PlantJournalList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    plant = widget.plant;
-    plantDays = widget.plantDays;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        left: 10.0,
-        right: 10.0,
         top: 5.0,
       ),
       child: ListView(
         scrollDirection: Axis.vertical,
         children: [
-          if (plantDays.isEmpty)
+          if (widget.plantDays.isEmpty)
             PlantJournalEntry(day: null)
           else
-            for (JournalDay day in plantDays)
+            for (int i = 0; i < widget.plantDays.length; i++)
               PlantJournalEntry(
-                day: day,
+                day: widget.plantDays[i],
+                isFirst: i == 0,
+                isLast: i == widget.plantDays.length - 1,
               ),
         ],
       ),
