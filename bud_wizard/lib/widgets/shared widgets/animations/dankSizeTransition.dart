@@ -49,7 +49,6 @@ class _DankSizeTransitionState extends State<DankSizeTransition>
       _controller.reverse();
     }
 
-    print('here');
     return SizeTransition(
       sizeFactor: _animation,
       axis: Axis.horizontal,

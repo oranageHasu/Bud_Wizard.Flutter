@@ -59,12 +59,6 @@ class JournalWeek {
         break;
     }
 
-    print(GrowState.values
-        .firstWhere((e) => e.index == GrowState.Germination.index)
-        .index);
-    print('grow state: ' + growthState.toString());
-    print('abbr grow state: ' + retval);
-
     return retval;
   }
 
