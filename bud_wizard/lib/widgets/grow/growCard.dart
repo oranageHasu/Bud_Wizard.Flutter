@@ -90,10 +90,6 @@ class _GrowsCardState extends State<GrowCard> {
                         DankLabel(
                           displayText: widget.grow.name,
                           textAlign: TextAlign.start,
-                          padding: EdgeInsets.only(
-                            left: 15.0,
-                            right: 15.0,
-                          ),
                           textStyle: appLabelFontStyle.copyWith(
                             color: (_isHovered || widget.isSelected)
                                 ? Theme.of(context).textTheme.bodyText1.color
@@ -108,10 +104,6 @@ class _GrowsCardState extends State<GrowCard> {
                           displayText:
                               widget.grow.plants.length.toString() + ' Plants',
                           textAlign: TextAlign.start,
-                          padding: EdgeInsets.only(
-                            left: 15.0,
-                            right: 15.0,
-                          ),
                           textStyle: appInputHintFontStyle.copyWith(
                             color: Theme.of(context)
                                 .textTheme

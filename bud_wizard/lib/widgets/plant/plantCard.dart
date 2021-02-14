@@ -24,6 +24,10 @@ class PlantCard extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Container(
+              padding: EdgeInsets.only(
+                left: 10.0,
+                right: 10.0,
+              ),
               child: Image.asset(
                 plant.imagePath,
                 fit: BoxFit.fitWidth,

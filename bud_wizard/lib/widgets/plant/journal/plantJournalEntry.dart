@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 
 class PlantJournalEntry extends StatefulWidget {
   final JournalDay day;
+  final bool isFirst;
   final bool isLast;
 
   PlantJournalEntry({
     @required JournalDay day,
+    bool isFirst = false,
     bool isLast = false,
   })  : this.day = day,
+        this.isFirst = isFirst,
         this.isLast = isLast;
 
   @override
@@ -51,6 +54,12 @@ class _PlantJournalEntryState extends State<PlantJournalEntry> {
                   i == 0,
                   false,
                 ),
+              _journalEntry(
+                null,
+                false,
+                widget.isLast,
+              )
+              /*
               for (int i = 0; i < 11; i++)
                 _journalEntry(
                   null,
@@ -61,7 +70,7 @@ class _PlantJournalEntryState extends State<PlantJournalEntry> {
                 null,
                 false,
                 true,
-              ),
+              ),*/
             ],
           );
   }
@@ -91,40 +100,33 @@ class _PlantJournalEntryState extends State<PlantJournalEntry> {
       ),
       child: Column(
         children: [
-          if (isFirst)
-            Container(
-              color: (currentTheme.isDarkTheme())
-                  ? Colors.blue.withOpacity(0.2)
-                  : Colors.blue,
-              height: 1.0,
-            ),
+          if (widget.isFirst && isFirst) _blueLine(),
           Container(
             height: _determineLineHeight(
               isFirst,
               isLast,
             ),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 (isFirst)
-                    ? Center(
-                        child: DankLabel(
-                          width: 150.0,
-                          displayText: formatDateDisplay(widget.day.entryDate),
-                          textStyle: appLabelFontStyle.copyWith(
-                            color: (currentTheme.isDarkTheme())
-                                ? appBaseWhiteTextColor
-                                : appBaseBlackTextColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
+                    ? DankLabel(
+                        width: 150.0,
+                        displayText: formatDateDisplay(widget.day.entryDate),
+                        textStyle: appLabelFontStyle.copyWith(
+                          color: (currentTheme.isDarkTheme())
+                              ? appBaseWhiteTextColor
+                              : appBaseBlackTextColor,
+                          fontWeight: FontWeight.bold,
                         ),
+                        textAlign: TextAlign.center,
                       )
                     : Container(
                         width: 150.0,
                       ),
                 Container(
                   color: (currentTheme.isDarkTheme())
-                      ? appErrorColor.withOpacity(0.5)
+                      ? appBaseWhiteTextColor.withOpacity(0.3)
                       : appErrorColor,
                   width: 1.5,
                 ),
@@ -141,22 +143,46 @@ class _PlantJournalEntryState extends State<PlantJournalEntry> {
               ],
             ),
           ),
-          if (!isLast)
-            Container(
-              color: (currentTheme.isDarkTheme())
-                  ? Colors.blue.withOpacity(0.2)
-                  : Colors.blue,
-              height: 1.0,
-            ),
+          if (!isLast) _blueLine(),
         ],
       ),
+    );
+  }
+
+  Widget _blueLine() {
+    return Row(
+      children: [
+        Container(
+          width: 150.0,
+          color: (currentTheme.isDarkTheme())
+              ? Colors.blue.withOpacity(0.2)
+              : Colors.blue,
+          height: 1.0,
+        ),
+        Container(
+          width: 1.5,
+          color: (currentTheme.isDarkTheme())
+              ? appBaseWhiteTextColor.withOpacity(0.3)
+              : appErrorColor,
+          height: 1.0,
+        ),
+        Expanded(
+          child: Container(
+            width: 150.0,
+            color: (currentTheme.isDarkTheme())
+                ? Colors.blue.withOpacity(0.2)
+                : Colors.blue,
+            height: 1.0,
+          ),
+        ),
+      ],
     );
   }
 
   double _determineLineHeight(bool isFirst, bool isLast) {
     double retval = lineHeight - 1;
 
-    if (isFirst) {
+    if (widget.isFirst) {
       retval = lineHeight - 2;
     } else if (isLast) {
       retval = lineHeight;

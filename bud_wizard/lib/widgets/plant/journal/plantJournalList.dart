@@ -30,6 +30,7 @@ class _PlantJournalListState extends State<PlantJournalList> {
           for (int i = 0; i < widget.plantDays.length; i++)
             PlantJournalEntry(
               day: widget.plantDays[i],
+              isFirst: i == 0,
               isLast: i == widget.plantDays.length - 1,
             ),
       ],

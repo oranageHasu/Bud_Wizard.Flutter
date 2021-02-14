@@ -25,19 +25,12 @@ class PlantJournal extends StatefulWidget {
   }
 
   @override
-  State<StatefulWidget> createState() => PlantJournalState(
-        this.currentPlant,
-      );
+  State<StatefulWidget> createState() => PlantJournalState();
 }
 
 class PlantJournalState extends State<PlantJournal> {
-  Plant currentPlant;
   Future<Journal> _journal;
   int _currentWeek = 1;
-
-  PlantJournalState(
-    this.currentPlant,
-  );
 
   void setCurrentWeek(int week) {
     setState(() {
@@ -49,7 +42,7 @@ class PlantJournalState extends State<PlantJournal> {
   void initState() {
     super.initState();
 
-    _journal = getJournal(currentPlant.plantId);
+    _journal = getJournal(widget.currentPlant.plantId);
   }
 
   @override
@@ -62,7 +55,7 @@ class PlantJournalState extends State<PlantJournal> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.currentPlant != widget.currentPlant) {
-      currentPlant = widget.currentPlant;
+      _journal = getJournal(widget.currentPlant.plantId);
     }
   }
 
@@ -91,9 +84,9 @@ class PlantJournalState extends State<PlantJournal> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           PlantCard(
-            plant: currentPlant,
+            plant: widget.currentPlant,
           ),
-          PlantImageSelector(plant: currentPlant),
+          PlantImageSelector(plant: widget.currentPlant),
           Container(
             height: 600.0,
             margin: EdgeInsets.only(top: 10.0),
@@ -117,11 +110,11 @@ class PlantJournalState extends State<PlantJournal> {
                 PlantJournalHeader(
                   journal: journal,
                   currentWeekIndex: _currentWeek - 1,
-                  plantId: currentPlant.plantId,
+                  plantId: widget.currentPlant.plantId,
                 ),
                 Expanded(
                   child: PlantJournalList(
-                    plant: currentPlant,
+                    plant: widget.currentPlant,
                     plantDays: journal.plantWeeks[_currentWeek - 1].plantDays,
                   ),
                 ),

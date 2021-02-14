@@ -30,8 +30,8 @@ class PlantInfo extends StatelessWidget {
                   fontSize: 30.0,
                 ),
                 padding: EdgeInsets.only(
-                  left: 10.0,
-                  right: 10.0,
+                  left: 15.0,
+                  right: 15.0,
                 ),
               ),
               Row(

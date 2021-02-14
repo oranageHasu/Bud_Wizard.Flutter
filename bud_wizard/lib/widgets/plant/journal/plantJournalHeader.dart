@@ -80,7 +80,7 @@ class PlantJournalHeader extends StatelessWidget {
             ),
             Container(
               color: (currentTheme.isDarkTheme())
-                  ? appErrorColor.withOpacity(0.5)
+                  ? appBaseWhiteTextColor.withOpacity(0.3)
                   : appErrorColor,
               width: 1.5,
               margin: EdgeInsets.only(right: 5.0),
