@@ -175,7 +175,7 @@ class _GrowPageHeaderState extends State<GrowPageHeader> {
                 ? PlantMenu(currentOperation: widget.currentPlantOp)
                 : Expanded(
                     child: Container(
-                      color: (currentTheme.currentTheme() == ThemeMode.dark)
+                      color: (currentTheme.isDarkTheme())
                           ? appDarkTertiaryColor
                           : appLightTertiaryColor,
                       child: Row(

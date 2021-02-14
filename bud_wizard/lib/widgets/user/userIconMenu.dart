@@ -29,11 +29,11 @@ class UserIconMenu extends StatelessWidget {
           performLogout,
         ),
       ],
-      iconColor: (currentTheme.currentTheme() == ThemeMode.dark)
+      iconColor: (currentTheme.isDarkTheme())
           ? appBaseWhiteTextColor
           : appBaseBlackTextColor.withOpacity(0.8),
       menuHeaderChild: currentUserDisplay(),
-      borderColor: (currentTheme.currentTheme() == ThemeMode.dark)
+      borderColor: (currentTheme.isDarkTheme())
           ? Colors.black.withOpacity(0.3)
           : Colors.black.withOpacity(0.6),
     );

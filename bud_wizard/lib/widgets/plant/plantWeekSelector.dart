@@ -19,6 +19,7 @@ class PlantWeekSelector extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         for (JournalWeek week in journal.plantWeeks)
           PlantWeekCard(

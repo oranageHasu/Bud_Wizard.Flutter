@@ -35,6 +35,8 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
     return Stack(
       children: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: 65.0,
@@ -70,7 +72,9 @@ class _PlantWeekCardState extends State<PlantWeekCard> {
                         ),
                         child: DankLabel(
                           displayText: widget.displayText,
-                          textStyle: appPlantWeekFontStyle,
+                          textStyle: appPlantWeekFontStyle.copyWith(
+                            color: appBaseWhiteTextColor,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ),

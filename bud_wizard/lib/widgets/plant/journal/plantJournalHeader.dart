@@ -28,70 +28,106 @@ class PlantJournalHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     JournalWeek currentWeek = journal.plantWeeks[currentWeekIndex];
 
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            left: 10.0,
-            right: 20.0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DankLabel(
-                displayText: 'Weekly Journal',
-                textStyle: appHeaderFontStyle.copyWith(fontSize: 20.0),
-                padding: EdgeInsets.only(top: 10.0),
-              ),
-              DankLabel(
-                displayText: formatDateDisplay(currentWeek.startDate) +
-                    ' - ' +
-                    formatDateDisplay(
-                        currentWeek.startDate.add(Duration(days: 6))),
-                textStyle: appInputHintFontStyle,
-                padding: EdgeInsets.only(top: 5.0),
-              ),
-            ],
+    return Container(
+      height: 100.0,
+      child: Container(
+        margin: EdgeInsets.only(
+          left: 10.0,
+          right: 10.0,
+        ),
+        decoration: BoxDecoration(
+          color: (currentTheme.isDarkTheme())
+              ? Color.fromRGBO(46, 48, 54, 1)
+              : appLightSecondaryColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5),
+            topRight: Radius.circular(5),
           ),
         ),
-        Expanded(
-          child: PlantWeekSelector(
-            journal: journal,
-            currentIndex: currentWeekIndex,
-          ),
-        ),
-        Container(
-          width: 50.0,
-          margin: EdgeInsets.only(right: 20.0),
-          child: InkWell(
-            onTap: addJournalEntry,
-            child: DankBasicTooltip(
-              tooltipText: 'Click to add a new journey entry',
-              child: Icon(
-                Icons.edit,
-                size: 45.0,
-                color: appBaseWhiteTextColor,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          width: 50.0,
-          margin: EdgeInsets.only(right: 10.0),
-          child: InkWell(
-            onTap: uploadImage,
-            child: DankBasicTooltip(
-              tooltipText: 'Click to add an image to this week',
-              child: Icon(
-                Icons.add_a_photo,
-                size: 45.0,
-                color: appBaseWhiteTextColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              width: 150.0,
+              child: Column(
+                children: [
+                  DankLabel(
+                    displayText: 'Weekly Journal',
+                    textStyle: appHeaderFontStyle.copyWith(
+                      fontSize: 20.0,
+                      color: appBaseColor,
+                    ),
+                    padding: EdgeInsets.only(top: 10.0),
+                    textAlign: TextAlign.center,
+                  ),
+                  DankLabel(
+                    displayText: formatDateDisplay(currentWeek.startDate) +
+                        ' - ' +
+                        formatDateDisplay(
+                            currentWeek.startDate.add(Duration(days: 6))),
+                    textStyle: appInputHintFontStyle.copyWith(
+                      fontSize: 11.0,
+                      color: (currentTheme.isDarkTheme())
+                          ? appBaseWhiteTextColor
+                          : appBaseBlackTextColor,
+                    ),
+                    padding: EdgeInsets.only(top: 5.0),
+                  ),
+                ],
               ),
             ),
-          ),
+            Container(
+              color: (currentTheme.isDarkTheme())
+                  ? appErrorColor.withOpacity(0.5)
+                  : appErrorColor,
+              width: 1.5,
+              margin: EdgeInsets.only(right: 5.0),
+            ),
+            Expanded(
+              child: PlantWeekSelector(
+                journal: journal,
+                currentIndex: currentWeekIndex,
+              ),
+            ),
+            Container(
+              width: 50.0,
+              margin: EdgeInsets.only(right: 20.0),
+              child: InkWell(
+                onTap: addJournalEntry,
+                child: DankBasicTooltip(
+                  tooltipText: 'Click to add a new journey entry',
+                  child: Icon(
+                    Icons.edit,
+                    size: 45.0,
+                    color: (currentTheme.isDarkTheme())
+                        ? appBaseWhiteTextColor.withOpacity(0.7)
+                        : appBaseBlackTextColor.withOpacity(0.7),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 50.0,
+              margin: EdgeInsets.only(right: 10.0),
+              child: InkWell(
+                onTap: uploadImage,
+                child: DankBasicTooltip(
+                  tooltipText: 'Click to add an image to this week',
+                  child: Icon(
+                    Icons.add_a_photo,
+                    size: 45.0,
+                    color: (currentTheme.isDarkTheme())
+                        ? appBaseWhiteTextColor.withOpacity(0.7)
+                        : appBaseBlackTextColor.withOpacity(0.7),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 

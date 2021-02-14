@@ -89,31 +89,43 @@ class PlantJournalState extends State<PlantJournal> {
       journalData: this,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
         children: [
           PlantCard(
             plant: currentPlant,
           ),
-          PlantJournalHeader(
-            journal: journal,
-            currentWeekIndex: _currentWeek - 1,
-            plantId: currentPlant.plantId,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 5.0),
-            child: Divider(
-              color: (currentTheme.currentTheme() == ThemeMode.dark)
-                  ? appDarkTertiaryColor
-                  : appLightTertiaryColor,
-              height: 2.0,
-              thickness: 2.0,
-            ),
-          ),
           PlantImageSelector(plant: currentPlant),
-          Expanded(
-            child: PlantJournalList(
-              plant: currentPlant,
-              plantDays: journal.plantWeeks[_currentWeek - 1].plantDays,
+          Container(
+            height: 600.0,
+            margin: EdgeInsets.only(top: 10.0),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: (currentTheme.isDarkTheme())
+                      ? appBaseWhiteTextColor.withOpacity(0.05)
+                      : appBaseBlackTextColor.withOpacity(0.1),
+                  blurRadius: 25.0,
+                  spreadRadius: 5.0,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                PlantJournalHeader(
+                  journal: journal,
+                  currentWeekIndex: _currentWeek - 1,
+                  plantId: currentPlant.plantId,
+                ),
+                Expanded(
+                  child: PlantJournalList(
+                    plant: currentPlant,
+                    plantDays: journal.plantWeeks[_currentWeek - 1].plantDays,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -245,9 +245,8 @@ final TextStyle appInstructionLabelFontStyle = GoogleFonts.architectsDaughter(
   fontSize: 18.0,
 );
 
-final TextStyle appJournalEntryFontStyle = GoogleFonts.caveat(
+final TextStyle appJournalEntryFontStyle = GoogleFonts.kalam(
   fontSize: 22.0,
-  fontWeight: FontWeight.bold,
 );
 
 //#endregion

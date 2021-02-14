@@ -1,3 +1,4 @@
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-menu.dart';
 import 'package:community_material_icon/community_material_icon.dart';
@@ -30,7 +31,9 @@ class PlantIconMenu extends StatelessWidget {
           deleteGrow,
         ),
       ],
-      iconColor: Colors.white,
+      iconColor: (currentTheme.isDarkTheme())
+          ? appBaseWhiteTextColor
+          : appBaseBlackTextColor.withOpacity(0.8),
       borderColor: Colors.black.withOpacity(0.3),
     );
   }

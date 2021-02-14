@@ -56,11 +56,6 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
         children: [
           Container(
             height: 150.0,
-            padding: EdgeInsets.only(
-              left: 2.0,
-              right: 2.0,
-              top: 5.0,
-            ),
             child: ListView(
               controller: _plantImageController,
               scrollDirection: Axis.horizontal,

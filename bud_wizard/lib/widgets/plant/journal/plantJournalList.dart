@@ -20,24 +20,19 @@ class PlantJournalList extends StatefulWidget {
 class _PlantJournalListState extends State<PlantJournalList> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        top: 5.0,
-      ),
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          if (widget.plantDays.isEmpty)
-            PlantJournalEntry(day: null)
-          else
-            for (int i = 0; i < widget.plantDays.length; i++)
-              PlantJournalEntry(
-                day: widget.plantDays[i],
-                isFirst: i == 0,
-                isLast: i == widget.plantDays.length - 1,
-              ),
-        ],
-      ),
+    return ListView(
+      clipBehavior: Clip.none,
+      scrollDirection: Axis.vertical,
+      children: [
+        if (widget.plantDays.isEmpty)
+          PlantJournalEntry(day: null)
+        else
+          for (int i = 0; i < widget.plantDays.length; i++)
+            PlantJournalEntry(
+              day: widget.plantDays[i],
+              isLast: i == widget.plantDays.length - 1,
+            ),
+      ],
     );
   }
 }

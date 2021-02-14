@@ -58,7 +58,9 @@ class _GrowSelectorState extends State<GrowSelector> {
       },
       child: Container(
         width: 275.0,
-        color: appDarkTertiaryColor,
+        color: (currentTheme.isDarkTheme())
+            ? appDarkTertiaryColor
+            : appLightTertiaryColor,
         child: Stack(
           children: [
             Column(

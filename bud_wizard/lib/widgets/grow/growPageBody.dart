@@ -130,14 +130,16 @@ class _GrowPageBodyState extends State<GrowPageBody> {
             ? 'Collapse grow menu'
             : 'Expand grow menu',
         buttonType: DankButtonType.Outline,
-        color: appBaseWhiteTextColor,
+        color: (currentTheme.isDarkTheme())
+            ? appBaseWhiteTextColor
+            : appBaseBlackTextColor,
         hoverColor: Colors.black,
         outlineColor: Colors.transparent,
         outlineThickness: 3.5,
         onPressed: _toggleGrowSelectorVisibility,
         displayTooltip: true,
         margin: EdgeInsets.only(
-          left: 5.0,
+          left: 10.0,
           bottom: 5.0,
         ),
         onHover: _enableGrowSelectorCollapseButtons,
@@ -158,14 +160,16 @@ class _GrowPageBodyState extends State<GrowPageBody> {
             ? 'Collapse grow activity'
             : 'Expand grow activity',
         buttonType: DankButtonType.Outline,
-        color: appBaseWhiteTextColor,
+        color: (currentTheme.isDarkTheme())
+            ? appBaseWhiteTextColor
+            : appBaseBlackTextColor,
         hoverColor: Colors.black,
         outlineColor: Colors.transparent,
         outlineThickness: 3.5,
         onPressed: _toggleGrowActivityVisibility,
         displayTooltip: true,
         margin: EdgeInsets.only(
-          right: 5.0,
+          right: 10.0,
           bottom: 5.0,
         ),
         onHover: _enableGrowActivityCollapseButtons,

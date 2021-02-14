@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/plant/plantInfo.dart';
@@ -16,12 +17,9 @@ class PlantCard extends StatelessWidget {
     return Container(
       height: 400.0,
       constraints: BoxConstraints(maxWidth: 1000.0),
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.circular(5),
+      margin: EdgeInsets.only(
+        bottom: 5.0,
       ),
-      margin: EdgeInsets.all(10.0),
       child: Stack(
         children: [
           Positioned.fill(
@@ -44,7 +42,9 @@ class PlantCard extends StatelessWidget {
                         filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                         child: Container(
                           height: 120.0,
-                          color: Colors.black.withOpacity(0.7),
+                          color: (currentTheme.isDarkTheme())
+                              ? Colors.black.withOpacity(0.7)
+                              : Colors.white.withOpacity(0.7),
                           child: PlantInfo(
                             plant: plant,
                           ),

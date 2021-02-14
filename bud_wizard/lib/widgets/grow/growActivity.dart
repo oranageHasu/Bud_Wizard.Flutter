@@ -43,7 +43,9 @@ class _GrowActivityState extends State<GrowActivity> {
       },
       child: Container(
         width: 400.0,
-        color: appDarkTertiaryColor,
+        color: (currentTheme.isDarkTheme())
+            ? appDarkTertiaryColor
+            : appLightTertiaryColor,
         child: Column(
           children: [
             DankLabel(
