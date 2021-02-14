@@ -14,6 +14,7 @@ import 'package:bud_wizard/widgets/shared%20widgets/animations/dankSizeTransitio
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_tooltip/simple_tooltip.dart';
 
 class GrowPageBody extends StatefulWidget {
   final Future<List<Grow>> _grows;
@@ -151,7 +152,7 @@ class _GrowPageBodyState extends State<GrowPageBody> {
       duration: 500,
       child: DankIconButton(
         iconData:
-            (_isGrowSelectorVisible) ? Icons.chevron_right : Icons.chevron_left,
+            (_isGrowActivityVisible) ? Icons.chevron_right : Icons.chevron_left,
         iconSize: 45,
         tooltipText: (_isGrowActivityVisible)
             ? 'Collapse grow activity'
@@ -169,6 +170,7 @@ class _GrowPageBodyState extends State<GrowPageBody> {
         ),
         onHover: _enableGrowActivityCollapseButtons,
         onLostHover: _disableGrowActivityCollapseButtons,
+        tooltipDirection: TooltipDirection.left,
       ),
       isVisible: _growActivityVisibility,
     );

@@ -3,6 +3,7 @@ import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:simple_tooltip/simple_tooltip.dart';
 
 class DankIconButton extends StatefulWidget {
   final IconData iconData;
@@ -24,6 +25,7 @@ class DankIconButton extends StatefulWidget {
   final double outlineThickness;
   final Color hoverColor;
   final bool showClickInteraction;
+  final TooltipDirection tooltipDirection;
 
   DankIconButton({
     @required IconData iconData,
@@ -45,6 +47,7 @@ class DankIconButton extends StatefulWidget {
     double outlineThickness = 2.5,
     Color hoverColor = Colors.white,
     bool showClickInteraction = true,
+    TooltipDirection tooltipDirection = TooltipDirection.right,
   })  : this.iconData = iconData,
         this.tooltipText = tooltipText,
         this.onPressed = onPressed,
@@ -63,7 +66,8 @@ class DankIconButton extends StatefulWidget {
         this.outlineColor = outlineColor,
         this.outlineThickness = outlineThickness,
         this.hoverColor = hoverColor,
-        this.showClickInteraction = showClickInteraction;
+        this.showClickInteraction = showClickInteraction,
+        this.tooltipDirection = tooltipDirection;
 
   @override
   DankIconButtonState createState() => DankIconButtonState();
@@ -73,29 +77,10 @@ class DankIconButtonState extends State<DankIconButton> {
   bool _isHovered = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(DankIconButton oldWidget) {
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DankTooltip(
       tooltipText: widget.tooltipText,
+      tooltipDirection: widget.tooltipDirection,
       displayTooltip: (widget.displayTooltip && _isHovered),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
@@ -120,7 +105,6 @@ class DankIconButtonState extends State<DankIconButton> {
         child: Container(
           margin: widget.margin,
           padding: widget.padding,
-          //height: 55.0,
           width: (widget.enableAnimation && (widget.isSelected || _isHovered))
               ? 65.0
               : 55.0,
