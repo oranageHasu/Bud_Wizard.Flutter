@@ -1,8 +1,7 @@
 version: '3'
 services:
-  dominic:
-    build: .
-    image: danksolutions/budwizard
-    container_name: "budwizard"
-    ports:
-      - "9000:9000"
+        budwizard:
+                image: registry.digitalocean.com/bud-wizard-image-repo/budwizard-test:1.0.5
+                container_name: "budwizard"
+                ports:
+                        - "9001:9001"

@@ -1,7 +1,7 @@
 # Stage 1 "build stage", this is used for building the front end
 FROM ubuntu:18.04 as build-stage
 
-ARG BASE_URL="https://localhost:2001/api/v1/"
+ARG BASE_URL="https://localhost:9000/api/v1/"
 
 # Specifiy some Flutter environment paths
 ENV PATH=/opt/flutter/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/flutter/.pub-cache/bin
