@@ -58,7 +58,7 @@ ARG CERTIFICATEKEY="localhost.key"
 ARG NGINXCONF="nginx.conf"
 
 # Expose ports for Flutter
-EXPOSE 9000
+EXPOSE 9001
 
 # Copy the ES5 bundle from the build stage to Nginx
 COPY --from=build-stage /app/build/web /usr/share/nginx/html

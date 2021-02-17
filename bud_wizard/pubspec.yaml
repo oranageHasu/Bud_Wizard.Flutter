@@ -6,7 +6,7 @@ author: Dank Solutions
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.5
+version: 1.0.10
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -80,6 +80,31 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - budwizard_logo_400x400.png
+     - cannabis_login.jpg
+     - clock.png
+     - female.png
+     - hermi.png
+     - light.png
+     - male.png
+     - nutrients.png
+     - placeholder.jpg
+     - seeds.png
+     - white-widow.jpg
+     - strawberry-cough.jpg
+     - panama-red.jpg
+     - dark-angel.jpg
+     - cotton-candy.jpg
+     - black-widow.jpg
+     - afghan.jpg
+     - assets/grow/img1.jpg
+     - assets/grow/img2.jpg
+     - assets/grow/img3.jpg
+     - assets/grow/img4.jpg
+     - assets/grow/img5.jpg
+     - assets/grow/img6.jpg
+     - assets/grow/img7.jpg
+     - assets/grow/img11.jpg
+     - assets/grow/img12.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
