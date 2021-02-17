@@ -42,21 +42,18 @@ class Grow {
       ),
     );
 
-    print('we got a grow');
     grow.name = json['name'];
     grow.startDate = DateTime.parse(json['startDate']);
     grow.setting =
         GrowSetting.values.firstWhere((e) => e.index == json['setting'] as int);
-    /*
-    grow.growLights = (json['growLights'] as List)
+    grow.growLights = (jsonDecode(json['growLights']) as List)
         .map((growLight) => GrowLight.fromJson(growLight))
-        .toList();*/
+        .toList();
 
     return grow;
   }
 
   Map<String, dynamic> toJson() {
-    print(privacySettings.toJson());
     return {
       if (growId != null) 'growId': growId.toString() else 'growId': null,
       'userId': userId.toString(),
