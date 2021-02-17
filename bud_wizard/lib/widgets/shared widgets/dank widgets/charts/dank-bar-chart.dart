@@ -108,7 +108,7 @@ class _DankBarChartState extends State<DankBarChart> {
         color: widget.chartBackgroundColor,
       ),
       child: Stack(
-        children: <Widget>[
+        children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -174,6 +174,7 @@ class _DankBarChartState extends State<DankBarChart> {
                 appInputLabelFontStyle.copyWith(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,
+                  color: appBaseWhiteTextColor,
                 ),
               );
             }),

@@ -139,7 +139,10 @@ class _DankPieChartState extends State<DankPieChart> {
           ),
           DankLabel(
             displayText: item.label,
-            textStyle: appLabelFontStyle.copyWith(fontSize: 14.0),
+            textStyle: appLabelFontStyle.copyWith(
+              fontSize: 14.0,
+              color: appBaseWhiteTextColor,
+            ),
           ),
         ],
       ),
@@ -173,6 +176,7 @@ class _DankPieChartState extends State<DankPieChart> {
           titleStyle: appLabelFontStyle.copyWith(
             fontSize: (isTouched) ? 20 : 16,
             fontWeight: FontWeight.bold,
+            color: appBaseWhiteTextColor,
           ),
           badgeWidget: _Badge(
             item.iconPath,

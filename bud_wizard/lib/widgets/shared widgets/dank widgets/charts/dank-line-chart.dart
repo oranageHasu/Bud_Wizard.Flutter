@@ -136,9 +136,9 @@ class _DankLineChartState extends State<DankLineChart> {
         color: widget.chartBackgroundColor,
       ),
       child: Stack(
-        children: <Widget>[
+        children: [
           Column(
-            children: <Widget>[
+            children: [
               DankLabel(
                 displayText: widget.title,
                 textStyle: appInputLabelFontStyle.copyWith(
@@ -328,6 +328,7 @@ class _DankLineChartState extends State<DankLineChart> {
                     appInputLabelFontStyle.copyWith(
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
+                      color: appBaseWhiteTextColor,
                     ),
                   ),
                 );
