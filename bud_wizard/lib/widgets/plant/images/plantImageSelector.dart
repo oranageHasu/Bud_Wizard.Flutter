@@ -5,6 +5,7 @@ import 'package:bud_wizard/models/plant.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageContainer.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
+import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -56,21 +57,28 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
         children: [
           Container(
             height: 150.0,
-            child: ListView(
-              controller: _plantImageController,
-              scrollDirection: Axis.horizontal,
-              children: [
-                PlantImageContainer(imgPath: 'assets/grow/img1.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img2.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img3.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img11.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img12.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img4.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img5.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img6.jpg'),
-                PlantImageContainer(imgPath: 'assets/grow/img7.jpg'),
-              ],
-            ),
+            child: (widget.plant.imagePath.isEmpty)
+                ? ListView(
+                    controller: _plantImageController,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                        PlantImageContainer(imgPath: 'assets/grow/img1.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img2.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img3.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img11.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img12.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img4.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img5.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img6.jpg'),
+                        PlantImageContainer(imgPath: 'assets/grow/img7.jpg'),
+                      ])
+                : Center(
+                    child: DankLabel(
+                        displayText: 'No Images',
+                        textStyle: appLabelFontStyle.copyWith(
+                          color: appBaseWhiteTextColor,
+                        )),
+                  ),
           ),
           if (_isHovered)
             Positioned.fill(

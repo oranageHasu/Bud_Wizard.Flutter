@@ -61,9 +61,7 @@ class _GrowActivityState extends State<GrowActivity> {
                 bottom: 10.0,
               ),
             ),
-            Card(
-              clipBehavior: Clip.hardEdge,
-              elevation: 0.0,
+            Container(
               color: (currentTheme.currentTheme() == ThemeMode.dark)
                   ? appDarkSecondaryColor
                   : appLightSecondaryColor,
