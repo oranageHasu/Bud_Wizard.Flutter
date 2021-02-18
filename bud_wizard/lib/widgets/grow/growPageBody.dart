@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/widgets/grow/add/addGrow.dart';
 import 'package:bud_wizard/widgets/grow/growActivity.dart';
 import 'package:bud_wizard/widgets/grow/growDetail.dart';
@@ -271,12 +271,10 @@ class _GrowPageBodyState extends State<GrowPageBody> {
   }
 
   void _disableGrowSelectorCollapseButtons() {
-    setState(() {
-      _growSelectorTimer = Timer(
-        Duration(milliseconds: 1000),
-        _hideGrowSelectorCollapseButtons,
-      );
-    });
+    _growSelectorTimer = Timer(
+      Duration(milliseconds: 1000),
+      _hideGrowSelectorCollapseButtons,
+    );
   }
 
   //#endregion

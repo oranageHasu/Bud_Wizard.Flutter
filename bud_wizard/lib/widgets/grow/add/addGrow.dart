@@ -4,7 +4,7 @@ import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
 import 'package:bud_wizard/models/grow%20system/growLight.dart';
 import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';
 import 'package:bud_wizard/widgets/grow/add/originStory.dart';

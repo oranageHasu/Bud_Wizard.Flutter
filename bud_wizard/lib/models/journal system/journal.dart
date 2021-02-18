@@ -3,12 +3,14 @@ import 'package:flutter_guid/flutter_guid.dart';
 
 class Journal {
   final Guid journalId;
+  final Guid userId;
   final Guid plantId;
   bool isDeleted;
   List<JournalWeek> plantWeeks;
 
   Journal({
     this.journalId,
+    this.userId,
     this.plantId,
     this.isDeleted,
     this.plantWeeks,
@@ -16,11 +18,12 @@ class Journal {
 
   factory Journal.fromJson(Map<String, dynamic> json) {
     return Journal(
-      journalId: new Guid(json['journalId']),
-      plantId: new Guid(json['plantId']),
+      journalId: Guid(json['journalId']),
+      userId: Guid(json['userId']),
+      plantId: Guid(json['plantId']),
       isDeleted: json['isDeleted'],
       plantWeeks: (json['plantWeeks'] as List)
-          .map((plantWeeks) => new JournalWeek.fromJson(plantWeeks))
+          .map((plantWeeks) => JournalWeek.fromJson(plantWeeks))
           .toList(),
     );
   }

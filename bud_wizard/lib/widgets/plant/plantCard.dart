@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:bud_wizard/classes/appTheme.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/plant/plantInfo.dart';
 import 'package:flutter/material.dart';

@@ -5,7 +5,7 @@ import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
 import 'package:bud_wizard/models/user%20system/login.dart';
-import 'package:bud_wizard/models/plantUpload.dart';
+import 'package:bud_wizard/models/plant%20system/plantUpload.dart';
 import 'package:bud_wizard/services/api%20services/api-journal.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:bud_wizard/services/session-service.dart';

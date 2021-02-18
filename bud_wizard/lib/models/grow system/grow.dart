@@ -4,7 +4,7 @@ import 'package:bud_wizard/models/grow%20system/growPrivacy.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 
 class Grow {
   final Guid growId;

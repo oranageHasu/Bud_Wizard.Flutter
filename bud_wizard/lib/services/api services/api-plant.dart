@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/services/logger-service.dart';
 import 'package:dio/dio.dart';
 import 'package:bud_wizard/classes/constants.dart';

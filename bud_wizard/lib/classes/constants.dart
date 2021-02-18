@@ -29,6 +29,10 @@ const String apiRouteLoginPreferences = 'LoginPreferences';
 const String apiRouteJournal = 'journal';
 const String apiRouteJournalUpload = 'journal/upload';
 
+// Plant Image API Routes
+const String apiRoutePlantImage = 'plantImage';
+const String apiRoutePlantImageMetadata = 'plantImage/metadata';
+
 // API Entity Routes
 const String apiRouteGrows = 'grow';
 const String apiRoutePlants = 'plant';

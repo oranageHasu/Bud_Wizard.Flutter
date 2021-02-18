@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plantImageMetadata.dart';
+import 'package:bud_wizard/services/api%20services/apiPlantImages.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageContainer.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_guid/flutter_guid.dart';
 
 enum SlideDirection {
   Left,
@@ -15,11 +18,17 @@ enum SlideDirection {
 }
 
 class PlantImageSelector extends StatefulWidget {
+  final Guid userId;
   final Plant plant;
+  final int growWeek;
 
   PlantImageSelector({
-    Plant plant,
-  }) : this.plant = plant;
+    @required Guid userId,
+    @required Plant plant,
+    @required int growWeek,
+  })  : this.userId = userId,
+        this.plant = plant,
+        this.growWeek = growWeek;
 
   @override
   _PlantImageSelectorState createState() => _PlantImageSelectorState();
@@ -28,10 +37,30 @@ class PlantImageSelector extends StatefulWidget {
 class _PlantImageSelectorState extends State<PlantImageSelector> {
   bool _isHovered = false;
   bool _scrollButtonsVisible = false;
-  ScrollController _plantImageController = new ScrollController();
+  ScrollController _plantImageController = ScrollController();
+  //Future<List<PlantImage>> _plantImages;
+  Future<List<PlantImageMetadata>> _plantImageMetadata;
 
   // Timer used to do scroll button effects
   Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _refreshPlantImages();
+  }
+
+  @override
+  void didUpdateWidget(PlantImageSelector oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.userId != oldWidget.userId ||
+        widget.plant.plantId != oldWidget.plant.plantId ||
+        widget.growWeek != oldWidget.growWeek) {
+      _refreshPlantImages();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +70,10 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
         setState(() {
           _isHovered = true;
         });
-        _timer = new Timer(Duration(milliseconds: 100), showScrollButtons);
+        _timer = Timer(
+          Duration(milliseconds: 100),
+          _showScrollButtons,
+        );
       },
       onExit: (value) {
         setState(() {
@@ -57,38 +89,17 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
         children: [
           Container(
             height: 150.0,
-            child: (widget.plant.imagePath.isEmpty)
-                ? ListView(
-                    controller: _plantImageController,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                        PlantImageContainer(imgPath: 'assets/grow/img1.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img2.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img3.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img11.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img12.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img4.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img5.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img6.jpg'),
-                        PlantImageContainer(imgPath: 'assets/grow/img7.jpg'),
-                      ])
-                : Center(
-                    child: DankLabel(
-                        displayText: 'No Images',
-                        textStyle: appLabelFontStyle.copyWith(
-                          color: appBaseWhiteTextColor,
-                        )),
-                  ),
+            child: _buildBody(),
           ),
           if (_isHovered)
             Positioned.fill(
               child: Row(
                 children: [
-                  scrollButton(SlideDirection.Left),
+                  _scrollButton(SlideDirection.Left),
                   Expanded(
                     child: SizedBox.shrink(),
                   ),
-                  scrollButton(SlideDirection.Right),
+                  _scrollButton(SlideDirection.Right),
                 ],
               ),
             ),
@@ -97,7 +108,40 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
     );
   }
 
-  Widget scrollButton(SlideDirection direction) {
+  Widget _buildBody() {
+    return FutureBuilder<List<PlantImageMetadata>>(
+      future: _plantImageMetadata,
+      builder: (context, snapshot) {
+        Widget retval = Center(
+          child: DankLabel(
+            displayText: 'Click to add a new plant image',
+            textStyle: appLabelFontStyle.copyWith(
+              color: appBaseWhiteTextColor,
+            ),
+          ),
+        );
+
+        if (snapshot.hasData && snapshot.data.length > 0) {
+          retval = ListView(
+              controller: _plantImageController,
+              scrollDirection: Axis.horizontal,
+              children: [
+                for (PlantImageMetadata metadata in snapshot.data)
+                  PlantImageContainer(
+                    imageName: metadata.imageName,
+                    userId: widget.userId,
+                    plantId: widget.plant.plantId,
+                    growWeek: widget.growWeek,
+                  ),
+              ]);
+        }
+
+        return retval;
+      },
+    );
+  }
+
+  Widget _scrollButton(SlideDirection direction) {
     return FadeIn(
       duration: 500,
       child: Container(
@@ -116,7 +160,7 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
           outlineColor: Colors.transparent,
           outlineThickness: 3.5,
           onPressed:
-              (direction == SlideDirection.Left) ? slideLeft : slideRight,
+              (direction == SlideDirection.Left) ? _slideLeft : _slideRight,
           displayTooltip: false,
         ),
       ),
@@ -124,7 +168,15 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
     );
   }
 
-  void showScrollButtons() {
+  void _refreshPlantImages() {
+    _plantImageMetadata = getPlantImageMetadata(
+      userId: widget.userId,
+      plantId: widget.plant.plantId,
+      growWeek: widget.growWeek,
+    );
+  }
+
+  void _showScrollButtons() {
     // Stop the timer
     _timer.cancel();
 
@@ -134,15 +186,15 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
     });
   }
 
-  void slideLeft() {
-    slide(SlideDirection.Left);
+  void _slideLeft() {
+    _slide(SlideDirection.Left);
   }
 
-  void slideRight() {
-    slide(SlideDirection.Right);
+  void _slideRight() {
+    _slide(SlideDirection.Right);
   }
 
-  void slide(SlideDirection direction) {
+  void _slide(SlideDirection direction) {
     double newOffset = 0.0;
 
     if (direction == SlideDirection.Left) {

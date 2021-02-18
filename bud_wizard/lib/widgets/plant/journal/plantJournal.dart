@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/journal%20system/journal.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/services/api%20services/api-journal.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
@@ -86,7 +86,11 @@ class PlantJournalState extends State<PlantJournal> {
           PlantCard(
             plant: widget.currentPlant,
           ),
-          PlantImageSelector(plant: widget.currentPlant),
+          PlantImageSelector(
+            userId: journal.userId,
+            plant: widget.currentPlant,
+            growWeek: _currentWeek,
+          ),
           Container(
             height: 600.0,
             margin: EdgeInsets.only(top: 10.0),

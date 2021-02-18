@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/models/question%20system/question.dart';
 import 'package:bud_wizard/services/api%20services/api-question.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';

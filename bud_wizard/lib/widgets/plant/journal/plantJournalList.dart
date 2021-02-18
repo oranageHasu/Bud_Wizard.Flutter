@@ -1,5 +1,5 @@
 import 'package:bud_wizard/models/journal%20system/journalDay.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournalEntry.dart';
 import 'package:flutter/material.dart';
 

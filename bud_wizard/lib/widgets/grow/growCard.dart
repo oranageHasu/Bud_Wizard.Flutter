@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/plant/plantSummaryCard.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';

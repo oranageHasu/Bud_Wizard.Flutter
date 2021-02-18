@@ -2,7 +2,7 @@ import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
-import 'package:bud_wizard/models/plant.dart';
+import 'package:bud_wizard/models/plant%20system/plant.dart';
 import 'package:bud_wizard/widgets/grow/growPage.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
