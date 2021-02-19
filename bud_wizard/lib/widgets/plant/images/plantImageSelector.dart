@@ -11,6 +11,8 @@ import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.da
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_guid/flutter_guid.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:progressive_image/progressive_image.dart';
 
 enum SlideDirection {
   Left,
@@ -38,8 +40,9 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
   bool _isHovered = false;
   bool _scrollButtonsVisible = false;
   ScrollController _plantImageController = ScrollController();
-  //Future<List<PlantImage>> _plantImages;
   Future<List<PlantImageMetadata>> _plantImageMetadata;
+  List<PlantImageMetadata> _currentData;
+  FutureBuilder<List<PlantImageMetadata>> _plantImageSelectorBody;
 
   // Timer used to do scroll button effects
   Timer _timer;
@@ -109,35 +112,63 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
   }
 
   Widget _buildBody() {
-    return FutureBuilder<List<PlantImageMetadata>>(
-      future: _plantImageMetadata,
-      builder: (context, snapshot) {
-        Widget retval = Center(
-          child: DankLabel(
-            displayText: 'Click to add a new plant image',
-            textStyle: appLabelFontStyle.copyWith(
-              color: appBaseWhiteTextColor,
+    Widget retval;
+
+    if (_plantImageSelectorBody == null) {
+      _plantImageSelectorBody = FutureBuilder<List<PlantImageMetadata>>(
+        future: _plantImageMetadata,
+        builder: (context, snapshot) {
+          Widget retval = Center(
+            child: FadeIn(
+              duration: 800,
+              isVisible: true,
+              child: SpinKitWave(
+                color: appBaseColor,
+                size: 30.0,
+              ),
             ),
+          );
+
+          if (snapshot.hasData && snapshot.data.length > 0) {
+            if (snapshot.data != _currentData) {
+              retval = _buildPlantImages(snapshot.data);
+            }
+          } else if (snapshot.hasData) {
+            retval = Center(
+              child: DankLabel(
+                displayText: 'Click to add a new plant image',
+                textStyle: appLabelFontStyle.copyWith(
+                  color: appBaseWhiteTextColor,
+                ),
+              ),
+            );
+          }
+
+          return retval;
+        },
+      );
+    }
+
+    retval = _plantImageSelectorBody;
+
+    return retval;
+  }
+
+  Widget _buildPlantImages(List<PlantImageMetadata> metadata) {
+    _currentData = metadata;
+
+    return ListView(
+      controller: _plantImageController,
+      scrollDirection: Axis.horizontal,
+      children: [
+        for (PlantImageMetadata metadata in metadata)
+          PlantImageContainer(
+            imageName: metadata.imageName,
+            userId: widget.userId,
+            plantId: widget.plant.plantId,
+            growWeek: widget.growWeek,
           ),
-        );
-
-        if (snapshot.hasData && snapshot.data.length > 0) {
-          retval = ListView(
-              controller: _plantImageController,
-              scrollDirection: Axis.horizontal,
-              children: [
-                for (PlantImageMetadata metadata in snapshot.data)
-                  PlantImageContainer(
-                    imageName: metadata.imageName,
-                    userId: widget.userId,
-                    plantId: widget.plant.plantId,
-                    growWeek: widget.growWeek,
-                  ),
-              ]);
-        }
-
-        return retval;
-      },
+      ],
     );
   }
 
@@ -155,7 +186,9 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
           iconSize: 45,
           tooltipText: '',
           buttonType: DankButtonType.Outline,
-          color: appBaseWhiteTextColor,
+          color: (currentTheme.isDarkTheme())
+              ? appBaseWhiteTextColor
+              : appBaseBlackTextColor,
           hoverColor: Colors.black,
           outlineColor: Colors.transparent,
           outlineThickness: 3.5,
@@ -169,6 +202,8 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
   }
 
   void _refreshPlantImages() {
+    _plantImageSelectorBody = null;
+
     _plantImageMetadata = getPlantImageMetadata(
       userId: widget.userId,
       plantId: widget.plant.plantId,

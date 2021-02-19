@@ -1,10 +1,7 @@
 import 'dart:convert';
-
-import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/plant%20system/plantImage.dart';
 import 'package:bud_wizard/services/api%20services/apiPlantImages.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageDialog.dart';
-import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_guid/flutter_guid.dart';
@@ -59,16 +56,8 @@ class _PlantImageContainerState extends State<PlantImageContainer> {
         child: FutureBuilder<PlantImage>(
           future: _plantImage,
           builder: (context, snapshot) {
-            Widget retval = Center(
-              child: DankLabel(
-                displayText: '...',
-                textStyle: appLabelFontStyle.copyWith(
-                  color: appBaseWhiteTextColor,
-                ),
-              ),
-            );
+            Widget retval = SizedBox.shrink();
 
-            print('here');
             if (snapshot.hasData) {
               retval = Image.memory(
                 base64Decode(snapshot.data.base64Image),
@@ -82,18 +71,6 @@ class _PlantImageContainerState extends State<PlantImageContainer> {
       ),
     );
   }
-
-  /*
-    ProgressiveImage(
-      fit: BoxFit.fitWidth,
-      placeholder: AssetImage('assets/placeholder.jpg'),
-      thumbnail: NetworkImage(imgPath),
-      image: NetworkImage(imgPath),
-      height: 300,
-      width: 500,
-      fadeDuration: Duration(milliseconds: 800),
-    ),
-  */
 
   void selectPlantImage(BuildContext context) {
     showGeneralDialog(

@@ -29,7 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.1
 
   # Animation related import
-  simple_animations: ^2.2.3
+  simple_animations: ^2.5.1
 
   # Tooltip
   simple_tooltip: ^0.1.16
