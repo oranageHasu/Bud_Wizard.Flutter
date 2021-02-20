@@ -133,18 +133,20 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
               retval = _buildPlantImages(snapshot.data);
             }
           } else if (snapshot.hasData) {
-            retval = Center(
-              child: FadeIn(
-                duration: 600,
-                isVisible: true,
-                child: DankLabel(
-                  displayText: 'Click to add a new plant image',
-                  textStyle: appLabelFontStyle.copyWith(
-                    color: appBaseWhiteTextColor,
+            if (snapshot.data != _currentData) {
+              retval = Center(
+                child: FadeIn(
+                  duration: 600,
+                  isVisible: true,
+                  child: DankLabel(
+                    displayText: 'Click to add a new plant image',
+                    textStyle: appLabelFontStyle.copyWith(
+                      color: appBaseWhiteTextColor,
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            }
           }
 
           return retval;

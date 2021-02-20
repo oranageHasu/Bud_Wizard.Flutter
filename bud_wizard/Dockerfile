@@ -29,7 +29,7 @@ COPY ./ ./
 
 # Upgrade Flutter
 RUN flutter doctor
-RUN flutter upgrade
+#RUN flutter upgrade
 RUN flutter packages pub global activate webdev
 RUN flutter packages upgrade
 
