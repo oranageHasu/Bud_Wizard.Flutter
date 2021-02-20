@@ -1,13 +1,15 @@
+import 'dart:convert';
+
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-button.dart';
 import 'package:flutter/material.dart';
 
 class PlantImageDialog extends StatelessWidget {
-  final String imgPath;
+  final String base64Image;
 
   PlantImageDialog({
-    String imgPath,
-  }) : this.imgPath = imgPath;
+    String base64Image,
+  }) : this.base64Image = base64Image;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class PlantImageDialog extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
             elevation: 16,
-            child: new GestureDetector(
+            child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();
               },
@@ -31,8 +33,8 @@ class PlantImageDialog extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(
-                      imgPath,
+                    Image.memory(
+                      base64Decode(base64Image),
                       fit: BoxFit.none,
                     ),
                   ],

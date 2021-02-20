@@ -40,7 +40,7 @@ class PlantImageContainer extends StatelessWidget {
           child: Opacity(
             opacity: a1.value,
             child: PlantImageDialog(
-              imgPath: 'assets/grow/img1.jpg',
+              base64Image: base64Image,
             ),
           ),
         );

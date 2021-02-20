@@ -97,7 +97,7 @@ class PlantJournalHeader extends StatelessWidget {
               child: InkWell(
                 onTap: addJournalEntry,
                 child: DankBasicTooltip(
-                  tooltipText: 'Click to add a new journey entry',
+                  tooltipText: 'Click to add a new journal entry',
                   child: Icon(
                     Icons.edit,
                     size: 45.0,

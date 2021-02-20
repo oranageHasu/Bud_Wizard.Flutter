@@ -58,7 +58,8 @@ class _GrowPageBodyState extends State<GrowPageBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (widget._currentGrowOp != GrowOperation.AddGrow)
+          if (widget._currentGrowOp != GrowOperation.AddGrow &&
+              widget._currentPlantOp != PlantOperation.AddPlant)
             FutureBuilder<List<Grow>>(
               future: widget._grows,
               builder: (context, snapshot) {
@@ -92,7 +93,9 @@ class _GrowPageBodyState extends State<GrowPageBody> {
           Expanded(
             child: Stack(
               children: [
-                _getBody(),
+                Positioned.fill(
+                  child: _getBody(),
+                ),
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: _buildExpandGrowMenuToggle(),
@@ -104,7 +107,8 @@ class _GrowPageBodyState extends State<GrowPageBody> {
               ],
             ),
           ),
-          (widget._currentPlant != null &&
+          (widget._currentGrowOp != GrowOperation.AddGrow &&
+                  widget._currentPlantOp != PlantOperation.AddPlant &&
                   widget._currentPlantOp != PlantOperation.Statistics)
               ? DankSizeTransition(
                   isVisible: _isGrowActivityVisible,
@@ -120,64 +124,72 @@ class _GrowPageBodyState extends State<GrowPageBody> {
   }
 
   Widget _buildExpandGrowMenuToggle() {
-    return FadeIn(
-      duration: 500,
-      child: DankIconButton(
-        iconData:
-            (_isGrowSelectorVisible) ? Icons.chevron_left : Icons.chevron_right,
-        iconSize: 45,
-        tooltipText: (_isGrowSelectorVisible)
-            ? 'Collapse grow menu'
-            : 'Expand grow menu',
-        buttonType: DankButtonType.Outline,
-        color: (currentTheme.isDarkTheme())
-            ? appBaseWhiteTextColor
-            : appBaseBlackTextColor,
-        hoverColor: Colors.black,
-        outlineColor: Colors.transparent,
-        outlineThickness: 3.5,
-        onPressed: _toggleGrowSelectorVisibility,
-        displayTooltip: true,
-        margin: EdgeInsets.only(
-          left: 10.0,
-          bottom: 5.0,
-        ),
-        onHover: _enableGrowSelectorCollapseButtons,
-        onLostHover: _disableGrowSelectorCollapseButtons,
-      ),
-      isVisible: _growSelectorVisibility,
-    );
+    return (widget._currentGrowOp != GrowOperation.AddGrow &&
+            widget._currentPlantOp != PlantOperation.AddPlant)
+        ? FadeIn(
+            duration: 500,
+            child: DankIconButton(
+              iconData: (_isGrowSelectorVisible)
+                  ? Icons.chevron_left
+                  : Icons.chevron_right,
+              iconSize: 45,
+              tooltipText: (_isGrowSelectorVisible)
+                  ? 'Collapse grow menu'
+                  : 'Expand grow menu',
+              buttonType: DankButtonType.Outline,
+              color: (currentTheme.isDarkTheme())
+                  ? appBaseWhiteTextColor
+                  : appBaseBlackTextColor,
+              hoverColor: Colors.black,
+              outlineColor: Colors.transparent,
+              outlineThickness: 3.5,
+              onPressed: _toggleGrowSelectorVisibility,
+              displayTooltip: true,
+              margin: EdgeInsets.only(
+                left: 10.0,
+                bottom: 5.0,
+              ),
+              onHover: _enableGrowSelectorCollapseButtons,
+              onLostHover: _disableGrowSelectorCollapseButtons,
+            ),
+            isVisible: _growSelectorVisibility,
+          )
+        : SizedBox.shrink();
   }
 
   Widget _buildExpandGrowActivityToggle() {
-    return FadeIn(
-      duration: 500,
-      child: DankIconButton(
-        iconData:
-            (_isGrowActivityVisible) ? Icons.chevron_right : Icons.chevron_left,
-        iconSize: 45,
-        tooltipText: (_isGrowActivityVisible)
-            ? 'Collapse grow activity'
-            : 'Expand grow activity',
-        buttonType: DankButtonType.Outline,
-        color: (currentTheme.isDarkTheme())
-            ? appBaseWhiteTextColor
-            : appBaseBlackTextColor,
-        hoverColor: Colors.black,
-        outlineColor: Colors.transparent,
-        outlineThickness: 3.5,
-        onPressed: _toggleGrowActivityVisibility,
-        displayTooltip: true,
-        margin: EdgeInsets.only(
-          right: 10.0,
-          bottom: 5.0,
-        ),
-        onHover: _enableGrowActivityCollapseButtons,
-        onLostHover: _disableGrowActivityCollapseButtons,
-        tooltipDirection: TooltipDirection.left,
-      ),
-      isVisible: _growActivityVisibility,
-    );
+    return (widget._currentGrowOp != GrowOperation.AddGrow &&
+            widget._currentPlantOp != PlantOperation.AddPlant)
+        ? FadeIn(
+            duration: 500,
+            child: DankIconButton(
+              iconData: (_isGrowActivityVisible)
+                  ? Icons.chevron_right
+                  : Icons.chevron_left,
+              iconSize: 45,
+              tooltipText: (_isGrowActivityVisible)
+                  ? 'Collapse grow activity'
+                  : 'Expand grow activity',
+              buttonType: DankButtonType.Outline,
+              color: (currentTheme.isDarkTheme())
+                  ? appBaseWhiteTextColor
+                  : appBaseBlackTextColor,
+              hoverColor: Colors.black,
+              outlineColor: Colors.transparent,
+              outlineThickness: 3.5,
+              onPressed: _toggleGrowActivityVisibility,
+              displayTooltip: true,
+              margin: EdgeInsets.only(
+                right: 10.0,
+                bottom: 5.0,
+              ),
+              onHover: _enableGrowActivityCollapseButtons,
+              onLostHover: _disableGrowActivityCollapseButtons,
+              tooltipDirection: TooltipDirection.left,
+            ),
+            isVisible: _growActivityVisibility,
+          )
+        : SizedBox.shrink();
   }
 
   Widget _getBody() {
