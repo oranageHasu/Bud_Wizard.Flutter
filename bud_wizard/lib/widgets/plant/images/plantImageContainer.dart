@@ -24,7 +24,7 @@ class PlantImageContainer extends StatelessWidget {
         ),
         child: Image.memory(
           base64Decode(base64Image),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
       ),
     );
