@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/plant%20system/plant.dart';
-import 'package:bud_wizard/models/plant%20system/plantImageMetadata.dart';
+import 'package:bud_wizard/models/plant%20system/plantImage.dart';
 import 'package:bud_wizard/services/api%20services/apiPlantImages.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageContainer.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:progressive_image/progressive_image.dart';
 
 enum SlideDirection {
   Left,
@@ -40,9 +39,9 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
   bool _isHovered = false;
   bool _scrollButtonsVisible = false;
   ScrollController _plantImageController = ScrollController();
-  Future<List<PlantImageMetadata>> _plantImageMetadata;
-  List<PlantImageMetadata> _currentData;
-  FutureBuilder<List<PlantImageMetadata>> _plantImageSelectorBody;
+  Future<List<PlantImage>> _plantImages;
+  List<PlantImage> _currentData;
+  FutureBuilder<List<PlantImage>> _plantImageSelectorBody;
 
   // Timer used to do scroll button effects
   Timer _timer;
@@ -115,8 +114,8 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
     Widget retval;
 
     if (_plantImageSelectorBody == null) {
-      _plantImageSelectorBody = FutureBuilder<List<PlantImageMetadata>>(
-        future: _plantImageMetadata,
+      _plantImageSelectorBody = FutureBuilder<List<PlantImage>>(
+        future: _plantImages,
         builder: (context, snapshot) {
           Widget retval = Center(
             child: FadeIn(
@@ -135,10 +134,14 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
             }
           } else if (snapshot.hasData) {
             retval = Center(
-              child: DankLabel(
-                displayText: 'Click to add a new plant image',
-                textStyle: appLabelFontStyle.copyWith(
-                  color: appBaseWhiteTextColor,
+              child: FadeIn(
+                duration: 600,
+                isVisible: true,
+                child: DankLabel(
+                  displayText: 'Click to add a new plant image',
+                  textStyle: appLabelFontStyle.copyWith(
+                    color: appBaseWhiteTextColor,
+                  ),
                 ),
               ),
             );
@@ -154,21 +157,22 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
     return retval;
   }
 
-  Widget _buildPlantImages(List<PlantImageMetadata> metadata) {
-    _currentData = metadata;
+  Widget _buildPlantImages(List<PlantImage> plantImages) {
+    _currentData = plantImages;
 
-    return ListView(
-      controller: _plantImageController,
-      scrollDirection: Axis.horizontal,
-      children: [
-        for (PlantImageMetadata metadata in metadata)
-          PlantImageContainer(
-            imageName: metadata.imageName,
-            userId: widget.userId,
-            plantId: widget.plant.plantId,
-            growWeek: widget.growWeek,
-          ),
-      ],
+    return FadeIn(
+      duration: 600,
+      isVisible: true,
+      child: ListView(
+        controller: _plantImageController,
+        scrollDirection: Axis.horizontal,
+        children: [
+          for (PlantImage image in plantImages)
+            PlantImageContainer(
+              base64Image: image.base64Image,
+            ),
+        ],
+      ),
     );
   }
 
@@ -204,7 +208,7 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
   void _refreshPlantImages() {
     _plantImageSelectorBody = null;
 
-    _plantImageMetadata = getPlantImageMetadata(
+    _plantImages = getPlantImages(
       userId: widget.userId,
       plantId: widget.plant.plantId,
       growWeek: widget.growWeek,

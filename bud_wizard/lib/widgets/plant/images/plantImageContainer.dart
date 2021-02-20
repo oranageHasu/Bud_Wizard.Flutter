@@ -1,45 +1,14 @@
 import 'dart:convert';
-import 'package:bud_wizard/models/plant%20system/plantImage.dart';
-import 'package:bud_wizard/services/api%20services/apiPlantImages.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_guid/flutter_guid.dart';
 
-class PlantImageContainer extends StatefulWidget {
-  final String imageName;
-  final Guid userId;
-  final Guid plantId;
-  final int growWeek;
+class PlantImageContainer extends StatelessWidget {
+  final String base64Image;
 
   PlantImageContainer({
-    @required String imageName,
-    @required Guid userId,
-    @required Guid plantId,
-    @required int growWeek,
-  })  : this.imageName = imageName,
-        this.userId = userId,
-        this.plantId = plantId,
-        this.growWeek = growWeek;
-
-  @override
-  _PlantImageContainerState createState() => _PlantImageContainerState();
-}
-
-class _PlantImageContainerState extends State<PlantImageContainer> {
-  Future<PlantImage> _plantImage;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _plantImage = getPlantImage(
-      userId: widget.userId,
-      plantId: widget.plantId,
-      growWeek: widget.growWeek,
-      fileName: widget.imageName,
-    );
-  }
+    @required String base64Image,
+  }) : this.base64Image = base64Image;
 
   @override
   Widget build(BuildContext context) {
@@ -53,20 +22,9 @@ class _PlantImageContainerState extends State<PlantImageContainer> {
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: FutureBuilder<PlantImage>(
-          future: _plantImage,
-          builder: (context, snapshot) {
-            Widget retval = SizedBox.shrink();
-
-            if (snapshot.hasData) {
-              retval = Image.memory(
-                base64Decode(snapshot.data.base64Image),
-                fit: BoxFit.fitWidth,
-              );
-            }
-
-            return retval;
-          },
+        child: Image.memory(
+          base64Decode(base64Image),
+          fit: BoxFit.fitWidth,
         ),
       ),
     );
