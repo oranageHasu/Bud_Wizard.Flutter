@@ -101,8 +101,8 @@ class _GrowsCardState extends State<GrowCard> {
                           ),
                         ),
                         DankLabel(
-                          displayText:
-                              widget.grow.plants.length.toString() + ' Plants',
+                          displayText: widget.grow.plants.length.toString() +
+                              _getPlantCountText(),
                           textAlign: TextAlign.start,
                           textStyle: appInputHintFontStyle.copyWith(
                             color: Theme.of(context)
@@ -153,6 +153,10 @@ class _GrowsCardState extends State<GrowCard> {
     }
 
     return retval;
+  }
+
+  String _getPlantCountText() {
+    return (widget.grow.plants.length == 1) ? ' Plant' : ' Plants';
   }
 
   void _selectGrow() {
