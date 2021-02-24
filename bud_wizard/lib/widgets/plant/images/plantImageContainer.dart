@@ -16,14 +16,14 @@ class PlantImageContainer extends StatefulWidget {
 
 class _PlantImageSelectorState extends State<PlantImageContainer> {
   bool _isHovered = false;
-  Image img;
+  Image _img;
 
   @override
   Widget build(BuildContext context) {
     // Cache the image
     // This is to allow re-rendering of the widget for mouse hover
-    if (img == null) {
-      img = Image.memory(
+    if (_img == null) {
+      _img = Image.memory(
         base64Decode(widget.base64Image),
         fit: BoxFit.cover,
       );
@@ -58,7 +58,7 @@ class _PlantImageSelectorState extends State<PlantImageContainer> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              child: img,
+              child: _img,
             ),
             if (_isHovered)
               Container(
