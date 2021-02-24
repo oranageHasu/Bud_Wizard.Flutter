@@ -67,7 +67,6 @@ class _PlantImageSelectorState extends State<PlantImageSelector> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
       onEnter: (value) {
         setState(() {
           _isHovered = true;
