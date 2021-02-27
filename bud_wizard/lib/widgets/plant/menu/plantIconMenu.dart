@@ -1,5 +1,5 @@
 import 'package:bud_wizard/classes/appTheme.dart';
-import 'package:bud_wizard/services/logger-service.dart';
+import 'package:bud_wizard/services/loggerService.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-menu.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';

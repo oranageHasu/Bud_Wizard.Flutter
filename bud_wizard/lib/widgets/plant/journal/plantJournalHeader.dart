@@ -2,7 +2,7 @@ import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/formatter.dart';
 import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/journal%20system/journalWeek.dart';
-import 'package:bud_wizard/services/logger-service.dart';
+import 'package:bud_wizard/services/loggerService.dart';
 import 'package:bud_wizard/widgets/plant/journal/uploadImageDialog.dart';
 import 'package:bud_wizard/widgets/plant/plantWeekSelector.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';

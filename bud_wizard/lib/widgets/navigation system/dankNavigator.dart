@@ -1,6 +1,6 @@
 import 'package:bud_wizard/models/sessionInfo.dart';
 import 'package:bud_wizard/services/api%20services/apiLoginPreferences.dart';
-import 'package:bud_wizard/services/session-service.dart';
+import 'package:bud_wizard/services/sessionService.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankAppBar.dart';
 import 'package:bud_wizard/widgets/navigation%20system/dankOperationPanel.dart';
 import 'package:bud_wizard/classes/enumerations.dart';

@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:bud_wizard/models/plant%20system/plant.dart';
-import 'package:bud_wizard/services/logger-service.dart';
+import 'package:bud_wizard/services/loggerService.dart';
 import 'package:dio/dio.dart';
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
-import 'package:bud_wizard/services/api%20services/api-services.dart';
+import 'package:bud_wizard/services/api%20services/apiServices.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_guid/flutter_guid.dart';
 

@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/appTheme.dart';
-import 'package:bud_wizard/services/api%20services/api-login.dart';
-import 'package:bud_wizard/services/logger-service.dart';
+import 'package:bud_wizard/services/api%20services/apiLogin.dart';
+import 'package:bud_wizard/services/loggerService.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-icon-menu.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';

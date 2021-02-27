@@ -1,8 +1,8 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/constants.dart';
-import 'package:bud_wizard/services/logger-service.dart';
-import 'package:bud_wizard/services/router-services.dart';
-import 'package:bud_wizard/services/session-service.dart';
+import 'package:bud_wizard/services/loggerService.dart';
+import 'package:bud_wizard/services/routerServices.dart';
+import 'package:bud_wizard/services/sessionService.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

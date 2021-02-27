@@ -7,6 +7,7 @@ class Login {
   String password;
   String newPassword;
   String accessToken;
+  String refreshToken;
   bool tooManyFailedAttempts = false;
 
   Login({
@@ -22,6 +23,7 @@ class Login {
 
     login.email = json['email'];
     login.accessToken = json['accessToken'];
+    login.refreshToken = json['refreshToken'];
     login.tooManyFailedAttempts = json['tooManyFailedAttempts'] == 1;
 
     if (login.username == null || login.username.isEmpty) {

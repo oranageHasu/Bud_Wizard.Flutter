@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/grow%20system/grow.dart';
-import 'package:bud_wizard/services/logger-service.dart';
+import 'package:bud_wizard/services/loggerService.dart';
 import 'package:bud_wizard/widgets/grow/growSearch.dart';
 import 'package:bud_wizard/widgets/plant/menu/plantMenu.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';

@@ -1,7 +1,7 @@
 import 'package:bud_wizard/classes/appTheme.dart';
 import 'package:bud_wizard/models/journal%20system/journal.dart';
 import 'package:bud_wizard/models/plant%20system/plant.dart';
-import 'package:bud_wizard/services/api%20services/api-journal.dart';
+import 'package:bud_wizard/services/api%20services/apiJournal.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:bud_wizard/widgets/plant/images/plantImageSelector.dart';
 import 'package:bud_wizard/widgets/plant/journal/plantJournalHeader.dart';

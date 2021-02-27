@@ -1,6 +1,6 @@
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/sessionInfo.dart';
-import 'package:bud_wizard/services/session-service.dart';
+import 'package:bud_wizard/services/sessionService.dart';
 import 'package:bud_wizard/widgets/navigation%20system/noDataError.dart';
 import 'package:flutter/material.dart';
 

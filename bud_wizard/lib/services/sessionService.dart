@@ -2,8 +2,8 @@ import 'package:dio/dio.dart' as dio;
 import 'package:bud_wizard/classes/constants.dart';
 import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/sessionInfo.dart';
-import 'package:bud_wizard/services/api%20services/api-services.dart';
-import 'package:bud_wizard/services/logger-service.dart';
+import 'package:bud_wizard/services/api%20services/apiServices.dart';
+import 'package:bud_wizard/services/loggerService.dart';
 import 'package:bud_wizard/widgets/login/login.dart';
 import 'package:get/get.dart';
 
