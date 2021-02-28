@@ -21,6 +21,7 @@ const String apiBaseURL = 'https://localhost:9000/api/v1/';
 const String apiRouteSession = 'Session';
 
 // Login API Routes
+const String apiRouteLogin = 'authentication';
 const String apiRouteAuthLogin = 'authentication/authenticate';
 const String apiRouteLogout = 'authentication/logout';
 const String apiRouteLoginPreferences = 'LoginPreferences';

@@ -51,3 +51,29 @@ Future<bool> logout() async {
 
   return retval;
 }
+
+Future<bool> checkUsername(String username) async {
+  bool retval = false;
+
+  try {
+    // Generate the request URL
+    String url = generateAPIPath(apiRouteLogin);
+
+    // Append the filter parameter
+    url = url + '?username=' + username;
+
+    // Make the HTTP request
+    Response response = await executeRequest(url, HttpMethod.GET, null);
+
+    // Process the result
+    if (response != null && response.statusCode == 200) {
+      retval = response.data as bool;
+    }
+  } catch (Exception) {
+    print(Exception);
+    print(
+        'Failed GET (checking uniqueness of username) against Support User Logins.');
+  }
+
+  return retval;
+}

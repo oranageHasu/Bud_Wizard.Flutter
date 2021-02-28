@@ -5,6 +5,7 @@ import 'package:bud_wizard/classes/enumerations.dart';
 import 'package:bud_wizard/models/user%20system/login.dart';
 import 'package:bud_wizard/services/api%20services/apiLogin.dart';
 import 'package:bud_wizard/services/sessionService.dart';
+import 'package:bud_wizard/widgets/login/newUserDialog.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/animations/fadeIn.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-button.dart';
 import 'package:bud_wizard/widgets/shared%20widgets/dank%20widgets/dank-label.dart';
@@ -310,8 +311,32 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  signUp() {
-    print('To Do: Sign Up');
+  signUp() async {
+    bool opResult = await showGeneralDialog(
+      barrierColor: Colors.black.withOpacity(0.9),
+      transitionBuilder: (context, a1, a2, widget) {
+        final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+        return Transform(
+          transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+          child: Opacity(
+            opacity: a1.value,
+            child: NewUserDialog(),
+          ),
+        );
+      },
+      transitionDuration: Duration(milliseconds: 400),
+      barrierDismissible: false,
+      barrierLabel: '',
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        return SizedBox(height: 20.0);
+      },
+    );
+
+    if (opResult) {
+      _passwordController.text = '';
+      FocusScope.of(context).requestFocus(_passwordFocusNode);
+    }
   }
 
   googleLogin() {
